@@ -33,6 +33,16 @@ export interface JamfRawData {
   Make: string
 }
 
+export interface BattenUserData {
+  uid: string
+  mail: string
+  uvaPersonUniversityID: string
+  name: string
+  uvRestrict: string
+  success: string
+  errorMessage: string
+}
+
 /**
  * Parse CSV string into array of objects
  */

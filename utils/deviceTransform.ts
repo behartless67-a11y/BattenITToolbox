@@ -4,12 +4,13 @@
  */
 
 import { Device, DeviceStatus, OSType } from '@/types/device'
-import { IntuneRawData, JamfRawData, parseDate, yearsBetween, daysBetween } from './csvParser'
+import { IntuneRawData, JamfRawData, BattenUserData, parseDate, yearsBetween, daysBetween } from './csvParser'
+import { extractComputingIdsFromDeviceName } from './dataLoader'
 
 /**
  * Transform Jamf CSV data into Device objects
  */
-export function transformJamfData(jamfData: JamfRawData[]): Device[] {
+export function transformJamfData(jamfData: JamfRawData[], usersMap?: Map<string, BattenUserData>): Device[] {
   const now = new Date()
 
   return jamfData.map((raw, index) => {
@@ -32,10 +33,23 @@ export function transformJamfData(jamfData: JamfRawData[]): Device[] {
     const osVersion = raw['Operating System Version'] || 'Unknown'
     const osType: OSType = 'macOS'
 
-    // Extract user info
+    // Extract user info from CSV
     const emailAddress = raw['Email Address'] || raw.Username || ''
     const fullName = raw['Full Name'] || ''
-    const owner = fullName || emailAddress || 'Unassigned'
+    let owner = fullName || emailAddress || 'Unassigned'
+
+    // Try to match computing ID from device name
+    if (usersMap && raw['Computer Name']) {
+      const computingIds = extractComputingIdsFromDeviceName(raw['Computer Name'])
+      if (computingIds.length > 0) {
+        const matchedUser = usersMap.get(computingIds[0])
+        if (matchedUser) {
+          // Update owner with matched user info
+          owner = matchedUser.name || matchedUser.mail || owner
+          console.log(`Matched device ${raw['Computer Name']} to user ${matchedUser.name} (${computingIds[0]})`)
+        }
+      }
+    }
 
     // Calculate days since last update
     const daysSinceUpdate = daysBetween(lastInventoryUpdate, now)
@@ -86,16 +100,29 @@ export function transformJamfData(jamfData: JamfRawData[]): Device[] {
 /**
  * Transform Intune CSV data into Device objects
  */
-export function transformIntuneData(intuneData: IntuneRawData[]): Device[] {
+export function transformIntuneData(intuneData: IntuneRawData[], usersMap?: Map<string, BattenUserData>): Device[] {
   const now = new Date()
 
   return intuneData.map((raw, index) => {
     // Parse dates
     const lastModified = parseDate(raw.PspdpuLastModifiedTimeUtc) || now
 
-    // Extract user info
+    // Extract user info from CSV
     const emailAddress = raw.UPN || ''
-    const owner = emailAddress ? emailAddress.split('@')[0] : 'Unassigned'
+    let owner = emailAddress ? emailAddress.split('@')[0] : 'Unassigned'
+
+    // Try to match computing ID from device name
+    if (usersMap && raw.DeviceName) {
+      const computingIds = extractComputingIdsFromDeviceName(raw.DeviceName)
+      if (computingIds.length > 0) {
+        const matchedUser = usersMap.get(computingIds[0])
+        if (matchedUser) {
+          // Update owner with matched user info
+          owner = matchedUser.name || matchedUser.mail || owner
+          console.log(`Matched device ${raw.DeviceName} to user ${matchedUser.name} (${computingIds[0]})`)
+        }
+      }
+    }
 
     // Calculate days since last update
     const daysSinceUpdate = daysBetween(lastModified, now)

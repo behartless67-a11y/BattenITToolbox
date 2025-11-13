@@ -4,16 +4,87 @@
  */
 
 import { Device, DeviceSummary } from '@/types/device'
-import { parseCSV, IntuneRawData, JamfRawData } from './csvParser'
+import { parseCSV, IntuneRawData, JamfRawData, BattenUserData } from './csvParser'
 import { transformJamfData, transformIntuneData, mergeDevices } from './deviceTransform'
 import IntuneCSV from '../InTune.csv'
 import JamfCSV from '../Jamf.csv'
+
+// User lookup map for matching computing IDs
+let battenUsersMap: Map<string, BattenUserData> | null = null
+
+/**
+ * Load Batten user data from CSV file
+ */
+async function loadBattenUsers(): Promise<Map<string, BattenUserData>> {
+  if (battenUsersMap) {
+    return battenUsersMap
+  }
+
+  try {
+    const response = await fetch('/groupExportAll_FBS_Community.csv')
+    if (!response.ok) {
+      console.warn('Batten users CSV not found')
+      battenUsersMap = new Map()
+      return battenUsersMap
+    }
+
+    const text = await response.text()
+    const users = parseCSV<BattenUserData>(text)
+
+    // Create map with computing ID (uid) as key
+    battenUsersMap = new Map()
+    users.forEach(user => {
+      if (user.uid) {
+        battenUsersMap!.set(user.uid.toLowerCase(), user)
+      }
+    })
+
+    console.log(`Loaded ${battenUsersMap.size} Batten users`)
+    return battenUsersMap
+  } catch (error) {
+    console.error('Error loading Batten users:', error)
+    battenUsersMap = new Map()
+    return battenUsersMap
+  }
+}
+
+/**
+ * Extract computing IDs from device name
+ * Device names often contain computing IDs like "FBS-bh4hb-2023" or "BA-abc3xy"
+ */
+export function extractComputingIdsFromDeviceName(deviceName: string): string[] {
+  const ids: string[] = []
+
+  // Pattern 1: FBS-{computingId}-{optional suffix}
+  // Pattern 2: BA-{computingId}
+  // Computing IDs are typically 2-7 characters followed by optional digits
+  const patterns = [
+    /FBS-([a-z]{2,7}\d{0,3})/gi,
+    /BA-([a-z]{2,7}\d{0,3})/gi,
+    /\b([a-z]{2,7}\d{0,3})@virginia\.edu/gi,
+  ]
+
+  patterns.forEach(pattern => {
+    const matches = deviceName.matchAll(pattern)
+    for (const match of matches) {
+      const id = match[1].toLowerCase()
+      if (id && !ids.includes(id)) {
+        ids.push(id)
+      }
+    }
+  })
+
+  return ids
+}
 
 /**
  * Load device data from CSV files
  */
 export async function loadDeviceData(): Promise<Device[]> {
   try {
+    // Load Batten users first
+    const usersMap = await loadBattenUsers()
+
     // Read CSV files
     const intuneResponse = await fetch('/InTune.csv')
     const jamfResponse = await fetch('/Jamf.csv')
@@ -33,9 +104,9 @@ export async function loadDeviceData(): Promise<Device[]> {
     console.log(`Loaded ${intuneData.length} Intune devices`)
     console.log(`Loaded ${jamfData.length} Jamf devices`)
 
-    // Transform to Device objects
-    const intuneDevices = transformIntuneData(intuneData)
-    const jamfDevices = transformJamfData(jamfData)
+    // Transform to Device objects (pass users map)
+    const intuneDevices = transformIntuneData(intuneData, usersMap)
+    const jamfDevices = transformJamfData(jamfData, usersMap)
 
     // Merge and return
     const allDevices = mergeDevices(jamfDevices, intuneDevices)
