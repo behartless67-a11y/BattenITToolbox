@@ -111,11 +111,21 @@ export async function loadDeviceData(): Promise<Device[]> {
     const intuneDevices = transformIntuneData(intuneData, usersMap)
     const jamfDevices = transformJamfData(jamfData, usersMap)
 
-    // Merge and return
+    // Merge devices
     const allDevices = mergeDevices(jamfDevices, intuneDevices)
 
-    console.log(`Total devices: ${allDevices.length}`)
-    return allDevices
+    // Filter out devices that haven't checked in for 6+ months (180 days)
+    const activeDevices = allDevices.filter(device => {
+      const daysSinceUpdate = device.daysSinceUpdate || 0
+      if (daysSinceUpdate > 180) {
+        console.log(`🗑️  Filtering out device ${device.name}: last seen ${daysSinceUpdate} days ago (> 6 months)`)
+        return false
+      }
+      return true
+    })
+
+    console.log(`Total devices (filtered): ${activeDevices.length} (excluded ${allDevices.length - activeDevices.length} devices not seen in 6+ months)`)
+    return activeDevices
   } catch (error) {
     console.error('Error loading device data:', error)
     return []

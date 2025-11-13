@@ -36,18 +36,33 @@ export function transformJamfData(jamfData: JamfRawData[], usersMap?: Map<string
     // Extract user info from CSV
     const emailAddress = raw['Email Address'] || raw.Username || ''
     const fullName = raw['Full Name'] || ''
-    let owner = fullName || emailAddress || 'Unassigned'
+    const owner = fullName || emailAddress || 'Unassigned'
+    let additionalOwner: string | undefined = undefined
 
-    // Try to match computing ID from device name
+    // Try to match computing ID from device name to add as additional owner
     if (usersMap && raw['Computer Name']) {
       const computingIds = extractComputingIdsFromDeviceName(raw['Computer Name'])
       if (computingIds.length > 0) {
-        const matchedUser = usersMap.get(computingIds[0])
-        if (matchedUser) {
-          // Update owner with matched user info
-          owner = matchedUser.name || matchedUser.mail || owner
-          console.log(`Matched device ${raw['Computer Name']} to user ${matchedUser.name} (${computingIds[0]})`)
+        for (const computingId of computingIds) {
+          const matchedUser = usersMap.get(computingId)
+          if (matchedUser) {
+            // Add as additional owner (don't replace existing owner)
+            additionalOwner = matchedUser.name || matchedUser.mail
+            console.log(`✓ Added additional owner for device ${raw['Computer Name']}: ${matchedUser.name} (${computingId})`)
+            break // Use first match
+          }
         }
+      }
+    }
+
+    // If no match from device name and we have email, try matching from email
+    if (!additionalOwner && emailAddress && usersMap) {
+      const emailId = emailAddress.split('@')[0].toLowerCase()
+      const matchedUser = usersMap.get(emailId)
+      if (matchedUser && matchedUser.name !== fullName) {
+        // Only add if it's different from the fullName we already have
+        additionalOwner = matchedUser.name || matchedUser.mail
+        console.log(`✓ Added additional owner via email for device ${raw['Computer Name']}: ${matchedUser.name} (${emailId})`)
       }
     }
 
@@ -71,6 +86,7 @@ export function transformJamfData(jamfData: JamfRawData[], usersMap?: Map<string
       name: raw['Computer Name'] || `Unknown-${index}`,
       owner,
       ownerEmail: emailAddress,
+      additionalOwner,
       department: raw.Department || undefined,
       osType,
       osVersion,
@@ -109,18 +125,33 @@ export function transformIntuneData(intuneData: IntuneRawData[], usersMap?: Map<
 
     // Extract user info from CSV
     const emailAddress = raw.UPN || ''
-    let owner = emailAddress ? emailAddress.split('@')[0] : 'Unassigned'
+    const owner = emailAddress ? emailAddress.split('@')[0] : 'Unassigned'
+    let additionalOwner: string | undefined = undefined
 
-    // Try to match computing ID from device name
+    // Try to match computing ID from device name to add as additional owner
     if (usersMap && raw.DeviceName) {
       const computingIds = extractComputingIdsFromDeviceName(raw.DeviceName)
       if (computingIds.length > 0) {
-        const matchedUser = usersMap.get(computingIds[0])
-        if (matchedUser) {
-          // Update owner with matched user info
-          owner = matchedUser.name || matchedUser.mail || owner
-          console.log(`Matched device ${raw.DeviceName} to user ${matchedUser.name} (${computingIds[0]})`)
+        for (const computingId of computingIds) {
+          const matchedUser = usersMap.get(computingId)
+          if (matchedUser) {
+            // Add as additional owner (don't replace existing owner)
+            additionalOwner = matchedUser.name || matchedUser.mail
+            console.log(`✓ Added additional owner for device ${raw.DeviceName}: ${matchedUser.name} (${computingId})`)
+            break // Use first match
+          }
         }
+      }
+    }
+
+    // If no match from device name and we have UPN, try matching from UPN
+    if (!additionalOwner && emailAddress && usersMap) {
+      const upnId = emailAddress.split('@')[0].toLowerCase()
+      const matchedUser = usersMap.get(upnId)
+      if (matchedUser) {
+        // Add directory name as additional owner
+        additionalOwner = matchedUser.name || matchedUser.mail
+        console.log(`✓ Added additional owner via UPN for device ${raw.DeviceName}: ${matchedUser.name} (${upnId})`)
       }
     }
 
@@ -162,6 +193,7 @@ export function transformIntuneData(intuneData: IntuneRawData[], usersMap?: Map<
       name: raw.DeviceName || `Unknown-${index}`,
       owner,
       ownerEmail: emailAddress || undefined,
+      additionalOwner,
       osType,
       osVersion,
       model,

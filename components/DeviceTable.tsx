@@ -23,6 +23,7 @@ export default function DeviceTable({
   const filteredDevices = devices.filter(device =>
     device.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     device.owner.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (device.additionalOwner && device.additionalOwner.toLowerCase().includes(searchTerm.toLowerCase())) ||
     device.model.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
@@ -62,10 +63,11 @@ export default function DeviceTable({
 
   const handleExport = () => {
     // Convert to CSV
-    const headers = ['Device Name', 'Owner', 'Model', 'OS Version', 'Age (Years)', 'Status', 'Last Seen']
+    const headers = ['Device Name', 'Owner', 'Additional Owner', 'Model', 'OS Version', 'Age (Years)', 'Status', 'Last Seen']
     const csvData = sortedDevices.map(device => [
       device.name,
       device.owner,
+      device.additionalOwner || '',
       device.model,
       device.osVersion,
       device.ageInYears.toFixed(1),
@@ -223,7 +225,14 @@ export default function DeviceTable({
                     </div>
                   </td>
                   <td className="px-4 py-4 text-sm text-gray-700">
-                    {device.owner}
+                    <div className="flex flex-col">
+                      <span>{device.owner}</span>
+                      {device.additionalOwner && (
+                        <span className="text-xs text-gray-500 mt-0.5">
+                          ({device.additionalOwner})
+                        </span>
+                      )}
+                    </div>
                   </td>
                   <td className="px-4 py-4 text-sm text-gray-700">
                     {device.model}

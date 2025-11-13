@@ -8,6 +8,7 @@ export interface Device {
   name: string;
   owner: string;
   ownerEmail?: string;
+  additionalOwner?: string; // Owner matched from device name (e.g., computing ID in name)
   department?: string;
   osType: OSType;
   osVersion: string;
