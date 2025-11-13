@@ -10,9 +10,12 @@ import { Device } from '@/types/device'
 import { MetricCardData } from '@/types/metric'
 import { loadDeviceData, calculateDeviceSummary } from '@/utils/dataLoader'
 
+type FilterView = 'attention' | 'all' | 'critical' | 'warning' | 'good' | 'inactive' | 'active' | 'jamf' | 'intune' | 'replacement'
+
 export default function Home() {
   const [devices, setDevices] = useState<Device[]>([])
   const [loading, setLoading] = useState(true)
+  const [filterView, setFilterView] = useState<FilterView>('attention')
 
   // Load device data on mount
   useEffect(() => {
@@ -33,6 +36,64 @@ export default function Home() {
 
   // Calculate summary metrics
   const summary = calculateDeviceSummary(devices)
+
+  // Filter devices based on selected view
+  const getFilteredDevices = (): Device[] => {
+    switch (filterView) {
+      case 'all':
+        return devices
+      case 'critical':
+        return devices.filter(d => d.status === 'critical')
+      case 'warning':
+        return devices.filter(d => d.status === 'warning')
+      case 'good':
+        return devices.filter(d => d.status === 'good')
+      case 'inactive':
+        return devices.filter(d => d.status === 'inactive')
+      case 'active':
+        return devices.filter(d => d.activityStatus === 'active')
+      case 'jamf':
+        return devices.filter(d => d.source === 'jamf')
+      case 'intune':
+        return devices.filter(d => d.source === 'intune')
+      case 'replacement':
+        return devices.filter(d => d.replacementRecommended)
+      case 'attention':
+      default:
+        return devices.filter(d => d.status === 'critical' || d.status === 'warning' || d.status === 'inactive')
+    }
+  }
+
+  const filteredDevices = getFilteredDevices()
+
+  // Get filter title and description
+  const getFilterInfo = () => {
+    switch (filterView) {
+      case 'all':
+        return { title: 'All Devices', description: 'Complete device inventory' }
+      case 'critical':
+        return { title: 'Critical Devices', description: 'Devices requiring immediate replacement' }
+      case 'warning':
+        return { title: 'Warning Devices', description: 'Devices approaching end-of-life' }
+      case 'good':
+        return { title: 'Good Devices', description: 'Devices in good condition' }
+      case 'inactive':
+        return { title: 'Inactive Devices', description: 'Not checked in for 30+ days' }
+      case 'active':
+        return { title: 'Active Devices', description: 'Checked in within 30 days' }
+      case 'jamf':
+        return { title: 'Jamf Devices', description: 'macOS devices from Jamf' }
+      case 'intune':
+        return { title: 'Intune Devices', description: 'Windows devices from Intune' }
+      case 'replacement':
+        return { title: 'Replacement Needed', description: 'Devices flagged for replacement' }
+      case 'attention':
+      default:
+        return { title: 'Devices Needing Attention', description: 'Critical, Warning, and Inactive devices' }
+    }
+  }
+
+  const filterInfo = getFilterInfo()
 
   // Metric cards data
   const metricCards: MetricCardData[] = [
@@ -198,11 +259,121 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Device Table - Show all devices or filter to needing attention */}
+              {/* Filter Buttons */}
+              <div className="mb-8">
+                <h2 className="text-2xl font-serif font-bold text-uva-navy mb-4">
+                  Device List
+                </h2>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <button
+                    onClick={() => setFilterView('attention')}
+                    className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+                      filterView === 'attention'
+                        ? 'bg-uva-orange text-white shadow-lg'
+                        : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-uva-orange'
+                    }`}
+                  >
+                    Needs Attention ({summary.criticalCount + summary.warningCount + summary.inactiveCount})
+                  </button>
+                  <button
+                    onClick={() => setFilterView('all')}
+                    className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+                      filterView === 'all'
+                        ? 'bg-uva-orange text-white shadow-lg'
+                        : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-uva-orange'
+                    }`}
+                  >
+                    All Devices ({summary.totalDevices})
+                  </button>
+                  <button
+                    onClick={() => setFilterView('critical')}
+                    className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+                      filterView === 'critical'
+                        ? 'bg-red-600 text-white shadow-lg'
+                        : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-red-600'
+                    }`}
+                  >
+                    Critical ({summary.criticalCount})
+                  </button>
+                  <button
+                    onClick={() => setFilterView('warning')}
+                    className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+                      filterView === 'warning'
+                        ? 'bg-yellow-600 text-white shadow-lg'
+                        : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-yellow-600'
+                    }`}
+                  >
+                    Warning ({summary.warningCount})
+                  </button>
+                  <button
+                    onClick={() => setFilterView('good')}
+                    className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+                      filterView === 'good'
+                        ? 'bg-green-600 text-white shadow-lg'
+                        : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-green-600'
+                    }`}
+                  >
+                    Good ({summary.goodCount})
+                  </button>
+                  <button
+                    onClick={() => setFilterView('inactive')}
+                    className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+                      filterView === 'inactive'
+                        ? 'bg-gray-600 text-white shadow-lg'
+                        : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-gray-600'
+                    }`}
+                  >
+                    Inactive ({summary.inactiveCount})
+                  </button>
+                  <button
+                    onClick={() => setFilterView('active')}
+                    className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+                      filterView === 'active'
+                        ? 'bg-blue-600 text-white shadow-lg'
+                        : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-blue-600'
+                    }`}
+                  >
+                    Active ({summary.activeDevices})
+                  </button>
+                  <button
+                    onClick={() => setFilterView('jamf')}
+                    className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+                      filterView === 'jamf'
+                        ? 'bg-uva-navy text-white shadow-lg'
+                        : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-uva-navy'
+                    }`}
+                  >
+                    Jamf ({devices.filter(d => d.source === 'jamf').length})
+                  </button>
+                  <button
+                    onClick={() => setFilterView('intune')}
+                    className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+                      filterView === 'intune'
+                        ? 'bg-uva-navy text-white shadow-lg'
+                        : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-uva-navy'
+                    }`}
+                  >
+                    Intune ({devices.filter(d => d.source === 'intune').length})
+                  </button>
+                  <button
+                    onClick={() => setFilterView('replacement')}
+                    className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+                      filterView === 'replacement'
+                        ? 'bg-red-600 text-white shadow-lg'
+                        : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-red-600'
+                    }`}
+                  >
+                    Replacement ({summary.devicesNeedingReplacement})
+                  </button>
+                </div>
+                <p className="text-sm text-gray-600 italic">{filterInfo.description}</p>
+              </div>
+
+              {/* Device Table - Show filtered devices */}
               <div className="mb-12 animate-fade-in">
                 <DeviceTable
-                  devices={devices.filter(d => d.status === 'critical' || d.status === 'warning' || d.status === 'inactive')}
-                  title="Devices Needing Attention"
+                  devices={filteredDevices}
+                  title={filterInfo.title}
                   showExport={true}
                 />
               </div>
