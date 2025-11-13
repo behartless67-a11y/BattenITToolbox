@@ -50,25 +50,28 @@ async function loadBattenUsers(): Promise<Map<string, BattenUserData>> {
 
 /**
  * Extract computing IDs from device name
- * Device names often contain computing IDs like "FBS-bh4hb-2023" or "BA-abc3xy"
+ * Device names often contain computing IDs like "FBS-bh4hb-2023" or "BA-abc3xy" or "FBS-CQK8GH-3460"
  */
 export function extractComputingIdsFromDeviceName(deviceName: string): string[] {
   const ids: string[] = []
 
-  // Pattern 1: FBS-{computingId}-{optional suffix}
-  // Pattern 2: BA-{computingId}
-  // Computing IDs are typically 2-7 characters followed by optional digits
+  // Pattern 1: FBS-{computingId}-{optional suffix} (case insensitive)
+  // Pattern 2: BA-{computingId} (case insensitive)
+  // Pattern 3: Email addresses
+  // Computing IDs are typically 2-7 letters followed by optional 0-3 digits
   const patterns = [
-    /FBS-([a-z]{2,7}\d{0,3})/gi,
-    /BA-([a-z]{2,7}\d{0,3})/gi,
-    /\b([a-z]{2,7}\d{0,3})@virginia\.edu/gi,
+    /FBS-([a-zA-Z]{2,7}\d{0,3})/g,
+    /BA-([a-zA-Z]{2,7}\d{0,3})/g,
+    /\b([a-zA-Z]{2,7}\d{0,3})@virginia\.edu/g,
   ]
 
   patterns.forEach(pattern => {
     const matches = deviceName.matchAll(pattern)
     for (const match of matches) {
       const id = match[1].toLowerCase()
-      if (id && !ids.includes(id)) {
+      // Filter out common false positives (serial numbers, etc)
+      // Real computing IDs have letters, not all uppercase serial-looking patterns
+      if (id && !ids.includes(id) && id.length >= 4) {
         ids.push(id)
       }
     }
