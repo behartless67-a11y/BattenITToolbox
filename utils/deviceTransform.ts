@@ -701,6 +701,9 @@ export function mergeQualysData(
 
       console.log(`🔒 Device "${device.name}": ${deviceVulns.length} total vulns (${criticalVulns.length} critical, ${highVulns.length} high), TruRisk: ${truRiskScore}`)
 
+      // Extract IP address from Qualys data
+      const ipAddress = qualysAsset['IP addresses'] || undefined
+
       // Update device with Qualys data
       return {
         ...device,
@@ -715,6 +718,7 @@ export function mergeQualysData(
         criticalVulnCount5: criticalVulns.length,
         topCVEs,
         qualysTags,
+        ipAddress,
         notes: additionalNotes ? (device.notes ? `${device.notes}; ${additionalNotes}` : additionalNotes) : device.notes,
       }
     }

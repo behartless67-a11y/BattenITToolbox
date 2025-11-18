@@ -350,6 +350,9 @@ export default function DeviceTable({
                               {device.daysSinceUpdate !== undefined && (
                                 <div><span className="font-medium text-gray-700">Days Since Update:</span> <span className="text-gray-600">{device.daysSinceUpdate} days</span></div>
                               )}
+                              {device.ipAddress && (
+                                <div><span className="font-medium text-gray-700">IP Address:</span> <span className="text-gray-600">{device.ipAddress}</span></div>
+                              )}
                             </div>
                           </div>
 

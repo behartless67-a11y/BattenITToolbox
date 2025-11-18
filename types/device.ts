@@ -45,6 +45,7 @@ export interface Device {
   lastVulnScan?: Date; // Last vulnerability scan date
   topCVEs?: string[]; // Top CVE IDs for this device
   qualysTags?: string[]; // Tags from Qualys (e.g., "BA - Frank Batten School")
+  ipAddress?: string; // IP address from Qualys
 
   // Additional metadata
   notes?: string;
