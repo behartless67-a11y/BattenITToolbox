@@ -3,7 +3,7 @@
  * Converts raw CSV data from Intune and Jamf into unified Device types
  */
 
-import { Device, DeviceStatus, OSType } from '@/types/device'
+import { Device, DeviceStatus, OSType, Vulnerability } from '@/types/device'
 import { IntuneRawData, JamfRawData, BattenUserData, QualysAssetData, QualysVulnData, EntraDeviceData, parseDate, yearsBetween, daysBetween } from './csvParser'
 import { extractComputingIdsFromDeviceName } from './dataLoader'
 
@@ -702,7 +702,30 @@ export function mergeQualysData(
       console.log(`🔒 Device "${device.name}": ${deviceVulns.length} total vulns (${criticalVulns.length} critical, ${highVulns.length} high), TruRisk: ${truRiskScore}`)
 
       // Extract IP address from Qualys data
-      const ipAddress = qualysAsset['IP addresses'] || undefined
+      const ipAddress = qualysAsset['IPV4 Address'] || undefined
+
+      // Convert vulnerability data to Vulnerability objects
+      // Sort by severity (highest first), then by TruRisk score
+      const vulnerabilities: Vulnerability[] = deviceVulns
+        .map(v => ({
+          qid: v['QID'] || '',
+          title: v['Title'] || 'Unknown Vulnerability',
+          severity: parseInt(v['Severity']) || 0,
+          cveId: v['CVE ID'] || undefined,
+          category: v['Category'] || undefined,
+          firstDetected: parseDate(v['First Detected']) || undefined,
+          lastDetected: parseDate(v['Last Detected']) || undefined,
+          solution: v['Solution'] || undefined,
+          threat: v['Threat'] || undefined,
+          impact: v['Impact'] || undefined,
+          truRiskScore: parseInt(v['TruRisk Score']) || undefined,
+        }))
+        .sort((a, b) => {
+          // Sort by severity first (descending)
+          if (b.severity !== a.severity) return b.severity - a.severity
+          // Then by TruRisk score (descending)
+          return (b.truRiskScore || 0) - (a.truRiskScore || 0)
+        })
 
       // Update device with Qualys data
       return {
@@ -719,6 +742,7 @@ export function mergeQualysData(
         topCVEs,
         qualysTags,
         ipAddress,
+        vulnerabilities,
         notes: additionalNotes ? (device.notes ? `${device.notes}; ${additionalNotes}` : additionalNotes) : device.notes,
       }
     }

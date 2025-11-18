@@ -50,28 +50,31 @@ export interface QualysAssetData {
   'Asset Name': string
   'NetBIOS Name': string
   'MAC Address': string
-  'IP addresses': string
+  'IPV4 Address': string
+  'IPV6 Address': string
   'Operating System': string
+  'Operating System Category': string
   'Operating System Version': string
   'Hardware Category': string
   'Hardware': string
-  'Processor Count': string
-  'Total Memory': string
-  'Installed Software': string
+  'CPU Count': string
+  'CPU Speed (MHz)': string
+  'CPU Description': string
+  'Total Memory (MB)': string
+  'BIOS Description': string
+  'BIOS Serial Number': string
+  'BIOS Asset Tag': string
+  'Timezone': string
   'TruRisk Score': string
   'CriticalityScore': string
   'Tags': string
   'Modules': string
   'Last System Boot': string
   'Last Logged On User': string
-  'Network GUID': string
-  'Asset UUID': string
-  'Created': string
-  'Modified': string
-  'Last Vuln Scan': string
-  'Last Compliance Scan': string
-  'Last Full Scan': string
-  'Last VM Scan': string
+  'Inventory Source': string
+  'Inventory Created On': string
+  'Inventory Last Updated On': string
+  'Architecture': string
 }
 
 export interface QualysVulnData {
@@ -79,13 +82,38 @@ export interface QualysVulnData {
   'DNS': string
   'NetBIOS': string
   'QG Host ID': string
+  'IP Interfaces': string
+  'Tracking Method': string
+  'OS': string
+  'IP Status': string
   'QID': string
   'Title': string
-  'Severity': string
-  'CVE ID': string
   'Vuln Status': string
+  'Type': string
+  'Severity': string
+  'Port': string
+  'Protocol': string
+  'FQDN': string
+  'SSL': string
   'First Detected': string
   'Last Detected': string
+  'Times Detected': string
+  'Date Last Fixed': string
+  'CVE ID': string
+  'Vendor Reference': string
+  'Bugtraq ID': string
+  'Threat': string
+  'Impact': string
+  'Solution': string
+  'Exploitability': string
+  'Associated Malware': string
+  'Results': string
+  'PCI Vuln': string
+  'Ticket State': string
+  'Instance': string
+  'Category': string
+  'Associated Tags': string
+  'Associated AGs': string
   'QDS': string
   'ARS': string
   'ACS': string

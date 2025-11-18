@@ -396,6 +396,59 @@ export default function DeviceTable({
                             </div>
                           )}
 
+                          {/* Vulnerabilities - Full Width */}
+                          {device.vulnerabilities && device.vulnerabilities.length > 0 && (
+                            <div className="col-span-1 md:col-span-2 lg:col-span-3 space-y-3">
+                              <h4 className="font-semibold text-uva-navy text-sm uppercase tracking-wide border-b pb-2">
+                                Top Vulnerabilities ({device.vulnerabilities.length} total)
+                              </h4>
+                              <div className="space-y-2">
+                                {device.vulnerabilities.slice(0, 10).map((vuln, idx) => (
+                                  <div key={idx} className="bg-white border rounded-lg p-3 text-sm">
+                                    <div className="flex items-start justify-between gap-2">
+                                      <div className="flex-1">
+                                        <div className="font-medium text-gray-900">{vuln.title}</div>
+                                        <div className="flex flex-wrap gap-2 mt-1">
+                                          <span className={`px-2 py-0.5 rounded text-xs font-semibold ${
+                                            vuln.severity === 5 ? 'bg-red-100 text-red-700' :
+                                            vuln.severity === 4 ? 'bg-orange-100 text-orange-700' :
+                                            vuln.severity === 3 ? 'bg-yellow-100 text-yellow-700' :
+                                            'bg-gray-100 text-gray-700'
+                                          }`}>
+                                            Severity {vuln.severity}
+                                          </span>
+                                          {vuln.cveId && (
+                                            <span className="px-2 py-0.5 rounded text-xs bg-blue-100 text-blue-700">
+                                              {vuln.cveId}
+                                            </span>
+                                          )}
+                                          {vuln.truRiskScore && (
+                                            <span className="px-2 py-0.5 rounded text-xs bg-purple-100 text-purple-700">
+                                              TruRisk: {vuln.truRiskScore}
+                                            </span>
+                                          )}
+                                        </div>
+                                        {vuln.category && (
+                                          <div className="text-xs text-gray-500 mt-1">{vuln.category}</div>
+                                        )}
+                                      </div>
+                                    </div>
+                                    {vuln.firstDetected && (
+                                      <div className="text-xs text-gray-500 mt-2">
+                                        First detected: {vuln.firstDetected.toLocaleDateString()}
+                                      </div>
+                                    )}
+                                  </div>
+                                ))}
+                                {device.vulnerabilities.length > 10 && (
+                                  <div className="text-xs text-gray-500 italic">
+                                    ... and {device.vulnerabilities.length - 10} more vulnerabilities
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          )}
+
                           {/* Notes */}
                           {device.notes && (
                             <div className="col-span-1 md:col-span-2 lg:col-span-3 space-y-3">

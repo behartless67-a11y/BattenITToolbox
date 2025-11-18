@@ -3,6 +3,21 @@ export type ActivityStatus = 'active' | 'inactive';
 export type DeviceSource = 'jamf' | 'intune' | 'qualys' | 'coreview';
 export type OSType = 'macOS' | 'Windows' | 'iOS' | 'Android' | 'Unknown';
 
+// Vulnerability information from Qualys
+export interface Vulnerability {
+  qid: string;
+  title: string;
+  severity: number; // 1-5
+  cveId?: string;
+  category?: string;
+  firstDetected?: Date;
+  lastDetected?: Date;
+  solution?: string;
+  threat?: string;
+  impact?: string;
+  truRiskScore?: number;
+}
+
 export interface Device {
   id: string;
   name: string;
@@ -46,6 +61,7 @@ export interface Device {
   topCVEs?: string[]; // Top CVE IDs for this device
   qualysTags?: string[]; // Tags from Qualys (e.g., "BA - Frank Batten School")
   ipAddress?: string; // IP address from Qualys
+  vulnerabilities?: Vulnerability[]; // Detailed vulnerability list from Qualys
 
   // Additional metadata
   notes?: string;

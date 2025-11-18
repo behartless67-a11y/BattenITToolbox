@@ -684,6 +684,89 @@ export default function Home() {
                     ))}
                   </div>
 
+                  {/* All Vulnerabilities Breakdown */}
+                  <div className="mb-8">
+                    <h3 className="text-xl font-bold text-uva-navy mb-4">All Vulnerabilities by Device</h3>
+                    <div className="bg-white rounded-xl shadow-lg border-2 border-gray-100 overflow-hidden">
+                      <div className="max-h-96 overflow-y-auto">
+                        <table className="w-full text-sm">
+                          <thead className="bg-gray-50 sticky top-0">
+                            <tr>
+                              <th className="px-4 py-3 text-left font-semibold text-uva-navy">Device</th>
+                              <th className="px-4 py-3 text-left font-semibold text-uva-navy">Vulnerability</th>
+                              <th className="px-4 py-3 text-center font-semibold text-uva-navy">Severity</th>
+                              <th className="px-4 py-3 text-left font-semibold text-uva-navy">CVE</th>
+                              <th className="px-4 py-3 text-center font-semibold text-uva-navy">TruRisk</th>
+                              <th className="px-4 py-3 text-left font-semibold text-uva-navy">First Detected</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-gray-200">
+                            {devices
+                              .filter(d => d.vulnerabilities && d.vulnerabilities.length > 0)
+                              .flatMap(d =>
+                                d.vulnerabilities!.slice(0, 5).map((v, i) => ({
+                                  deviceName: d.name,
+                                  deviceOwner: d.owner,
+                                  ...v,
+                                  key: `${d.id}-${i}`
+                                }))
+                              )
+                              .sort((a, b) => b.severity - a.severity || (b.truRiskScore || 0) - (a.truRiskScore || 0))
+                              .slice(0, 100)
+                              .map(item => (
+                                <tr key={item.key} className="hover:bg-gray-50">
+                                  <td className="px-4 py-3">
+                                    <div className="font-medium text-gray-900">{item.deviceName}</div>
+                                    <div className="text-xs text-gray-500">{item.deviceOwner}</div>
+                                  </td>
+                                  <td className="px-4 py-3">
+                                    <div className="max-w-xs truncate" title={item.title}>{item.title}</div>
+                                    {item.category && (
+                                      <div className="text-xs text-gray-500">{item.category}</div>
+                                    )}
+                                  </td>
+                                  <td className="px-4 py-3 text-center">
+                                    <span className={`px-2 py-1 rounded text-xs font-bold ${
+                                      item.severity === 5 ? 'bg-red-100 text-red-700' :
+                                      item.severity === 4 ? 'bg-orange-100 text-orange-700' :
+                                      'bg-yellow-100 text-yellow-700'
+                                    }`}>
+                                      {item.severity}
+                                    </span>
+                                  </td>
+                                  <td className="px-4 py-3">
+                                    {item.cveId ? (
+                                      <span className="text-xs font-mono bg-blue-50 text-blue-700 px-1 rounded">
+                                        {item.cveId}
+                                      </span>
+                                    ) : '-'}
+                                  </td>
+                                  <td className="px-4 py-3 text-center">
+                                    {item.truRiskScore ? (
+                                      <span className={`text-xs font-bold ${
+                                        item.truRiskScore >= 70 ? 'text-red-600' :
+                                        item.truRiskScore >= 40 ? 'text-orange-600' :
+                                        'text-gray-600'
+                                      }`}>
+                                        {item.truRiskScore}
+                                      </span>
+                                    ) : '-'}
+                                  </td>
+                                  <td className="px-4 py-3 text-xs text-gray-600">
+                                    {item.firstDetected ? item.firstDetected.toLocaleDateString() : '-'}
+                                  </td>
+                                </tr>
+                              ))
+                            }
+                          </tbody>
+                        </table>
+                      </div>
+                      <div className="bg-gray-50 px-4 py-2 text-xs text-gray-500 border-t">
+                        Showing top 100 vulnerabilities sorted by severity and TruRisk score
+                      </div>
+                    </div>
+                  </div>
+
                   {/* Devices with Vulnerabilities */}
                   <div className="mb-8">
                     <h3 className="text-xl font-bold text-uva-navy mb-4">Vulnerable Devices</h3>
