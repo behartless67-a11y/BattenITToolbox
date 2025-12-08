@@ -675,7 +675,7 @@ export default function Home() {
                           or hardware issues. The estimated cost assumes $1,500 per device replacement.
                         </p>
                         <p>
-                          <strong>Out of Date:</strong> Devices that haven't received OS updates in 60+ days. These devices may have
+                          <strong>Out of Date:</strong> Devices that have not received OS updates in 60+ days. These devices may have
                           security vulnerabilities and should be investigated for update failures or user-deferred updates.
                         </p>
                         <p>
@@ -727,7 +727,7 @@ export default function Home() {
                             security risks and should be remediated urgently. These often include remotely exploitable flaws and zero-day vulnerabilities.
                           </p>
                           <p>
-                            <strong>TruRisk Score:</strong> Qualys' proprietary risk scoring (0-1000) that combines vulnerability severity,
+                            <strong>TruRisk Score:</strong> Qualys&apos; proprietary risk scoring (0-1000) that combines vulnerability severity,
                             asset criticality, and threat intelligence. Higher scores indicate greater risk exposure. The average helps
                             prioritize remediation efforts across the fleet.
                           </p>

@@ -14,7 +14,9 @@
       "Bash(rm:*)",
       "Bash(npm install:*)",
       "Bash(git pull:*)",
-      "Bash(git commit -m \"$(cat <<''EOF''\nAdd Inventory and Loaner Laptop tabs, configure for Azure Static Web Apps\n\n- Add Inventory tab with full CRUD for tracking expensive equipment\n- Add Loaner Laptop tab with checkout/return workflow\n- Create type definitions for inventory and loaner items\n- Add LoanerTable and LoanerForm components\n- Add InventoryTable and InventoryForm components\n- Configure Next.js for static export (output: ''export'')\n- Data persists to localStorage\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n)\")"
+      "Bash(git commit -m \"$(cat <<''EOF''\nAdd Inventory and Loaner Laptop tabs, configure for Azure Static Web Apps\n\n- Add Inventory tab with full CRUD for tracking expensive equipment\n- Add Loaner Laptop tab with checkout/return workflow\n- Create type definitions for inventory and loaner items\n- Add LoanerTable and LoanerForm components\n- Add InventoryTable and InventoryForm components\n- Configure Next.js for static export (output: ''export'')\n- Data persists to localStorage\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git push)",
+      "Bash(git stash:*)"
     ],
     "deny": [],
     "ask": []
