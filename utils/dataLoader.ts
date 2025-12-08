@@ -6,8 +6,6 @@
 import { Device, DeviceSummary } from '@/types/device'
 import { parseCSV, IntuneRawData, JamfRawData, BattenUserData, QualysAssetData, QualysVulnData, EntraDeviceData } from './csvParser'
 import { transformJamfData, transformIntuneData, mergeDevices, mergeQualysData, mergeEntraData } from './deviceTransform'
-import IntuneCSV from '../InTune.csv'
-import JamfCSV from '../Jamf.csv'
 
 // User lookup map for matching computing IDs
 let battenUsersMap: Map<string, BattenUserData> | null = null
