@@ -12,4 +12,5 @@ export interface MetricCardData {
     value: number;
     isPositive: boolean;
   };
+  onClick?: () => void;
 }

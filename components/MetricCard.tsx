@@ -10,12 +10,14 @@ interface MetricCardProps {
 
 export default function MetricCard({ data, animationDelay = '' }: MetricCardProps) {
   const Icon = data.icon
+  const isClickable = !!data.onClick
 
   return (
     <div
+      onClick={data.onClick}
       className={`bg-white rounded-2xl shadow-2xl border-4 ${data.borderColor} p-6
                   hover:shadow-[0_20px_60px_rgba(0,0,0,0.3)] hover:-translate-y-2 transition-all duration-300
-                  animate-fade-in-up ${animationDelay}`}
+                  animate-fade-in-up ${animationDelay} ${isClickable ? 'cursor-pointer' : ''}`}
     >
       <div className="flex items-start justify-between">
         <div className="flex-1">

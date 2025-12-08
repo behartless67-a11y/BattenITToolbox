@@ -447,6 +447,12 @@ export default function Home() {
 
   const filterInfo = getFilterInfo()
 
+  // Helper to navigate to devices tab with a filter
+  const goToDevices = (filter: FilterView) => {
+    setFilterView(filter)
+    setActiveTab('devices')
+  }
+
   // Primary metric cards
   const metricCards: MetricCardData[] = [
     {
@@ -457,6 +463,7 @@ export default function Home() {
       bgColor: 'bg-white',
       borderColor: 'border-red-200',
       iconGradient: 'from-red-500 to-red-600',
+      onClick: () => goToDevices('critical'),
     },
     {
       label: 'Warning Devices',
@@ -466,6 +473,7 @@ export default function Home() {
       bgColor: 'bg-white',
       borderColor: 'border-yellow-200',
       iconGradient: 'from-yellow-500 to-yellow-600',
+      onClick: () => goToDevices('warning'),
     },
     {
       label: 'Good Devices',
@@ -475,6 +483,7 @@ export default function Home() {
       bgColor: 'bg-white',
       borderColor: 'border-green-200',
       iconGradient: 'from-green-500 to-green-600',
+      onClick: () => goToDevices('good'),
     },
     {
       label: 'Total Devices',
@@ -484,6 +493,7 @@ export default function Home() {
       bgColor: 'bg-white',
       borderColor: 'border-gray-200',
       iconGradient: 'from-gray-500 to-gray-600',
+      onClick: () => goToDevices('all'),
     },
   ]
 
@@ -497,6 +507,7 @@ export default function Home() {
       bgColor: 'bg-white',
       borderColor: 'border-blue-200',
       iconGradient: 'from-blue-500 to-blue-600',
+      onClick: () => goToDevices('active'),
     },
     {
       label: 'Replacement Needed',
@@ -506,6 +517,7 @@ export default function Home() {
       bgColor: 'bg-white',
       borderColor: 'border-red-200',
       iconGradient: 'from-red-500 to-red-600',
+      onClick: () => goToDevices('replacement'),
     },
     {
       label: 'Out of Date',
@@ -515,6 +527,7 @@ export default function Home() {
       bgColor: 'bg-white',
       borderColor: 'border-orange-200',
       iconGradient: 'from-orange-500 to-orange-600',
+      onClick: () => goToDevices('attention'),
     },
     {
       label: 'Data Sources',
@@ -686,37 +699,11 @@ export default function Home() {
               {activeTab === 'overview' && (
                 <div className="animate-fade-in">
                   {/* Primary Metrics */}
-                  <div className="mb-12">
-                    <h2 className="text-2xl font-serif font-bold text-uva-navy mb-6">
-                      Device Health Overview
+                  <div className="mb-8">
+                    <h2 className="text-xl font-serif font-bold text-uva-navy mb-4">
+                      Device Health
                     </h2>
-
-                    {/* Explanation Section */}
-                    <div className="bg-blue-50 border-l-4 border-blue-500 p-6 mb-6 rounded-r-lg">
-                      <h3 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
-                        <AlertCircle className="w-5 h-5" />
-                        How Device Health is Calculated
-                      </h3>
-                      <div className="text-sm text-blue-800 space-y-2">
-                        <p>
-                          <strong>Critical Devices:</strong> Devices that are 7+ years old OR have failed OS compliance checks.
-                          These devices require immediate replacement due to age, security vulnerabilities, or inability to run current software.
-                        </p>
-                        <p>
-                          <strong>Warning Devices:</strong> Devices that are 5-7 years old. These are approaching end-of-life and should
-                          be planned for replacement within the next fiscal year.
-                        </p>
-                        <p>
-                          <strong>Good Devices:</strong> Devices less than 5 years old that are functioning normally and meet security requirements.
-                        </p>
-                        <p>
-                          <strong>Age Calculation:</strong> Device age is calculated from the purchase date (if available) or enrollment date.
-                          Average fleet age helps identify when bulk replacements may be needed.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                       {metricCards.map((card, index) => (
                         <MetricCard
                           key={card.label}
@@ -728,38 +715,11 @@ export default function Home() {
                   </div>
 
                   {/* Secondary Metrics */}
-                  <div className="mb-12">
-                    <h2 className="text-2xl font-serif font-bold text-uva-navy mb-6">
-                      Additional Insights
+                  <div className="mb-8">
+                    <h2 className="text-xl font-serif font-bold text-uva-navy mb-4">
+                      Activity & Updates
                     </h2>
-
-                    {/* Explanation Section */}
-                    <div className="bg-green-50 border-l-4 border-green-500 p-6 mb-6 rounded-r-lg">
-                      <h3 className="font-semibold text-green-900 mb-3 flex items-center gap-2">
-                        <Clock className="w-5 h-5" />
-                        Understanding Activity & Update Metrics
-                      </h3>
-                      <div className="text-sm text-green-800 space-y-2">
-                        <p>
-                          <strong>Active Devices:</strong> Devices that have checked in with Jamf or Intune within the last 30 days.
-                          Inactive devices may be lost, stolen, in storage, or retired without being properly deprovisioned.
-                        </p>
-                        <p>
-                          <strong>Replacement Needed:</strong> Count of devices flagged for replacement based on age, compliance failures,
-                          or hardware issues. The estimated cost assumes $1,500 per device replacement.
-                        </p>
-                        <p>
-                          <strong>Out of Date:</strong> Devices that have not received OS updates in 60+ days. These devices may have
-                          security vulnerabilities and should be investigated for update failures or user-deferred updates.
-                        </p>
-                        <p>
-                          <strong>Data Sources:</strong> This dashboard aggregates data from Jamf Pro (macOS devices), Microsoft Intune
-                          (Windows devices), Qualys (vulnerabilities), and UVA user directory.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                       {additionalMetrics.map((card, index) => (
                         <MetricCard
                           key={card.label}
@@ -772,43 +732,14 @@ export default function Home() {
 
                   {/* Security Metrics (Qualys) */}
                   {securityMetrics.length > 0 && (
-                    <div className="mb-12">
-                      <div className="flex items-center gap-3 mb-6">
-                        <Shield className="w-7 h-7 text-red-600" />
-                        <h2 className="text-2xl font-serif font-bold text-uva-navy">
-                          Security & Vulnerability Insights
+                    <div className="mb-8">
+                      <div className="flex items-center gap-2 mb-4">
+                        <Shield className="w-6 h-6 text-red-600" />
+                        <h2 className="text-xl font-serif font-bold text-uva-navy">
+                          Security
                         </h2>
                       </div>
-
-                      {/* Explanation Section */}
-                      <div className="bg-red-50 border-l-4 border-red-500 p-6 mb-6 rounded-r-lg">
-                        <h3 className="font-semibold text-red-900 mb-3 flex items-center gap-2">
-                          <Shield className="w-5 h-5" />
-                          Understanding Qualys Security Metrics
-                        </h3>
-                        <div className="text-sm text-red-800 space-y-2">
-                          <p>
-                            <strong>Qualys Coverage:</strong> Number of devices with active Qualys agents performing security scans.
-                            Devices are matched to Qualys data by hostname, NetBIOS name, or user computing ID. Not all devices may have
-                            Qualys agents installed, especially personal or newly provisioned devices.
-                          </p>
-                          <p>
-                            <strong>Vulnerabilities:</strong> Total count of all security vulnerabilities detected across the fleet,
-                            including software outdated versions, missing patches, and configuration issues identified by Qualys scans.
-                          </p>
-                          <p>
-                            <strong>Critical Vulnerabilities:</strong> High-priority vulnerabilities (severity 4-5) that pose immediate
-                            security risks and should be remediated urgently. These often include remotely exploitable flaws and zero-day vulnerabilities.
-                          </p>
-                          <p>
-                            <strong>TruRisk Score:</strong> Qualys&apos; proprietary risk scoring (0-1000) that combines vulnerability severity,
-                            asset criticality, and threat intelligence. Higher scores indicate greater risk exposure. The average helps
-                            prioritize remediation efforts across the fleet.
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         {securityMetrics.map((card, index) => (
                           <MetricCard
                             key={card.label}
@@ -821,38 +752,43 @@ export default function Home() {
                   )}
 
                   {/* Quick Actions */}
-                  <div className="mb-12">
-                    <h2 className="text-2xl font-serif font-bold text-uva-navy mb-6">
+                  <div className="mb-8">
+                    <h2 className="text-xl font-serif font-bold text-uva-navy mb-4">
                       Quick Actions
                     </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                       <button
                         onClick={() => setActiveTab('devices')}
-                        className="bg-white rounded-xl shadow-2xl border-4 border-blue-200 p-8 hover:shadow-[0_20px_60px_rgba(0,0,0,0.3)] hover:-translate-y-2 transition-all text-left"
+                        className="bg-white rounded-xl shadow-lg border-2 border-blue-200 p-4 hover:shadow-xl hover:-translate-y-1 transition-all text-left"
                       >
-                        <Laptop className="w-12 h-12 text-blue-600 mb-4" />
-                        <h3 className="text-xl font-bold text-uva-navy mb-2">View All Devices</h3>
-                        <p className="text-gray-600">Browse and search all {devices.length} devices with filtering</p>
+                        <Laptop className="w-8 h-8 text-blue-600 mb-2" />
+                        <h3 className="text-sm font-bold text-uva-navy">All Devices</h3>
                       </button>
 
                       {securityMetrics.length > 0 && (
                         <button
                           onClick={() => setActiveTab('security')}
-                          className="bg-white rounded-xl shadow-2xl border-4 border-red-200 p-8 hover:shadow-[0_20px_60px_rgba(0,0,0,0.3)] hover:-translate-y-2 transition-all text-left"
+                          className="bg-white rounded-xl shadow-lg border-2 border-red-200 p-4 hover:shadow-xl hover:-translate-y-1 transition-all text-left"
                         >
-                          <Shield className="w-12 h-12 text-red-600 mb-4" />
-                          <h3 className="text-xl font-bold text-uva-navy mb-2">Security Dashboard</h3>
-                          <p className="text-gray-600">View vulnerability data and security metrics</p>
+                          <Shield className="w-8 h-8 text-red-600 mb-2" />
+                          <h3 className="text-sm font-bold text-uva-navy">Security</h3>
                         </button>
                       )}
 
                       <button
                         onClick={() => router.push('/analytics')}
-                        className="bg-white rounded-xl shadow-2xl border-4 border-green-200 p-8 hover:shadow-[0_20px_60px_rgba(0,0,0,0.3)] hover:-translate-y-2 transition-all text-left"
+                        className="bg-white rounded-xl shadow-lg border-2 border-green-200 p-4 hover:shadow-xl hover:-translate-y-1 transition-all text-left"
                       >
-                        <BarChart3 className="w-12 h-12 text-green-600 mb-4" />
-                        <h3 className="text-xl font-bold text-uva-navy mb-2">Analytics & Charts</h3>
-                        <p className="text-gray-600">View detailed visualizations and reports</p>
+                        <BarChart3 className="w-8 h-8 text-green-600 mb-2" />
+                        <h3 className="text-sm font-bold text-uva-navy">Analytics</h3>
+                      </button>
+
+                      <button
+                        onClick={() => setActiveTab('tools')}
+                        className="bg-white rounded-xl shadow-lg border-2 border-gray-200 p-4 hover:shadow-xl hover:-translate-y-1 transition-all text-left"
+                      >
+                        <Settings className="w-8 h-8 text-gray-600 mb-2" />
+                        <h3 className="text-sm font-bold text-uva-navy">Tools</h3>
                       </button>
                     </div>
                   </div>
