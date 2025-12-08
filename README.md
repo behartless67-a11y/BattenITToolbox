@@ -1,158 +1,244 @@
 # Batten IT Dashboard
 
-A unified IT management dashboard for the Batten School at the University of Virginia. This application provides a single pane of glass for monitoring and managing resources across Jamf, Intune, Qualys, and CoreView.
+A unified IT management dashboard for the Batten School at the University of Virginia. This application provides a single pane of glass for monitoring and managing IT resources across Jamf, Intune, Qualys, and user directories.
+
+**Live URL**: https://yellow-mushroom-0b1ee430f.5.azurestaticapps.net
 
 ## Features
 
-- **Unified Device Management**: View all devices from Jamf (Mac) and Intune (Windows) in one place
-- **Health Monitoring**: Track device age, compliance status, and replacement needs
-- **Security Compliance**: Monitor vulnerabilities from Qualys and security posture
-- **Real-time Analytics**: Dashboard metrics showing critical, warning, and healthy devices
-- **Data Export**: Export device lists and reports to CSV
-- **Search & Filter**: Quickly find devices by name, owner, or model
-- **Responsive Design**: Works on desktop, tablet, and mobile devices
+### Device Management
+- **Unified Device View**: Aggregates Mac devices from Jamf and Windows devices from Intune
+- **Health Monitoring**: Tracks device age, compliance status, and replacement needs based on Batten's 3-year policy
+- **Status Classification**: Devices categorized as Good, Warning, Critical, or Inactive
+- **Owner Matching**: Intelligent matching of devices to users via computing IDs, email, and Entra directory
+- **Search & Filter**: Find devices by name, owner, serial number, or model
+- **CSV Export**: Export filtered device lists for reporting
+
+### Security Dashboard
+- **Qualys Integration**: Vulnerability counts and TruRisk scores per device
+- **Critical Alerts**: Highlights severity 4-5 vulnerabilities requiring immediate attention
+- **Fleet Security Metrics**: Average TruRisk score, total vulnerabilities, critical counts
+
+### Analytics Page (`/analytics`)
+- **Interactive Charts**: Pie charts and bar graphs using Recharts
+- **Device Distribution**: OS type, status, age breakdown visualizations
+- **Security Overview**: Vulnerability distribution by severity
+
+### Inventory Management
+- **Equipment Tracking**: Track expensive equipment (computers, monitors, A/V gear, etc.)
+- **Full CRUD Operations**: Add, edit, delete inventory items
+- **Category Classification**: 9 categories (Computer, Monitor, Printer, Networking, etc.)
+- **Status Tracking**: Active, In Storage, Needs Repair, Retired, On Order
+- **Value Tracking**: Purchase price and total inventory value
+- **Warranty Alerts**: Track warranty expiration dates
+- **localStorage Persistence**: Data persists in browser
+
+### Loaner Laptop Management
+- **Device Pool Tracking**: Manage loaner laptop inventory
+- **Checkout/Return Workflow**: Track who has what device and when
+- **Overdue Alerts**: Automatic detection of overdue returns
+- **Status Dashboard**: Available, Checked Out, In Maintenance, Retired counts
+- **Borrower Information**: Name, email, department, expected return date
+
+### Authentication
+- **Azure AD Integration**: Microsoft account login required
+- **Pre-configured Provider**: Works with Azure Static Web Apps built-in auth
+- **Future**: UVA-only restriction via custom App Registration
 
 ## Technology Stack
 
-- **Framework**: Next.js 15.1.6
-- **Language**: TypeScript 5
-- **Styling**: Tailwind CSS 3.4.17
-- **Icons**: Lucide React 0.469.0
-- **Fonts**: Libre Baskerville (serif), Inter (sans-serif)
-
-## Design System
-
-### Color Palette
-- **UVA Navy**: `#232D4B` - Primary brand color
-- **UVA Orange**: `#E57200` - Accent color for CTAs
-- **Light Navy**: `#2A3C5F` - Secondary elements
-- **Light Orange**: `#F28C28` - Hover states
-
-### Typography
-- **Headings**: Libre Baskerville (serif)
-- **Body/UI**: Inter (sans-serif)
+| Category | Technology |
+|----------|------------|
+| Framework | Next.js 15.5.6 |
+| Language | TypeScript 5 |
+| Styling | Tailwind CSS 3.4 |
+| Charts | Recharts 2.x |
+| Icons | Lucide React |
+| Fonts | Libre Baskerville (serif), Inter (sans-serif) |
+| Hosting | Azure Static Web Apps |
+| CI/CD | GitHub Actions |
+| Auth | Azure AD (pre-configured) |
 
 ## Project Structure
 
 ```
 BattenITToolBox/
 ├── app/
-│   ├── layout.tsx          # Root layout with font configuration
-│   ├── page.tsx            # Main dashboard page
-│   └── globals.css         # Global styles and animations
+│   ├── layout.tsx              # Root layout with fonts
+│   ├── page.tsx                # Main dashboard (tabs)
+│   ├── globals.css             # Global styles
+│   └── analytics/
+│       └── page.tsx            # Analytics charts page
 │
 ├── components/
-│   ├── Header.tsx          # Navigation header
-│   ├── Footer.tsx          # Footer with contact info
-│   ├── MetricCard.tsx      # Dashboard metric cards
-│   └── DeviceTable.tsx     # Sortable device table with export
+│   ├── Header.tsx              # Navigation header
+│   ├── Footer.tsx              # Footer with contact info
+│   ├── MetricCard.tsx          # Dashboard metric cards
+│   ├── StatusBadge.tsx         # Device status badges
+│   ├── DeviceTable.tsx         # Sortable device table
+│   ├── CSVUploader.tsx         # CSV file upload modal
+│   ├── InventoryTable.tsx      # Inventory list table
+│   ├── InventoryForm.tsx       # Add/edit inventory modal
+│   ├── LoanerTable.tsx         # Loaner laptop table
+│   └── LoanerForm.tsx          # Checkout/return modal
 │
 ├── types/
-│   ├── device.ts           # Device and summary types
-│   └── metric.ts           # Metric card types
+│   ├── device.ts               # Device, Vulnerability types
+│   ├── metric.ts               # MetricCard types
+│   ├── inventory.ts            # Inventory item types
+│   └── loaner.ts               # Loaner laptop types
 │
-├── tailwind.config.js      # Tailwind with UVA brand colors
-├── tsconfig.json           # TypeScript configuration
-└── package.json            # Dependencies
+├── utils/
+│   ├── csvParser.ts            # CSV parsing utilities
+│   ├── dataLoader.ts           # Data loading & storage
+│   ├── deviceTransform.ts      # Jamf/Intune/Qualys transforms
+│   └── chartData.ts            # Chart data formatting
+│
+├── staticwebapp.config.json    # Azure SWA auth config
+├── next.config.js              # Next.js config (static export)
+├── tailwind.config.js          # Tailwind with UVA colors
+└── package.json
 ```
+
+## Data Sources
+
+The dashboard aggregates data from CSV exports:
+
+| Source | Data Type | Key Fields |
+|--------|-----------|------------|
+| **Jamf Pro** | Mac devices | Name, Serial, Owner, OS Version, Last Check-in |
+| **Microsoft Intune** | Windows devices | Device Name, UPN, Last Modified |
+| **Qualys Assets** | Security agents | Asset Name, TruRisk Score, Agent ID |
+| **Qualys Vulns** | Vulnerabilities | QID, Severity, CVE ID, Title |
+| **Entra Devices** | Directory info | Device Name, User Principal Name, Department |
+| **Batten Users** | User directory | Computing ID, Name, Email, Department |
+
+### Uploading Data
+
+1. Navigate to **Tools** tab
+2. Click **Upload CSV Files**
+3. Select and upload CSV exports from each source
+4. Data is stored in browser localStorage
+
+## Design System
+
+### Color Palette
+- **UVA Navy**: `#232D4B` - Primary brand color
+- **UVA Orange**: `#E57200` - Accent color for CTAs
+- **Status Colors**:
+  - Good: `#22c55e` (green)
+  - Warning: `#f59e0b` (amber)
+  - Critical: `#ef4444` (red)
+  - Inactive: `#6b7280` (gray)
+
+### Typography
+- **Headings**: Libre Baskerville (serif)
+- **Body/UI**: Inter (sans-serif)
 
 ## Getting Started
 
 ### Prerequisites
-- Node.js 18 or higher
+- Node.js 18+
 - npm
 
-### Installation
+### Local Development
 
-1. Install dependencies:
 ```bash
+# Install dependencies
 npm install
-```
 
-2. Run the development server:
-```bash
+# Run development server
 npm run dev
-```
 
-3. Open [http://localhost:3000](http://localhost:3000) in your browser
+# Open http://localhost:3000
+```
 
 ### Build for Production
 
 ```bash
 npm run build
-npm start
 ```
 
-## Current Status
+Output is in `/out` directory (static export).
 
-### ✅ Completed (Phase 1 & 2)
-- [x] Project setup with Next.js and TypeScript
-- [x] Tailwind CSS configured with UVA brand colors
-- [x] Google Fonts integration (Libre Baskerville, Inter)
-- [x] Header component with user menu
-- [x] Footer component with contact information
-- [x] MetricCard component for dashboard statistics
-- [x] DeviceTable component with search, sort, and export
-- [x] Main dashboard page with mock data
-- [x] Responsive design for mobile/tablet/desktop
-- [x] TypeScript type definitions for devices and metrics
+## Deployment
 
-### 🔄 Next Steps (Phase 3 - API Integration)
-- [ ] Jamf API integration for Mac devices
-- [ ] Microsoft Intune/Graph API integration for Windows devices
-- [ ] Qualys API integration for vulnerability data
-- [ ] CoreView API integration for Microsoft 365 data
-- [ ] Backend API layer for data aggregation
-- [ ] Database setup (PostgreSQL) for caching
-- [ ] Redis caching layer for API responses
-- [ ] Authentication (Azure AD integration)
+The app auto-deploys to Azure Static Web Apps on push to `main`:
 
-### 📋 Future Enhancements (Phase 4)
-- [ ] Advanced filtering and saved queries
-- [ ] Scheduled reports and email notifications
-- [ ] Historical data and trend analysis
-- [ ] Custom alert configuration
-- [ ] Role-based access control
-- [ ] Dashboard customization
+1. GitHub Actions workflow triggers on push
+2. Next.js builds static export to `/out`
+3. Azure SWA deploys the static files
+4. Auth config from `staticwebapp.config.json` is applied
 
-## Mock Data
+### Azure Configuration
 
-Currently, the application uses mock device data to demonstrate functionality. The mock data includes:
-- 6 sample devices (Mac and Windows)
-- Various age ranges and compliance statuses
-- Sample vulnerability and patch data
+- **Resource**: Azure Static Web App
+- **Name**: `yellow-mushroom-0b1ee430f`
+- **Region**: (auto-selected)
+- **Build**: Next.js preset, output to `/out`
 
-This mock data will be replaced with live API calls in Phase 3.
+## Authentication Setup
 
-## Use Cases
+### Current (Pre-configured)
+Any Microsoft account can sign in. Config in `staticwebapp.config.json`:
 
-The dashboard is designed to answer key IT management questions:
+```json
+{
+  "routes": [
+    { "route": "/*", "allowedRoles": ["authenticated"] }
+  ],
+  "responseOverrides": {
+    "401": { "redirect": "/.auth/login/aad" }
+  }
+}
+```
 
-1. **"What machines need to be replaced?"**
-   - Filters devices by age (>5 years)
-   - Shows hardware limitations (RAM, outdated OS)
-   - Provides replacement recommendations
+### Future (UVA-Only)
+To restrict to UVA accounts, create an Azure AD App Registration:
 
-2. **"Who is most out of date?"**
-   - Tracks days since last update
-   - Monitors missing patches
-   - Displays OS version compliance
+1. Create App Registration in Azure Portal
+2. Set redirect URI to `https://<app-url>/.auth/login/aad/callback`
+3. Add `AAD_CLIENT_ID` and `AAD_CLIENT_SECRET` to SWA Configuration
+4. Update `staticwebapp.config.json` with tenant-specific issuer
 
-3. **"What's our security posture?"**
-   - Vulnerability counts from Qualys
-   - Compliance status from Intune/Jamf
-   - Critical security alerts
+## Device Status Logic
+
+### Status Determination (Active Devices)
+| Status | Criteria |
+|--------|----------|
+| **Critical** | Age >= 3 years (replacement policy) OR unsupported OS |
+| **Warning** | Age 2-3 years OR aging OS version |
+| **Good** | Age < 2 years AND current OS |
+
+### Activity Status
+| Status | Criteria |
+|--------|----------|
+| **Active** | Checked in within 30 days |
+| **Inactive** | No check-in for 30+ days |
+
+### Replacement Recommendation
+Devices 3-5 years old are flagged for replacement per Batten's 3-year policy. Devices >5 years are excluded (likely already retired/repurposed).
+
+## API Integration (Future)
+
+Currently uses CSV uploads. Future phases will add:
+
+- [ ] Jamf Pro API integration
+- [ ] Microsoft Graph API (Intune, Entra)
+- [ ] Qualys API integration
+- [ ] Real-time data sync
+- [ ] Scheduled report generation
 
 ## Contributing
 
-This is an internal tool for the Batten School IT department. For questions or feature requests, contact the IT team.
+Internal tool for Batten School IT. For questions or feature requests, contact the IT team.
 
 ## Support
 
-- Email: batten-it@virginia.edu
-- Phone: (434) 924-3900
-- Service Portal: https://virginia.service-now.com
+- **Email**: batten-it@virginia.edu
+- **Phone**: (434) 924-3900
+- **Service Portal**: https://virginia.service-now.com
 
 ## License
 
-© 2025 University of Virginia Batten School. All rights reserved.
+Copyright 2025 University of Virginia Batten School. All rights reserved.
