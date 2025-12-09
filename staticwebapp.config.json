@@ -17,6 +17,10 @@
       "statusCode": 404
     },
     {
+      "route": "/api/*",
+      "allowedRoles": ["authenticated"]
+    },
+    {
       "route": "/*",
       "allowedRoles": ["authenticated"]
     }
@@ -33,6 +37,6 @@
   },
   "navigationFallback": {
     "rewrite": "/index.html",
-    "exclude": ["/_next/*", "/images/*", "/*.ico", "/*.png", "/*.svg"]
+    "exclude": ["/_next/*", "/images/*", "/*.ico", "/*.png", "/*.svg", "/api/*"]
   }
 }

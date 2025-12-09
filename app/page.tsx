@@ -16,6 +16,7 @@ import { MetricCardData } from '@/types/metric'
 import { InventoryItem, InventorySummary, CATEGORY_LABELS, STATUS_LABELS } from '@/types/inventory'
 import { LoanerLaptop, LoanerSummary, LoanHistory, STATUS_LABELS as LOANER_STATUS_LABELS } from '@/types/loaner'
 import { loadDeviceData, calculateDeviceSummary, saveCSVToStorage } from '@/utils/dataLoader'
+import { fetchDeviceSettings, updateRetiredStatus, updateDeviceNotes as apiUpdateNotes } from '@/utils/deviceSettingsApi'
 import CSVUploader from '@/components/CSVUploader'
 
 type FilterView = 'attention' | 'all' | 'critical' | 'warning' | 'good' | 'inactive' | 'active' | 'jamf' | 'intune' | 'replacement' | 'retired'
@@ -45,41 +46,9 @@ export default function Home() {
   const [editingLoaner, setEditingLoaner] = useState<LoanerLaptop | null>(null)
   const [loanerFormMode, setLoanerFormMode] = useState<'add' | 'edit' | 'checkout' | 'return'>('add')
 
-  // Load retired device IDs from localStorage
-  const loadRetiredDeviceIds = (): Set<string> => {
-    try {
-      const stored = localStorage.getItem('batten-retired-devices')
-      if (stored) {
-        return new Set(JSON.parse(stored))
-      }
-    } catch (error) {
-      console.error('Error loading retired devices:', error)
-    }
-    return new Set()
-  }
-
-  // Save retired device IDs to localStorage
-  const saveRetiredDeviceIds = (retiredIds: Set<string>) => {
-    try {
-      localStorage.setItem('batten-retired-devices', JSON.stringify([...retiredIds]))
-    } catch (error) {
-      console.error('Error saving retired devices:', error)
-    }
-  }
-
-  // Toggle device retired status
-  const handleToggleRetire = (deviceId: string, isRetired: boolean) => {
-    const retiredIds = loadRetiredDeviceIds()
-
-    if (isRetired) {
-      retiredIds.add(deviceId)
-    } else {
-      retiredIds.delete(deviceId)
-    }
-
-    saveRetiredDeviceIds(retiredIds)
-
-    // Update devices state with new retired status
+  // Toggle device retired status - uses API with localStorage fallback
+  const handleToggleRetire = async (deviceId: string, isRetired: boolean) => {
+    // Optimistically update UI
     setDevices(prevDevices =>
       prevDevices.map(device =>
         device.id === deviceId
@@ -87,43 +56,14 @@ export default function Home() {
           : device
       )
     )
+
+    // Sync to API (handles localStorage fallback internally)
+    await updateRetiredStatus(deviceId, isRetired)
   }
 
-  // Load device notes from localStorage
-  const loadDeviceNotes = (): Map<string, string> => {
-    try {
-      const stored = localStorage.getItem('batten-device-notes')
-      if (stored) {
-        return new Map(Object.entries(JSON.parse(stored)))
-      }
-    } catch (error) {
-      console.error('Error loading device notes:', error)
-    }
-    return new Map()
-  }
-
-  // Save device notes to localStorage
-  const saveDeviceNotes = (notes: Map<string, string>) => {
-    try {
-      localStorage.setItem('batten-device-notes', JSON.stringify(Object.fromEntries(notes)))
-    } catch (error) {
-      console.error('Error saving device notes:', error)
-    }
-  }
-
-  // Update device notes
-  const handleUpdateNotes = (deviceId: string, notes: string) => {
-    const deviceNotes = loadDeviceNotes()
-
-    if (notes.trim()) {
-      deviceNotes.set(deviceId, notes.trim())
-    } else {
-      deviceNotes.delete(deviceId)
-    }
-
-    saveDeviceNotes(deviceNotes)
-
-    // Update devices state with new notes
+  // Update device notes - uses API with localStorage fallback
+  const handleUpdateNotes = async (deviceId: string, notes: string) => {
+    // Optimistically update UI
     setDevices(prevDevices =>
       prevDevices.map(device =>
         device.id === deviceId
@@ -131,6 +71,9 @@ export default function Home() {
           : device
       )
     )
+
+    // Sync to API (handles localStorage fallback internally)
+    await apiUpdateNotes(deviceId, notes)
   }
 
   // Load device data on mount
@@ -417,16 +360,17 @@ export default function Home() {
       setLoading(true)
       const deviceData = await loadDeviceData()
 
-      // Apply retired status and notes from localStorage
-      const retiredIds = loadRetiredDeviceIds()
-      const deviceNotes = loadDeviceNotes()
-      const devicesWithLocalData = deviceData.map(device => ({
+      // Fetch device settings from API (with localStorage fallback)
+      const settings = await fetchDeviceSettings()
+      const retiredSet = new Set(settings.retiredDevices)
+
+      const devicesWithSettings = deviceData.map(device => ({
         ...device,
-        isRetired: retiredIds.has(device.id),
-        notes: deviceNotes.get(device.id) || device.notes
+        isRetired: retiredSet.has(device.id),
+        notes: settings.deviceNotes[device.id] || device.notes
       }))
 
-      setDevices(devicesWithLocalData)
+      setDevices(devicesWithSettings)
     } catch (error) {
       console.error('Error loading devices:', error)
     } finally {

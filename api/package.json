@@ -1,0 +1,12 @@
+{
+  "name": "batten-it-api",
+  "version": "1.0.0",
+  "description": "Azure Functions API for Batten IT Dashboard",
+  "scripts": {
+    "start": "func start",
+    "test": "echo \"No tests yet\""
+  },
+  "dependencies": {
+    "@azure/data-tables": "^13.2.2"
+  }
+}

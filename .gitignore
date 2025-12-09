@@ -28,6 +28,9 @@ yarn-error.log*
 .env*.local
 .env
 
+# Azure Functions local settings
+api/local.settings.json
+
 # vercel
 .vercel
 
