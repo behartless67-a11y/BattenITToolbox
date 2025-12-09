@@ -19,7 +19,7 @@ import { loadDeviceData, calculateDeviceSummary, saveCSVToStorage } from '@/util
 import { fetchDeviceSettings, updateRetiredStatus, updateDeviceNotes as apiUpdateNotes } from '@/utils/deviceSettingsApi'
 import CSVUploader from '@/components/CSVUploader'
 
-type FilterView = 'attention' | 'all' | 'critical' | 'warning' | 'good' | 'inactive' | 'active' | 'jamf' | 'intune' | 'replacement' | 'retired'
+type FilterView = 'attention' | 'all' | 'critical' | 'warning' | 'good' | 'inactive' | 'active' | 'jamf' | 'intune' | 'replacement' | 'retired' | 'no-qualys'
 type TabView = 'overview' | 'devices' | 'security' | 'inventory' | 'loaners' | 'tools'
 
 export default function Home() {
@@ -428,6 +428,9 @@ export default function Home() {
       case 'retired':
         filtered = devices.filter(d => d.isRetired)
         break
+      case 'no-qualys':
+        filtered = devices.filter(d => !d.qualysAgentId && !d.isRetired)
+        break
       case 'all':
       default:
         // Show all non-retired by default, unless explicitly searching
@@ -487,6 +490,8 @@ export default function Home() {
         return { title: 'Replacement Needed', description: 'Devices flagged for replacement' }
       case 'retired':
         return { title: 'Retired Devices', description: 'Devices marked as retired (excluded from counts)' }
+      case 'no-qualys':
+        return { title: 'Missing Qualys Agent', description: 'Devices without Qualys security agent installed' }
       case 'attention':
       default:
         return { title: 'Devices Needing Attention', description: 'Critical, warning, or replacement recommended' }
@@ -950,6 +955,16 @@ export default function Home() {
                           Retired ({summary.retiredCount})
                         </button>
                       )}
+                      <button
+                        onClick={() => setFilterView('no-qualys')}
+                        className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+                          filterView === 'no-qualys'
+                            ? 'bg-purple-600 text-white shadow-lg'
+                            : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-purple-600'
+                        }`}
+                      >
+                        Missing Qualys ({devices.filter(d => !d.qualysAgentId && !d.isRetired).length})
+                      </button>
                     </div>
                     <p className="text-sm text-gray-600 italic mt-2">{filterInfo.description}</p>
                   </div>
@@ -1107,6 +1122,31 @@ export default function Home() {
                       onUpdateNotes={handleUpdateNotes}
                     />
                   </div>
+
+                  {/* Devices Missing Qualys */}
+                  {devices.filter(d => !d.qualysAgentId && !d.isRetired).length > 0 && (
+                    <div className="mb-8">
+                      <div className="flex items-center gap-2 mb-4">
+                        <AlertTriangle className="w-6 h-6 text-purple-600" />
+                        <h3 className="text-xl font-bold text-uva-navy">Missing Qualys Agent</h3>
+                        <span className="px-2 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-bold">
+                          {devices.filter(d => !d.qualysAgentId && !d.isRetired).length} devices
+                        </span>
+                      </div>
+                      <div className="bg-purple-50 border-2 border-purple-200 rounded-xl p-4 mb-4">
+                        <p className="text-sm text-purple-800">
+                          These devices do not have the Qualys agent installed. All managed devices should have Qualys for security monitoring.
+                        </p>
+                      </div>
+                      <DeviceTable
+                        devices={devices.filter(d => !d.qualysAgentId && !d.isRetired).slice(0, 50)}
+                        title="Devices Without Qualys Agent"
+                        showExport={true}
+                        onToggleRetire={handleToggleRetire}
+                        onUpdateNotes={handleUpdateNotes}
+                      />
+                    </div>
+                  )}
 
                   {/* Link to Full Analytics */}
                   <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-6">
