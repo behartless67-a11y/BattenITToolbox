@@ -3,7 +3,8 @@ const { TableClient, AzureNamedKeyCredential } = require("@azure/data-tables");
 // In-memory fallback storage for development/testing
 let memoryStorage = {
   retiredDevices: [],
-  deviceNotes: {}
+  deviceNotes: {},
+  deviceOwners: {}
 };
 
 // Get Table Client for Azure Table Storage
@@ -38,7 +39,8 @@ async function getSettings() {
   if (!tableClient) {
     return {
       retiredDevices: memoryStorage.retiredDevices,
-      deviceNotes: memoryStorage.deviceNotes
+      deviceNotes: memoryStorage.deviceNotes,
+      deviceOwners: memoryStorage.deviceOwners
     };
   }
 
@@ -49,23 +51,25 @@ async function getSettings() {
     const entity = await tableClient.getEntity("settings", "main");
     return {
       retiredDevices: JSON.parse(entity.retiredDevices || "[]"),
-      deviceNotes: JSON.parse(entity.deviceNotes || "{}")
+      deviceNotes: JSON.parse(entity.deviceNotes || "{}"),
+      deviceOwners: JSON.parse(entity.deviceOwners || "{}")
     };
   } catch (error) {
     if (error.statusCode === 404) {
-      return { retiredDevices: [], deviceNotes: {} };
+      return { retiredDevices: [], deviceNotes: {}, deviceOwners: {} };
     }
     throw error;
   }
 }
 
 // Save all device settings
-async function saveSettings(retiredDevices, deviceNotes) {
+async function saveSettings(retiredDevices, deviceNotes, deviceOwners) {
   const tableClient = getTableClient("devicesettings");
 
   if (!tableClient) {
     memoryStorage.retiredDevices = retiredDevices;
     memoryStorage.deviceNotes = deviceNotes;
+    memoryStorage.deviceOwners = deviceOwners || memoryStorage.deviceOwners;
     return;
   }
 
@@ -76,6 +80,7 @@ async function saveSettings(retiredDevices, deviceNotes) {
     rowKey: "main",
     retiredDevices: JSON.stringify(retiredDevices),
     deviceNotes: JSON.stringify(deviceNotes),
+    deviceOwners: JSON.stringify(deviceOwners || {}),
     updatedAt: new Date().toISOString()
   };
 
@@ -93,7 +98,7 @@ async function updateRetiredDevices(deviceId, isRetired) {
     retiredSet.delete(deviceId);
   }
 
-  await saveSettings([...retiredSet], settings.deviceNotes);
+  await saveSettings([...retiredSet], settings.deviceNotes, settings.deviceOwners);
   return [...retiredSet];
 }
 
@@ -107,8 +112,22 @@ async function updateDeviceNotes(deviceId, notes) {
     delete settings.deviceNotes[deviceId];
   }
 
-  await saveSettings(settings.retiredDevices, settings.deviceNotes);
+  await saveSettings(settings.retiredDevices, settings.deviceNotes, settings.deviceOwners);
   return settings.deviceNotes;
+}
+
+// Update device owner
+async function updateDeviceOwner(deviceId, owner) {
+  const settings = await getSettings();
+
+  if (owner && owner.trim()) {
+    settings.deviceOwners[deviceId] = owner.trim();
+  } else {
+    delete settings.deviceOwners[deviceId];
+  }
+
+  await saveSettings(settings.retiredDevices, settings.deviceNotes, settings.deviceOwners);
+  return settings.deviceOwners;
 }
 
 module.exports = async function (context, req) {
@@ -175,6 +194,28 @@ module.exports = async function (context, req) {
         status: 200,
         headers,
         body: { deviceNotes }
+      };
+      return;
+    }
+
+    // PUT /api/device-settings/owners - Update device owner
+    if (method === "PUT" && action === "owners") {
+      const { deviceId, owner } = req.body;
+
+      if (!deviceId) {
+        context.res = {
+          status: 400,
+          headers,
+          body: { error: "deviceId is required" }
+        };
+        return;
+      }
+
+      const deviceOwners = await updateDeviceOwner(deviceId, owner);
+      context.res = {
+        status: 200,
+        headers,
+        body: { deviceOwners }
       };
       return;
     }

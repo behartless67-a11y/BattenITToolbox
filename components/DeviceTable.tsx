@@ -11,6 +11,7 @@ interface DeviceTableProps {
   showExport?: boolean
   onToggleRetire?: (deviceId: string, isRetired: boolean) => void
   onUpdateNotes?: (deviceId: string, notes: string) => void
+  onUpdateOwner?: (deviceId: string, owner: string) => void
 }
 
 export default function DeviceTable({
@@ -18,7 +19,8 @@ export default function DeviceTable({
   title = "Devices",
   showExport = true,
   onToggleRetire,
-  onUpdateNotes
+  onUpdateNotes,
+  onUpdateOwner
 }: DeviceTableProps) {
   const [searchTerm, setSearchTerm] = useState('')
   const [sortField, setSortField] = useState<keyof Device>('ageInYears')

@@ -17,6 +17,7 @@ import { InventoryItem, InventorySummary, CATEGORY_LABELS, STATUS_LABELS } from 
 import { LoanerLaptop, LoanerSummary, LoanHistory, STATUS_LABELS as LOANER_STATUS_LABELS } from '@/types/loaner'
 import { loadDeviceData, calculateDeviceSummary, saveCSVToStorage } from '@/utils/dataLoader'
 import { fetchDeviceSettings, updateRetiredStatus, updateDeviceNotes as apiUpdateNotes } from '@/utils/deviceSettingsApi'
+import { fetchLoaners, createLoaner, updateLoaner, deleteLoaner as apiDeleteLoaner, addLoanHistoryEntry as apiAddLoanHistory, updateLoanHistoryEntry as apiUpdateLoanHistory } from '@/utils/loanerApi'
 import CSVUploader from '@/components/CSVUploader'
 
 type FilterView = 'attention' | 'all' | 'critical' | 'warning' | 'good' | 'inactive' | 'active' | 'jamf' | 'intune' | 'replacement' | 'retired' | 'no-qualys'
@@ -156,103 +157,44 @@ export default function Home() {
     setShowInventoryForm(true)
   }
 
-  // Load loaners from localStorage
-  const loadLoaners = () => {
+  // Load loaners from API with localStorage fallback
+  const loadLoaners = async () => {
     try {
-      const stored = localStorage.getItem('batten-loaners')
-      if (stored) {
-        const loaners = JSON.parse(stored).map((loaner: LoanerLaptop) => ({
-          ...loaner,
-          checkoutDate: loaner.checkoutDate ? new Date(loaner.checkoutDate) : undefined,
-          expectedReturnDate: loaner.expectedReturnDate ? new Date(loaner.expectedReturnDate) : undefined,
-          actualReturnDate: loaner.actualReturnDate ? new Date(loaner.actualReturnDate) : undefined,
-          createdAt: new Date(loaner.createdAt),
-          updatedAt: new Date(loaner.updatedAt),
-        }))
-        setLoanerLaptops(loaners)
-      }
-
-      // Load loan history
-      const storedHistory = localStorage.getItem('batten-loan-history')
-      if (storedHistory) {
-        const history = JSON.parse(storedHistory).map((entry: LoanHistory) => ({
-          ...entry,
-          checkoutDate: new Date(entry.checkoutDate),
-          expectedReturnDate: entry.expectedReturnDate ? new Date(entry.expectedReturnDate) : undefined,
-          actualReturnDate: entry.actualReturnDate ? new Date(entry.actualReturnDate) : undefined,
-        }))
-        setLoanHistory(history)
-      }
+      const data = await fetchLoaners()
+      setLoanerLaptops(data.loaners)
+      setLoanHistory(data.loanHistory)
     } catch (error) {
       console.error('Error loading loaners:', error)
     }
   }
 
-  // Save loaners to localStorage
-  const saveLoaners = (loaners: LoanerLaptop[]) => {
-    try {
-      localStorage.setItem('batten-loaners', JSON.stringify(loaners))
-    } catch (error) {
-      console.error('Error saving loaners:', error)
-    }
-  }
-
-  // Save loan history to localStorage
-  const saveLoanHistory = (history: LoanHistory[]) => {
-    try {
-      localStorage.setItem('batten-loan-history', JSON.stringify(history))
-    } catch (error) {
-      console.error('Error saving loan history:', error)
-    }
-  }
-
-  // Add a loan history entry
-  const addLoanHistoryEntry = (entry: Omit<LoanHistory, 'id'>) => {
-    const newEntry: LoanHistory = {
-      ...entry,
-      id: `history-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-    }
-    const updatedHistory = [...loanHistory, newEntry]
-    setLoanHistory(updatedHistory)
-    saveLoanHistory(updatedHistory)
-    return newEntry.id
-  }
-
-  // Update a loan history entry (for recording return)
-  const updateLoanHistoryEntry = (loanerId: string, actualReturnDate: Date, notes?: string) => {
-    const updatedHistory = loanHistory.map(entry => {
-      // Find the most recent active (no return date) entry for this loaner
-      if (entry.loanerId === loanerId && !entry.actualReturnDate) {
-        return {
-          ...entry,
-          actualReturnDate,
-          notes: notes || entry.notes,
-        }
-      }
-      return entry
-    })
-    setLoanHistory(updatedHistory)
-    saveLoanHistory(updatedHistory)
-  }
-
-  // Handle loaner save (add, edit, checkout, return)
-  const handleLoanerSave = (loanerData: Omit<LoanerLaptop, 'id' | 'createdAt' | 'updatedAt'> & { id?: string }) => {
+  // Handle loaner save (add, edit, checkout, return) - syncs to API
+  const handleLoanerSave = async (loanerData: Omit<LoanerLaptop, 'id' | 'createdAt' | 'updatedAt'> & { id?: string }) => {
     const now = new Date()
     const existingLoaner = loanerData.id ? loanerLaptops.find(l => l.id === loanerData.id) : null
 
     if (loanerData.id) {
       // Edit existing loaner
+      const updatedLoaner: LoanerLaptop = {
+        ...existingLoaner!,
+        ...loanerData,
+        id: loanerData.id,
+        updatedAt: now,
+      } as LoanerLaptop
+
+      // Optimistically update UI
       const updatedLoaners = loanerLaptops.map(loaner =>
-        loaner.id === loanerData.id
-          ? { ...loaner, ...loanerData, updatedAt: now }
-          : loaner
+        loaner.id === loanerData.id ? updatedLoaner : loaner
       )
       setLoanerLaptops(updatedLoaners)
-      saveLoaners(updatedLoaners)
+
+      // Sync to API
+      await updateLoaner(updatedLoaner)
 
       // Track checkout: if status changed from available to checked-out
       if (existingLoaner && existingLoaner.status === 'available' && loanerData.status === 'checked-out') {
-        addLoanHistoryEntry({
+        const historyEntry: LoanHistory = {
+          id: `history-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
           loanerId: loanerData.id,
           borrowerName: loanerData.borrowerName || 'Unknown',
           borrowerEmail: loanerData.borrowerEmail,
@@ -260,16 +202,27 @@ export default function Home() {
           checkoutDate: loanerData.checkoutDate || now,
           expectedReturnDate: loanerData.expectedReturnDate,
           notes: loanerData.notes,
-        })
+        }
+        setLoanHistory(prev => [...prev, historyEntry])
+        await apiAddLoanHistory(historyEntry)
       }
 
       // Track return: if status changed from checked-out to available
       if (existingLoaner && existingLoaner.status === 'checked-out' && loanerData.status === 'available') {
-        updateLoanHistoryEntry(
-          loanerData.id,
-          loanerData.actualReturnDate || now,
-          loanerData.notes
-        )
+        // Find the active history entry and update it
+        const activeEntry = loanHistory.find(h => h.loanerId === loanerData.id && !h.actualReturnDate)
+        if (activeEntry) {
+          const updatedHistory = loanHistory.map(entry =>
+            entry.id === activeEntry.id
+              ? { ...entry, actualReturnDate: loanerData.actualReturnDate || now, notes: loanerData.notes || entry.notes }
+              : entry
+          )
+          setLoanHistory(updatedHistory)
+          await apiUpdateLoanHistory(activeEntry.id, {
+            actualReturnDate: loanerData.actualReturnDate || now,
+            notes: loanerData.notes || activeEntry.notes
+          })
+        }
       }
     } else {
       // Add new loaner
@@ -279,9 +232,12 @@ export default function Home() {
         createdAt: now,
         updatedAt: now,
       } as LoanerLaptop
-      const updatedLoaners = [...loanerLaptops, newLoaner]
-      setLoanerLaptops(updatedLoaners)
-      saveLoaners(updatedLoaners)
+
+      // Optimistically update UI
+      setLoanerLaptops(prev => [...prev, newLoaner])
+
+      // Sync to API
+      await createLoaner(newLoaner)
     }
 
     setShowLoanerForm(false)
@@ -289,12 +245,15 @@ export default function Home() {
     setLoanerFormMode('add')
   }
 
-  // Handle loaner delete
-  const handleLoanerDelete = (id: string) => {
+  // Handle loaner delete - syncs to API
+  const handleLoanerDelete = async (id: string) => {
     if (confirm('Are you sure you want to delete this loaner laptop?')) {
-      const updatedLoaners = loanerLaptops.filter(loaner => loaner.id !== id)
-      setLoanerLaptops(updatedLoaners)
-      saveLoaners(updatedLoaners)
+      // Optimistically update UI
+      setLoanerLaptops(prev => prev.filter(loaner => loaner.id !== id))
+      setLoanHistory(prev => prev.filter(h => h.loanerId !== id))
+
+      // Sync to API
+      await apiDeleteLoaner(id)
     }
   }
 

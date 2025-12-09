@@ -9,6 +9,7 @@ interface DeviceDetailModalProps {
   onClose: () => void
   onToggleRetire?: (deviceId: string, isRetired: boolean) => void
   onUpdateNotes?: (deviceId: string, notes: string) => void
+  onUpdateOwner?: (deviceId: string, owner: string) => void
 }
 
 const STATUS_STYLES = {
@@ -27,13 +28,20 @@ const SEVERITY_STYLES: Record<number, { bg: string; text: string; label: string 
   1: { bg: 'bg-gray-100', text: 'text-gray-800', label: 'Info' },
 }
 
-export default function DeviceDetailModal({ device, onClose, onToggleRetire, onUpdateNotes }: DeviceDetailModalProps) {
+export default function DeviceDetailModal({ device, onClose, onToggleRetire, onUpdateNotes, onUpdateOwner }: DeviceDetailModalProps) {
   const statusStyle = STATUS_STYLES[device.status] || STATUS_STYLES.unknown
   const StatusIcon = statusStyle.icon
 
   // Notes editing state
   const [isEditingNotes, setIsEditingNotes] = useState(false)
   const [notesValue, setNotesValue] = useState(device.notes || '')
+
+  // Owner editing state
+  const [isEditingOwner, setIsEditingOwner] = useState(false)
+  const [ownerValue, setOwnerValue] = useState(device.owner || '')
+
+  // Check if owner is unassigned
+  const isUnassigned = !device.owner || device.owner.toLowerCase() === 'unassigned' || device.owner.toLowerCase() === 'unknown'
 
   const formatDate = (date: Date | undefined): string => {
     if (!date) return 'N/A'
@@ -94,36 +102,93 @@ export default function DeviceDetailModal({ device, onClose, onToggleRetire, onU
             {/* Left Column - Device Info */}
             <div className="space-y-6">
               {/* Owner Information */}
-              <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
-                <h3 className="font-semibold text-uva-navy flex items-center gap-2 mb-3">
-                  <User className="w-5 h-5" />
-                  Owner Information
-                </h3>
+              <div className={`rounded-xl p-4 border ${isUnassigned ? 'bg-yellow-50 border-yellow-200' : 'bg-gray-50 border-gray-200'}`}>
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="font-semibold text-uva-navy flex items-center gap-2">
+                    <User className="w-5 h-5" />
+                    Owner Information
+                    {isUnassigned && (
+                      <span className="px-2 py-0.5 bg-yellow-100 text-yellow-700 rounded text-xs font-semibold">
+                        Unassigned
+                      </span>
+                    )}
+                  </h3>
+                  {onUpdateOwner && !isEditingOwner && (
+                    <button
+                      onClick={() => setIsEditingOwner(true)}
+                      className="text-uva-orange hover:text-uva-orange/80 text-sm flex items-center gap-1"
+                    >
+                      <Edit3 className="w-4 h-4" />
+                      {isUnassigned ? 'Assign Owner' : 'Edit'}
+                    </button>
+                  )}
+                </div>
                 <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Primary Owner</span>
-                    <span className="font-medium">{device.owner}</span>
-                  </div>
-                  {device.ownerEmail && (
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Email</span>
-                      <a href={`mailto:${device.ownerEmail}`} className="font-medium text-uva-orange hover:underline flex items-center gap-1">
-                        {device.ownerEmail}
-                        <Mail className="w-3 h-3" />
-                      </a>
+                  {isEditingOwner && onUpdateOwner ? (
+                    <div className="space-y-2">
+                      <div>
+                        <label className="text-gray-600 text-xs">Primary Owner</label>
+                        <input
+                          type="text"
+                          value={ownerValue}
+                          onChange={(e) => setOwnerValue(e.target.value)}
+                          placeholder="Enter owner name..."
+                          className="w-full px-3 py-2 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:border-uva-orange mt-1"
+                          autoFocus
+                        />
+                      </div>
+                      <div className="flex gap-2 justify-end">
+                        <button
+                          onClick={() => {
+                            setIsEditingOwner(false)
+                            setOwnerValue(device.owner || '')
+                          }}
+                          className="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-800"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          onClick={() => {
+                            onUpdateOwner(device.id, ownerValue)
+                            setIsEditingOwner(false)
+                          }}
+                          className="px-3 py-1.5 bg-uva-orange text-white rounded-lg text-sm font-semibold hover:bg-uva-orange/90 flex items-center gap-1"
+                        >
+                          <Save className="w-4 h-4" />
+                          Save
+                        </button>
+                      </div>
                     </div>
-                  )}
-                  {device.additionalOwner && (
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Additional Owner</span>
-                      <span className="font-medium">{device.additionalOwner}</span>
-                    </div>
-                  )}
-                  {device.department && (
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Department</span>
-                      <span className="font-medium">{device.department}</span>
-                    </div>
+                  ) : (
+                    <>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Primary Owner</span>
+                        <span className={`font-medium ${isUnassigned ? 'text-yellow-600 italic' : ''}`}>
+                          {device.owner || 'Unassigned'}
+                        </span>
+                      </div>
+                      {device.ownerEmail && (
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Email</span>
+                          <a href={`mailto:${device.ownerEmail}`} className="font-medium text-uva-orange hover:underline flex items-center gap-1">
+                            {device.ownerEmail}
+                            <Mail className="w-3 h-3" />
+                          </a>
+                        </div>
+                      )}
+                      {device.additionalOwner && (
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Additional Owner</span>
+                          <span className="font-medium">{device.additionalOwner}</span>
+                        </div>
+                      )}
+                      {device.department && (
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Department</span>
+                          <span className="font-medium">{device.department}</span>
+                        </div>
+                      )}
+                    </>
                   )}
                 </div>
               </div>
