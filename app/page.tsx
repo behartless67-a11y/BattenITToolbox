@@ -18,6 +18,7 @@ import { LoanerLaptop, LoanerSummary, LoanHistory, STATUS_LABELS as LOANER_STATU
 import { loadDeviceData, calculateDeviceSummary, saveCSVToStorage } from '@/utils/dataLoader'
 import { fetchDeviceSettings, updateRetiredStatus, updateDeviceNotes as apiUpdateNotes } from '@/utils/deviceSettingsApi'
 import { fetchLoaners, createLoaner, updateLoaner, deleteLoaner as apiDeleteLoaner, addLoanHistoryEntry as apiAddLoanHistory, updateLoanHistoryEntry as apiUpdateLoanHistory } from '@/utils/loanerApi'
+import { logDeviceUpdate, logDeviceRetire, logLoanerAction } from '@/utils/auditApi'
 import CSVUploader from '@/components/CSVUploader'
 
 type FilterView = 'attention' | 'all' | 'critical' | 'warning' | 'good' | 'inactive' | 'active' | 'jamf' | 'intune' | 'replacement' | 'retired' | 'no-qualys'
@@ -49,32 +50,47 @@ export default function Home() {
 
   // Toggle device retired status - uses API with localStorage fallback
   const handleToggleRetire = async (deviceId: string, isRetired: boolean) => {
+    const device = devices.find(d => d.id === deviceId)
+
     // Optimistically update UI
     setDevices(prevDevices =>
-      prevDevices.map(device =>
-        device.id === deviceId
-          ? { ...device, isRetired }
-          : device
+      prevDevices.map(d =>
+        d.id === deviceId
+          ? { ...d, isRetired }
+          : d
       )
     )
 
     // Sync to API (handles localStorage fallback internally)
     await updateRetiredStatus(deviceId, isRetired)
+
+    // Log audit entry
+    if (device) {
+      await logDeviceRetire(deviceId, device.name, isRetired)
+    }
   }
 
   // Update device notes - uses API with localStorage fallback
   const handleUpdateNotes = async (deviceId: string, notes: string) => {
+    const device = devices.find(d => d.id === deviceId)
+    const oldNotes = device?.notes || ''
+
     // Optimistically update UI
     setDevices(prevDevices =>
-      prevDevices.map(device =>
-        device.id === deviceId
-          ? { ...device, notes: notes.trim() || undefined }
-          : device
+      prevDevices.map(d =>
+        d.id === deviceId
+          ? { ...d, notes: notes.trim() || undefined }
+          : d
       )
     )
 
     // Sync to API (handles localStorage fallback internally)
     await apiUpdateNotes(deviceId, notes)
+
+    // Log audit entry
+    if (device) {
+      await logDeviceUpdate(deviceId, device.name, 'notes', oldNotes, notes.trim())
+    }
   }
 
   // Load device data on mount
@@ -205,6 +221,14 @@ export default function Home() {
         }
         setLoanHistory(prev => [...prev, historyEntry])
         await apiAddLoanHistory(historyEntry)
+
+        // Log audit entry for checkout
+        await logLoanerAction(
+          loanerData.id,
+          loanerData.name,
+          'checkout',
+          `Checked out to ${loanerData.borrowerName}`
+        )
       }
 
       // Track return: if status changed from checked-out to available
@@ -223,6 +247,24 @@ export default function Home() {
             notes: loanerData.notes || activeEntry.notes
           })
         }
+
+        // Log audit entry for return
+        await logLoanerAction(
+          loanerData.id,
+          loanerData.name,
+          'return',
+          `Returned by ${existingLoaner.borrowerName}`
+        )
+      }
+
+      // Log general update if not a checkout/return
+      if (existingLoaner && existingLoaner.status === loanerData.status) {
+        await logLoanerAction(
+          loanerData.id,
+          loanerData.name,
+          'update',
+          'Loaner details updated'
+        )
       }
     } else {
       // Add new loaner
@@ -238,6 +280,9 @@ export default function Home() {
 
       // Sync to API
       await createLoaner(newLoaner)
+
+      // Log audit entry for creation
+      await logLoanerAction(newLoaner.id, newLoaner.name, 'create', 'New loaner laptop added')
     }
 
     setShowLoanerForm(false)
@@ -247,13 +292,20 @@ export default function Home() {
 
   // Handle loaner delete - syncs to API
   const handleLoanerDelete = async (id: string) => {
+    const loaner = loanerLaptops.find(l => l.id === id)
+
     if (confirm('Are you sure you want to delete this loaner laptop?')) {
       // Optimistically update UI
-      setLoanerLaptops(prev => prev.filter(loaner => loaner.id !== id))
+      setLoanerLaptops(prev => prev.filter(l => l.id !== id))
       setLoanHistory(prev => prev.filter(h => h.loanerId !== id))
 
       // Sync to API
       await apiDeleteLoaner(id)
+
+      // Log audit entry
+      if (loaner) {
+        await logLoanerAction(id, loaner.name, 'delete', 'Loaner laptop deleted')
+      }
     }
   }
 

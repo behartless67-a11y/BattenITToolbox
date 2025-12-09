@@ -1,8 +1,10 @@
 "use client"
 
-import { useState } from 'react'
-import { X, Laptop, User, Calendar, Shield, AlertTriangle, AlertCircle, CheckCircle, Clock, Mail, Building, Cpu, HardDrive, Monitor, Info, ExternalLink, Archive, ArchiveRestore, StickyNote, Save, Edit3 } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { X, Laptop, User, Calendar, Shield, AlertTriangle, AlertCircle, CheckCircle, Clock, Mail, Building, Cpu, HardDrive, Monitor, Info, ExternalLink, Archive, ArchiveRestore, StickyNote, Save, Edit3, History } from 'lucide-react'
 import { Device, Vulnerability } from '@/types/device'
+import { AuditEntry, ACTION_LABELS, FIELD_LABELS } from '@/types/audit'
+import { getAuditHistory } from '@/utils/auditApi'
 
 interface DeviceDetailModalProps {
   device: Device
@@ -42,6 +44,21 @@ export default function DeviceDetailModal({ device, onClose, onToggleRetire, onU
 
   // Check if owner is unassigned
   const isUnassigned = !device.owner || device.owner.toLowerCase() === 'unassigned' || device.owner.toLowerCase() === 'unknown'
+
+  // Audit history state
+  const [auditHistory, setAuditHistory] = useState<AuditEntry[]>([])
+  const [loadingAudit, setLoadingAudit] = useState(false)
+  const [showAuditHistory, setShowAuditHistory] = useState(false)
+
+  // Fetch audit history when expanded
+  useEffect(() => {
+    if (showAuditHistory && auditHistory.length === 0) {
+      setLoadingAudit(true)
+      getAuditHistory('device', device.id)
+        .then(entries => setAuditHistory(entries))
+        .finally(() => setLoadingAudit(false))
+    }
+  }, [showAuditHistory, device.id, auditHistory.length])
 
   const formatDate = (date: Date | undefined): string => {
     if (!date) return 'N/A'
@@ -474,6 +491,57 @@ export default function DeviceDetailModal({ device, onClose, onToggleRetire, onU
                   <p className="text-sm text-blue-800">
                     {device.notes || <span className="text-blue-400 italic">No notes added yet</span>}
                   </p>
+                )}
+              </div>
+
+              {/* Audit History */}
+              <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                <button
+                  onClick={() => setShowAuditHistory(!showAuditHistory)}
+                  className="w-full flex items-center justify-between"
+                >
+                  <h3 className="font-semibold text-gray-700 flex items-center gap-2">
+                    <History className="w-5 h-5" />
+                    Change History
+                  </h3>
+                  <span className="text-gray-500 text-sm">
+                    {showAuditHistory ? 'Hide' : 'Show'}
+                  </span>
+                </button>
+                {showAuditHistory && (
+                  <div className="mt-3 space-y-2">
+                    {loadingAudit ? (
+                      <p className="text-sm text-gray-500 italic">Loading history...</p>
+                    ) : auditHistory.length === 0 ? (
+                      <p className="text-sm text-gray-500 italic">No changes recorded yet</p>
+                    ) : (
+                      <div className="max-h-48 overflow-y-auto space-y-2">
+                        {auditHistory.map((entry) => (
+                          <div key={entry.id} className="text-xs bg-white rounded p-2 border border-gray-100">
+                            <div className="flex justify-between items-start">
+                              <span className="font-medium text-gray-700">
+                                {ACTION_LABELS[entry.action] || entry.action}
+                                {entry.field && ` - ${FIELD_LABELS[entry.field] || entry.field}`}
+                              </span>
+                              <span className="text-gray-400 text-[10px]">
+                                {new Date(entry.timestamp).toLocaleString()}
+                              </span>
+                            </div>
+                            {entry.userName && (
+                              <div className="text-gray-500 mt-0.5">by {entry.userName}</div>
+                            )}
+                            {entry.oldValue && entry.newValue && entry.oldValue !== entry.newValue && (
+                              <div className="text-gray-500 mt-1">
+                                <span className="line-through text-red-400">{entry.oldValue}</span>
+                                {' → '}
+                                <span className="text-green-600">{entry.newValue}</span>
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 )}
               </div>
             </div>
