@@ -4,8 +4,8 @@
  */
 
 import { Device, DeviceSummary } from '@/types/device'
-import { parseCSV, IntuneRawData, JamfRawData, BattenUserData, QualysAssetData, QualysVulnData, EntraDeviceData } from './csvParser'
-import { transformJamfData, transformIntuneData, mergeDevices, mergeQualysData, mergeEntraData } from './deviceTransform'
+import { parseCSV, parseCSVMultiline, IntuneRawData, JamfRawData, BattenUserData, QualysAssetData, QualysVulnData, EntraDeviceData, AxoniusDeviceData } from './csvParser'
+import { transformJamfData, transformIntuneData, mergeDevices, mergeQualysData, mergeEntraData, transformAxoniusData } from './deviceTransform'
 
 // User lookup map for matching computing IDs
 let battenUsersMap: Map<string, BattenUserData> | null = null
@@ -219,11 +219,50 @@ export function extractComputingIdsFromDeviceName(deviceName: string): string[] 
 
 /**
  * Load device data from CSV files
+ * Uses Axonius as primary source if available, falls back to Jamf/Intune
  */
 export async function loadDeviceData(): Promise<Device[]> {
   try {
     // Load Batten users first
     const usersMap = await loadBattenUsers()
+
+    // Try to load Axonius data first (primary source)
+    let axoniusDevices: Device[] = []
+    try {
+      const axoniusFileName = '/NewAxoniusExport.csv'
+      const axoniusResponse = await fetch(axoniusFileName)
+      if (axoniusResponse.ok) {
+        console.log('📊 Loading Axonius data as primary source...')
+        const axoniusText = await axoniusResponse.text()
+        const axoniusData = parseCSVMultiline<AxoniusDeviceData>(axoniusText)
+        console.log(`Loaded ${axoniusData.length} total records from Axonius`)
+        axoniusDevices = transformAxoniusData(axoniusData, usersMap)
+      }
+    } catch (error) {
+      console.log('Axonius file not found, falling back to Jamf/Intune')
+    }
+
+    // If Axonius has devices, use it as primary source
+    if (axoniusDevices.length > 0) {
+      console.log(`✅ Using ${axoniusDevices.length} devices from Axonius`)
+
+      // Filter out devices that haven't checked in for 6+ months (180 days)
+      const activeDevices = axoniusDevices.filter(device => {
+        const now = new Date()
+        const daysSinceLastSeen = Math.floor((now.getTime() - device.lastSeen.getTime()) / (1000 * 60 * 60 * 24))
+        if (daysSinceLastSeen > 180) {
+          console.log(`🗑️  Filtering out device ${device.name}: last seen ${daysSinceLastSeen} days ago (> 6 months)`)
+          return false
+        }
+        return true
+      })
+
+      console.log(`Total devices (filtered): ${activeDevices.length} (excluded ${axoniusDevices.length - activeDevices.length} devices not seen in 6+ months)`)
+      return activeDevices
+    }
+
+    // Fall back to Jamf/Intune if no Axonius data
+    console.log('📊 Falling back to Jamf/Intune data...')
 
     // Load Entra device-to-user mappings
     const entraMap = await loadEntraDevices()

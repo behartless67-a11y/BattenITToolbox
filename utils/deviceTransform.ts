@@ -4,8 +4,9 @@
  */
 
 import { Device, DeviceStatus, OSType, Vulnerability, ActivityStatus } from '@/types/device'
-import { IntuneRawData, JamfRawData, BattenUserData, QualysAssetData, QualysVulnData, EntraDeviceData, parseDate, yearsBetween, daysBetween } from './csvParser'
+import { IntuneRawData, JamfRawData, BattenUserData, QualysAssetData, QualysVulnData, EntraDeviceData, AxoniusDeviceData, parseDate, yearsBetween, daysBetween } from './csvParser'
 import { extractComputingIdsFromDeviceName } from './dataLoader'
+import { lookupModelName, getManufacturerFromModel, calculateAgeFromModel, getModelReleaseYear } from './modelLookup'
 
 /**
  * IT staff who provision devices (should not be primary owners)
@@ -882,4 +883,287 @@ export function mergeEntraData(
   console.log(`   - ${additionalOwnerCount} additional owners added`)
 
   return mergedDevices
+}
+
+/**
+ * Transform Axonius data into Device objects
+ * Axonius aggregates data from multiple sources (Jamf, Intune, Qualys, AD, etc.)
+ */
+export function transformAxoniusData(axoniusData: AxoniusDeviceData[], usersMap?: Map<string, BattenUserData>): Device[] {
+  console.log(`🔄 Transforming ${axoniusData.length} Axonius records`)
+
+  const devices: Device[] = []
+  const now = new Date()
+
+  for (const raw of axoniusData) {
+    // Get hostname - use first line if multi-line
+    const hostname = (raw['Aggregated: Host Name'] || '').split('\n')[0].trim()
+
+    // Skip if no hostname or not a BA-/FBS- device
+    if (!hostname) continue
+    const upperHostname = hostname.toUpperCase()
+    if (!upperHostname.startsWith('BA-') && !upperHostname.startsWith('FBS-')) {
+      continue
+    }
+
+    // Parse OS type
+    const osTypeRaw = (raw['Aggregated: OS: Type'] || '').split('\n')[0].trim()
+    let osType: OSType = 'Unknown'
+    if (osTypeRaw === 'OS X' || osTypeRaw === 'macOS') {
+      osType = 'macOS'
+    } else if (osTypeRaw === 'Windows') {
+      osType = 'Windows'
+    } else if (osTypeRaw === 'iOS') {
+      osType = 'iOS'
+    } else if (osTypeRaw === 'Android') {
+      osType = 'Android'
+    }
+
+    // Parse last seen date
+    const lastSeenStr = (raw['Aggregated: Last Seen'] || '').split('\n')[0].trim()
+    const lastSeen = parseDate(lastSeenStr) || now
+
+    // Get model - convert cryptic identifiers to friendly names
+    const rawModel = (raw['Aggregated: Device Model'] || '').split('\n')[0].trim() || 'Unknown'
+    const model = lookupModelName(rawModel)
+    const manufacturer = getManufacturerFromModel(rawModel)
+
+    // Calculate age from model release year
+    const ageInYears = calculateAgeFromModel(rawModel)
+    const releaseYear = getModelReleaseYear(rawModel)
+    const purchaseDate = releaseYear > 0 ? new Date(releaseYear, 5, 1) : undefined // Estimate June of release year
+
+    // Get serial number
+    const serialNumber = (raw['Aggregated: Bios Serial'] || raw['Aggregated: Device Manufacturer Serial'] || '').split('\n')[0].trim()
+
+    // Parse users - get first non-system, non-provisioner user
+    const usersRaw = raw['Aggregated: Last Used Users'] || ''
+    const usersList = usersRaw.split('\n').map(u => u.trim()).filter(u => u)
+    let owner = 'Unassigned'
+    let ownerEmail: string | undefined
+    let additionalOwner: string | undefined
+
+    // System accounts to skip
+    const systemAccounts = new Set([
+      'WDAGUtilityAccount', 'DefaultAccount', 'Administrator', 'Guest', 'Admin', 'SYSTEM',
+      'LOCAL SERVICE', 'NETWORK SERVICE', 'root', '_uucp', '_mbsetupuser', 'battenit',
+      'BattenIT', 'BattenIT_2025', 'itsjamfmanage', 'itsjamflaps', 'loaner', 'loaner..',
+      'removeme', 'fbsadmin', 'panopto_upload', 'Tina'
+    ])
+
+    // Helper to extract computing ID from various user formats
+    const extractComputingId = (user: string): string | null => {
+      // Handle domain format like "ESERVICES\\username"
+      if (user.includes('\\')) {
+        const parts = user.split('\\')
+        const username = parts[parts.length - 1]
+        if (/^[a-z]{2,4}[0-9][a-z0-9]*$/i.test(username)) {
+          return username.toLowerCase()
+        }
+        return null
+      }
+      // Handle email format
+      if (user.includes('@')) {
+        const computingId = user.split('@')[0].toLowerCase()
+        // Filter out non-computing-ID emails (e.g., name.eservices.virginia.edu)
+        if (/^[a-z]{2,4}[0-9][a-z0-9]*$/i.test(computingId)) {
+          return computingId
+        }
+        return null
+      }
+      // Handle plain computing ID
+      if (/^[a-z]{2,4}[0-9][a-z0-9]*$/i.test(user)) {
+        return user.toLowerCase()
+      }
+      return null
+    }
+
+    // Helper to get user info from computing ID
+    const getUserInfo = (computingId: string): { name: string; email: string } => {
+      const email = `${computingId}@virginia.edu`
+      if (usersMap) {
+        const matchedUser = usersMap.get(computingId)
+        if (matchedUser && matchedUser.name) {
+          return { name: matchedUser.name, email }
+        }
+      }
+      return { name: computingId, email }
+    }
+
+    // Collect all valid users (non-system accounts) with their computing IDs
+    const validUsers: { raw: string; computingId: string | null; isProvisioner: boolean }[] = []
+
+    for (const user of usersList) {
+      // Skip system accounts
+      if (systemAccounts.has(user)) continue
+
+      // Skip users ending with ".." (partial names like "loaner..", "name..")
+      if (user.endsWith('..')) continue
+
+      // Skip domain-qualified names that aren't computing IDs (e.g., "name.eservices.virginia.edu")
+      if (user.includes('.eservices.virginia.edu')) continue
+
+      const computingId = extractComputingId(user)
+      const testEmail = computingId ? `${computingId}@virginia.edu` : user
+      const isProvisioner = isITProvisioner(user, testEmail) || (computingId && isITProvisioner(computingId, testEmail))
+
+      validUsers.push({ raw: user, computingId, isProvisioner })
+    }
+
+    // Find first non-provisioner user
+    const primaryUser = validUsers.find(u => !u.isProvisioner && u.computingId)
+    const provisionerUser = validUsers.find(u => u.isProvisioner && u.computingId)
+
+    if (primaryUser && primaryUser.computingId) {
+      // We found a real user
+      const userInfo = getUserInfo(primaryUser.computingId)
+      owner = userInfo.name
+      ownerEmail = userInfo.email
+
+      // If there was also a provisioner, add them as additional owner
+      if (provisionerUser && provisionerUser.computingId) {
+        const provInfo = getUserInfo(provisionerUser.computingId)
+        additionalOwner = `${provInfo.name} (IT Provisioner)`
+      }
+    } else if (provisionerUser && provisionerUser.computingId) {
+      // Only found provisioner - they're the owner but flag it
+      const userInfo = getUserInfo(provisionerUser.computingId)
+      owner = userInfo.name
+      ownerEmail = userInfo.email
+      // Note: This is a provisioner-only device, might be a loaner or shared device
+    } else {
+      // No valid users found, try to get owner from device name
+      const computingIds = extractComputingIdsFromDeviceName(hostname)
+      for (const computingId of computingIds) {
+        if (!isITProvisioner(computingId, `${computingId}@virginia.edu`)) {
+          const userInfo = getUserInfo(computingId)
+          owner = userInfo.name
+          ownerEmail = userInfo.email
+          break
+        }
+      }
+    }
+
+    // Get user description (Faculty/Staff)
+    const userDescRaw = raw['Aggregated: Last Used Users Description'] || ''
+    const userDescList = userDescRaw.split('\n').map(d => d.trim()).filter(d => d && d !== 'None')
+    const department = userDescList[0] || undefined
+
+    // Get IP addresses (first IPv4)
+    const ipsRaw = raw['Aggregated: Network Interfaces: IPs'] || ''
+    const ipsList = ipsRaw.split('\n').map(ip => ip.trim()).filter(ip => ip)
+    const ipv4s = ipsList.filter(ip => /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(ip) && !ip.startsWith('127.'))
+    const ipAddress = ipv4s[0] || undefined
+
+    // Parse vulnerabilities from Axonius Qualys data
+    const vulnCVEs = (raw['Aggregated: Qualys Vulnerabilities: EPSS Data: CVE ID'] || '').split('\n').filter(c => c.trim())
+    const vulnSeverities = (raw['Aggregated: Qualys Vulnerabilities: EPSS Data: Severity'] || '').split('\n').filter(s => s.trim())
+    const vulnScores = (raw['Aggregated: Qualys Vulnerabilities: EPSS Data: Score'] || '').split('\n').filter(s => s.trim())
+
+    const vulnerabilities: Vulnerability[] = []
+    for (let i = 0; i < vulnCVEs.length && i < 20; i++) {
+      const cveId = vulnCVEs[i]?.trim()
+      if (!cveId) continue
+
+      vulnerabilities.push({
+        qid: '',
+        title: cveId,
+        severity: parseInt(vulnSeverities[i]) || 0,
+        cveId: cveId,
+        truRiskScore: parseFloat(vulnScores[i]) || undefined,
+      })
+    }
+
+    // Sort vulnerabilities by severity
+    vulnerabilities.sort((a, b) => b.severity - a.severity)
+
+    // Determine activity status
+    const daysSinceLastSeen = daysBetween(lastSeen, now)
+    const activityStatus = daysSinceLastSeen <= 180 ? 'active' : 'inactive'
+
+    // Determine device status based on age, activity, and vulnerabilities
+    let status: DeviceStatus = 'unknown'
+    let statusReasons: string[] = []
+
+    if (activityStatus === 'inactive') {
+      status = 'inactive'
+      statusReasons.push(`Not seen for ${daysSinceLastSeen} days`)
+    } else {
+      // Check age-based status (Batten 3-year policy)
+      if (ageInYears >= 3) {
+        status = 'critical'
+        statusReasons.push(`Device is ${ageInYears.toFixed(1)} years old (exceeds 3-year replacement policy)`)
+      } else if (ageInYears >= 2) {
+        status = 'warning'
+        statusReasons.push(`Device is ${ageInYears.toFixed(1)} years old (approaching 3-year replacement cycle)`)
+      }
+
+      // Check vulnerability status (can escalate status)
+      if (vulnerabilities.some(v => v.severity >= 5)) {
+        if (status !== 'critical') {
+          status = 'critical'
+        }
+        statusReasons.push('Has critical (severity 5) vulnerabilities')
+      } else if (vulnerabilities.some(v => v.severity >= 4)) {
+        if (status !== 'critical' && status !== 'warning') {
+          status = 'warning'
+        }
+        statusReasons.push('Has high (severity 4) vulnerabilities')
+      }
+
+      // If still unknown or no issues, mark as good
+      if (status === 'unknown') {
+        status = 'good'
+        if (ageInYears > 0) {
+          statusReasons.push(`Device is ${ageInYears.toFixed(1)} years old (within 3-year lifecycle)`)
+        }
+        statusReasons.push('Active with no critical vulnerabilities')
+      }
+    }
+
+    // Determine replacement recommendation based on age
+    const replacementRecommended = ageInYears >= 3 && ageInYears <= 5
+    const replacementReason = replacementRecommended
+      ? `Device age is ${ageInYears.toFixed(1)} years (exceeds Batten 3-year replacement policy)`
+      : undefined
+
+    // Get data sources
+    const adapterConnections = (raw['Aggregated: Adapter Connections'] || '').split('\n').map(a => a.trim()).filter(a => a)
+    const sourceNote = `Data sources: ${adapterConnections.slice(0, 5).join(', ')}${adapterConnections.length > 5 ? ` +${adapterConnections.length - 5} more` : ''}`
+
+    const device: Device = {
+      id: `axonius-${hostname}`,
+      name: hostname,
+      owner,
+      ownerEmail,
+      additionalOwner,
+      department,
+      osType,
+      osVersion: '', // Axonius export doesn't have OS version in this export
+      manufacturer,
+      model,
+      serialNumber: serialNumber || undefined,
+      purchaseDate,
+      lastSeen,
+      ageInYears,
+      status,
+      activityStatus,
+      source: adapterConnections.includes('jamf_adapter') ? 'jamf' : adapterConnections.includes('intune_adapter') ? 'intune' : 'qualys',
+      ipAddress,
+      vulnerabilityCount: vulnerabilities.length,
+      criticalVulnCount: vulnerabilities.filter(v => v.severity >= 4).length,
+      criticalVulnCount5: vulnerabilities.filter(v => v.severity >= 5).length,
+      highVulnCount: vulnerabilities.filter(v => v.severity === 4).length,
+      vulnerabilities: vulnerabilities.length > 0 ? vulnerabilities : undefined,
+      replacementRecommended,
+      replacementReason,
+      statusReasons,
+      notes: sourceNote,
+    }
+
+    devices.push(device)
+  }
+
+  console.log(`✅ Transformed ${devices.length} BA/FBS devices from Axonius`)
+  return devices
 }

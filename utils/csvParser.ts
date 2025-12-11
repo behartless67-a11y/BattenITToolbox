@@ -137,6 +137,28 @@ export interface EntraDeviceData {
   'Management agent': string
 }
 
+export interface AxoniusDeviceData {
+  'Aggregated: Adapter Connections': string
+  'Aggregated: Asset Name': string
+  'Aggregated: Host Name': string
+  'Aggregated: Last Used Users': string
+  'Aggregated: Last Used Users Description': string
+  'Aggregated: Last Seen': string
+  'Aggregated: Network Interfaces: MAC': string
+  'Aggregated: Network Interfaces: IPs': string
+  'Aggregated: OS: Type': string
+  'Aggregated: Tags': string
+  'Aggregated: Device Model': string
+  'Aggregated: Qualys Vulnerabilities: EPSS Data: CVE ID': string
+  'Aggregated: Qualys Vulnerabilities: EPSS Data: Score': string
+  'Aggregated: Qualys Vulnerabilities: EPSS Data: Percentile': string
+  'Aggregated: Qualys Vulnerabilities: EPSS Data: Last Calculation Date': string
+  'Aggregated: Qualys Vulnerabilities: EPSS Data: Severity': string
+  'Aggregated: Qualys Vulnerabilities: EPSS Data: Probability': string
+  'Aggregated: Bios Serial': string
+  'Aggregated: Device Manufacturer Serial': string
+}
+
 /**
  * Parse CSV string into array of objects
  */
@@ -160,6 +182,85 @@ export function parseCSV<T>(csvContent: string): T[] {
     })
 
     data.push(row as T)
+  }
+
+  return data
+}
+
+/**
+ * Parse CSV with multi-line values (like Axonius exports)
+ * This handles newlines inside quoted fields
+ */
+export function parseCSVMultiline<T>(csvContent: string): T[] {
+  const data: T[] = []
+  let headers: string[] = []
+
+  // Remove BOM if present
+  if (csvContent.charCodeAt(0) === 0xFEFF) {
+    csvContent = csvContent.substring(1)
+  }
+
+  let currentRow: string[] = []
+  let currentField = ''
+  let inQuotes = false
+  let isFirstRow = true
+
+  for (let i = 0; i < csvContent.length; i++) {
+    const char = csvContent[i]
+    const nextChar = csvContent[i + 1]
+
+    if (char === '"') {
+      if (inQuotes && nextChar === '"') {
+        // Escaped quote
+        currentField += '"'
+        i++ // Skip next quote
+      } else {
+        // Toggle quote state
+        inQuotes = !inQuotes
+      }
+    } else if (char === ',' && !inQuotes) {
+      // Field delimiter
+      currentRow.push(currentField.trim())
+      currentField = ''
+    } else if ((char === '\n' || char === '\r') && !inQuotes) {
+      // Row delimiter (only when not in quotes)
+      if (char === '\r' && nextChar === '\n') {
+        i++ // Skip \n in \r\n
+      }
+
+      // Finish current field
+      currentRow.push(currentField.trim())
+      currentField = ''
+
+      if (currentRow.length > 0 && currentRow.some(f => f !== '')) {
+        if (isFirstRow) {
+          headers = currentRow
+          isFirstRow = false
+        } else {
+          const row: any = {}
+          headers.forEach((header, index) => {
+            row[header] = currentRow[index] || ''
+          })
+          data.push(row as T)
+        }
+      }
+
+      currentRow = []
+    } else {
+      currentField += char
+    }
+  }
+
+  // Handle last row if not empty
+  if (currentField || currentRow.length > 0) {
+    currentRow.push(currentField.trim())
+    if (currentRow.length > 0 && currentRow.some(f => f !== '')) {
+      const row: any = {}
+      headers.forEach((header, index) => {
+        row[header] = currentRow[index] || ''
+      })
+      data.push(row as T)
+    }
   }
 
   return data
