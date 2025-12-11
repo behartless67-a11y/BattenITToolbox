@@ -47,7 +47,6 @@ const APPLE_MODEL_MAP: Record<string, ModelInfo> = {
   'Mac15,7': { name: 'MacBook Pro 16" (M3 Pro, 2023)', year: 2023 },
   'Mac15,9': { name: 'MacBook Pro 16" (M3 Max, 2023)', year: 2023 },
   'Mac15,11': { name: 'MacBook Pro 16" (M3 Max, 2023)', year: 2023 },
-  'Mac15,5': { name: 'MacBook Pro 15" (M3, 2024)', year: 2024 },
 
   // MacBook Pro - M2 (2022-2023)
   'Mac14,5': { name: 'MacBook Pro 14" (M2 Pro, 2023)', year: 2023 },
