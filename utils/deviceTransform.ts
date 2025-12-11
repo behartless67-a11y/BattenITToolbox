@@ -1005,7 +1005,7 @@ export function transformAxoniusData(axoniusData: AxoniusDeviceData[], usersMap?
 
       const computingId = extractComputingId(user)
       const testEmail = computingId ? `${computingId}@virginia.edu` : user
-      const isProvisioner = isITProvisioner(user, testEmail) || (computingId && isITProvisioner(computingId, testEmail))
+      const isProvisioner = isITProvisioner(user, testEmail) || (computingId ? isITProvisioner(computingId, testEmail) : false)
 
       validUsers.push({ raw: user, computingId, isProvisioner })
     }
