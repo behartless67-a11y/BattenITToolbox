@@ -1,4 +1,4 @@
-﻿"Aggregated: Adapter Connections","Aggregated: Asset Name","Aggregated: Host Name","Aggregated: Last Used Users","Aggregated: Last Used Users Description","Aggregated: Last Seen","Aggregated: Network Interfaces: MAC","Aggregated: Network Interfaces: IPs","Aggregated: OS: Type","Aggregated: Tags"
+﻿"Aggregated: Adapter Connections","Aggregated: Asset Name","Aggregated: Host Name","Aggregated: Last Used Users","Aggregated: Last Used Users Description","Aggregated: Last Seen","Aggregated: Network Interfaces: MAC","Aggregated: Network Interfaces: IPs","Aggregated: OS: Type","Aggregated: Tags","Aggregated: Device Model","Aggregated: Qualys Vulnerabilities: EPSS Data: CVE ID","Aggregated: Qualys Vulnerabilities: EPSS Data: Score","Aggregated: Qualys Vulnerabilities: EPSS Data: Percentile","Aggregated: Qualys Vulnerabilities: EPSS Data: Last Calculation Date","Aggregated: Qualys Vulnerabilities: EPSS Data: Severity","Aggregated: Qualys Vulnerabilities: EPSS Data: Probability","Aggregated: Qualys Vulnerabilities: EPSS Data: CVE ID","Aggregated: Qualys Vulnerabilities: EPSS Data: Last Calculation Date","Aggregated: Qualys Vulnerabilities: EPSS Data: Percentile","Aggregated: Qualys Vulnerabilities: EPSS Data: Probability","Aggregated: Qualys Vulnerabilities: EPSS Data: Score","Aggregated: Qualys Vulnerabilities: EPSS Data: Severity","Aggregated: Bios Serial","Aggregated: Device Manufacturer Serial"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -33,7 +33,7 @@ fe80::39f8:ceee:5382:a447
 128.143.1.11
 172.18.72.130
 172.28.9.46
-172.18.71.121","Windows",""
+172.18.71.121","Windows","","Surface Pro 8","","","","","","","","","","","","","0F016D9220601J","0F016D9220601J"
 "active_directory_adapter
 azure_ad_adapter
 defender_atp_adapter
@@ -63,7 +63,7 @@ fe80::b309:121a:d91:1485
 ::1
 192.168.0.244
 73.31.28.86
-172.25.103.212","Windows",""
+172.25.103.212","Windows","","21HM000JUS","","","","","","","","","","","","","PF4RRLLS","PF4RRLLS"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -89,7 +89,7 @@ fe80::25f6:1997:9930:1c8f
 127.0.0.1
 ::1
 172.243.188.26
-128.143.20.253","Windows",""
+128.143.20.253","Windows","","21HM000RUS","","","","","","","","","","","","","PF4VX4QZ","PF4VX4QZ"
 "active_directory_adapter
 azure_ad_adapter
 defender_atp_adapter
@@ -121,7 +121,7 @@ fe80::57bf:6c8b:f738:446
 ::1
 192.168.1.19
 71.62.120.89
-172.16.1.114","Windows",""
+172.16.1.114","Windows","","21HK003MUS","","","","","","","","","","","","","PF538G8E","PF538G8E"
 "active_directory_adapter
 azure_ad_adapter
 defender_atp_adapter
@@ -146,7 +146,7 @@ FBS - Conference Room A L014","","2025-12-11 04:48:21","D4:F3:2D:9F:85:CB
 fe80::ba9a:c5ab:bbe4:2106
 127.0.0.1
 ::1
-199.111.228.3","Windows",""
+199.111.228.3","Windows","","Dell Inc. OptiPlex Micro Plus 7020","","","","","","","","","","","","","BXTSY24","BXTSY24"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -186,7 +186,9 @@ fe80::42a2:c1b6:ca25:9225
 ::1
 199.111.224.17
 172.25.198.151
-172.25.109.70","Windows",""
+172.25.109.70","Windows","","Surface Pro 9
+Surface Pro 7","","","","","","","","","","","","","0F008FG23033BF","0F008FG23033BF
+074014594753"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -224,7 +226,7 @@ fe80::7213:aa20:ad9a:fb50
 172.18.3.198
 fe80::bcfd:f4fa:3000:a41d
 67.145.199.5
-172.28.9.45","Windows",""
+172.28.9.45","Windows","","21HM000SUS","","","","","","","","","","","","","PF54XAX3","PF54XAX3"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -260,7 +262,7 @@ fe80::3ad4:e546:1795:7cf8
 fe80::faf8:e384:6b2f:995b
 199.111.224.1
 172.25.107.203
-172.25.123.184","Windows",""
+172.25.123.184","Windows","","21CB009KUS","","","","","","","","","","","","","MJ0K0CV1","MJ0K0CV1"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -286,7 +288,7 @@ fe80::43df:f40d:8c24:f471
 ::1
 199.111.224.7
 172.25.96.61
-172.25.199.182","Windows",""
+172.25.199.182","Windows","","20XY002VUS","","","","","","","","","","","","","PF3E27FF","PF3E27FF"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -330,7 +332,7 @@ fe80:13::8ce6:14ff:fe1e:a762
 fe80:12::8ce6:14ff:fe1e:a762
 172.25.66.19
 98.124.192.142
-199.111.224.7","OS X",""
+199.111.224.7","OS X","","MacBookPro18,2","","","","","","","","","","","","","MTXYPQC94Y","MTXYPQC94Y"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -362,7 +364,7 @@ fe80:b::1821:6a00:126:1a3e
 fe80:e::4456:5eff:fef4:1b74
 fe80:d::4456:5eff:fef4:1b74
 199.111.228.6
-fe80::1821:6a00:126:1a3e","OS X",""
+fe80::1821:6a00:126:1a3e","OS X","","MacBookPro17,1","","","","","","","","","","","","","C02HD5Y5Q05G","C02HD5Y5Q05G"
 "active_directory_adapter
 azure_ad_adapter
 defender_atp_adapter
@@ -384,7 +386,7 @@ fe80::600f:7bb6:2813:29a
 127.0.0.1
 ::1
 192.35.49.16
-10.144.6.141","Windows",""
+10.144.6.141","Windows","","","","","","","","","","","","","","","C02P51L2G3QP","C02P51L2G3QP"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -415,7 +417,7 @@ fe80:b::8a6:b296:d2ae:8b5c
 fe80::8a6:b296:d2ae:8b5c
 2601:5cf:4180:41a0:40df:593:cc7d:f2a7
 2601:5cf:4180:41a0:cd0:e71f:1f53:eeee
-2601:5cf:4180:41a0::77ad","OS X",""
+2601:5cf:4180:41a0::77ad","OS X","","Mac14,7","","","","","","","","","","","","","P730CD29Q5","P730CD29Q5"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -446,7 +448,7 @@ fe80::af5b:dacc:cfc:f5ee
 127.0.0.1
 ::1
 172.25.88.135
-73.251.39.131","Windows",""
+73.251.39.131","Windows","","21HM000GUS","","","","","","","","","","","","","PF4NV7MD","PF4NV7MD"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -490,7 +492,7 @@ fe80:e::1051:48ff:feae:1c08
 fe80::1406:958f:2f8b:1443
 fe80::83c:b89b:317d:bef3
 128.143.20.111
-73.31.249.86","OS X",""
+73.31.249.86","OS X","","Mac15,13","","","","","","","","","","","","","DPQ69M4PDY","DPQ69M4PDY"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -514,7 +516,7 @@ fdb0:1f50:d6b2:e025:b152:868b:1b33:18be
 fe80::6fa4:be5:49ee:1ed8
 127.0.0.1
 ::1
-98.124.192.177","Windows",""
+98.124.192.177","Windows","","21HM000SUS","","","","","","","","","","","","","PF4P197J","PF4P197J"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -555,7 +557,7 @@ fe80::1cea:730c:3618:1f53
 172.25.65.232
 172.25.154.49
 104.226.52.90
-172.20.1.160","OS X",""
+172.20.1.160","OS X","","Mac15,13","","","","","","","","","","","","","G9XFGXQ5JY","G9XFGXQ5JY"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -593,7 +595,7 @@ fe80:d::4443:fbff:fe13:559
 fe80::1069:6511:8283:2b90
 64.99.243.79
 172.25.204.121
-172.26.44.0","OS X",""
+172.26.44.0","OS X","","Mac15,12","","","","","","","","","","","","","M9CMX571WQ","M9CMX571WQ"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -619,7 +621,7 @@ fe80::6de:66f0:3747:20ff
 ::1
 199.111.228.5
 172.27.66.159
-73.216.232.178","Windows",""
+73.216.232.178","Windows","","21HM000SUS","","","","","","","","","","","","","PF4RMEX0","PF4RMEX0"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -647,7 +649,7 @@ fe80::f0c8:6cb9:e457:1622
 fe80::3a2b:5cae:c158:679d
 127.0.0.1
 ::1
-199.111.224.28","Windows",""
+199.111.224.28","Windows","","21HM000JUS","","","","","","","","","","","","","PF4ZC01H","PF4ZC01H"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -679,7 +681,7 @@ fe80:e::64c7:68ff:fe1b:8013
 fe80:b::a494:37ff:febf:c3f0
 fe80:d::64c7:68ff:fe1b:8013
 71.51.169.22
-fe80::1c9f:1e25:1a8a:2e53","OS X",""
+fe80::1c9f:1e25:1a8a:2e53","OS X","","Mac15,13","","","","","","","","","","","","","F3VQHH7W0R","F3VQHH7W0R"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -704,7 +706,7 @@ fe80::3b77:77af:212c:4aab
 fe80::4cfe:74b3:6bdf:31e0
 127.0.0.1
 ::1
-199.111.228.5","Windows",""
+199.111.228.5","Windows","","83A4","","","","","","","","","","","","","YX0A5777","YX0A5777"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -728,7 +730,7 @@ ESERVICES\\tyl7jhm","","2025-12-11 04:12:00","F8:FE:5E:2C:5D:53","172.27.101.29
 fe80::9e94:2df7:505c:762d
 127.0.0.1
 ::1
-199.111.228.1","Windows",""
+199.111.228.1","Windows","","83A4","","","","","","","","","","","","","YX0A56X8","YX0A56X8"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -767,7 +769,7 @@ fe80:d::ec70:e4ff:fe06:c551
 fe80::23:33d3:ff4b:267
 73.31.227.71
 172.27.65.27
-172.25.51.66","OS X",""
+172.25.51.66","OS X","","Mac15,12","","","","","","","","","","","","","J6G6KMT2YY","J6G6KMT2YY"
 "active_directory_adapter
 azure_ad_adapter
 defender_atp_adapter
@@ -788,7 +790,7 @@ fe80::8e37:4ad7:1ce2:421d
 127.0.0.1
 ::1
 172.25.126.246
-98.244.79.166","Windows",""
+98.244.79.166","Windows","","21KCS0M500","","","","","","","","","","","","","PF53F6CM","PF53F6CM"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -829,7 +831,7 @@ fe80::4b7:9674:5af8:d766
 2601:5ca:180:2990::2140
 73.147.242.58
 199.111.224.53
-172.25.91.232","OS X",""
+172.25.91.232","OS X","","Mac15,13","","","","","","","","","","","","","D2L4DYH5Y9","D2L4DYH5Y9"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -857,7 +859,7 @@ fe80::4203:90f1:ebbb:2bd
 199.111.224.72
 172.27.96.17
 192.80.84.58
-172.20.4.31","Windows",""
+172.20.4.31","Windows","","21KC009XUS","","","","","","","","","","","","","PF5DW3LN","PF5DW3LN"
 "azure_ad_adapter
 azure_ad_adapter
 defender_atp_adapter
@@ -891,7 +893,7 @@ fe80::cd54:24f9:4744:47b
 98.169.240.55
 172.25.111.105
 172.25.102.161
-172.25.114.9","Windows",""
+172.25.114.9","Windows","","21HM000SUS","","","","","","","","","","","","","PF4NN6RG","PF4NN6RG"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -912,7 +914,7 @@ WDAGUtilityAccount","Faculty","2025-12-11 03:28:05","8C:85:90:C9:BE:56","172.27.
 fe80::c157:b2a4:410e:83c
 127.0.0.1
 ::1
-199.111.228.6","Windows",""
+199.111.228.6","Windows","","MacBookPro14,2","","","","","","","","","","","","","C02WP083HV2V","C02WP083HV2V"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -950,7 +952,7 @@ fe80:d::586f:3aff:fe3d:105d
 2601:5cf:407f:a940::cbec
 2601:5cf:407f:a940:4f4:9bdb:e50:c31e
 fe80::400:9a7f:18ad:3ca8
-172.27.108.0","OS X",""
+172.27.108.0","OS X","","Mac15,13","","","","","","","","","","","","","J02VCJD70H","J02VCJD70H"
 "defender_atp_adapter
 jamf_adapter
 opswat_adapter
@@ -989,7 +991,7 @@ fe80:e::989e:3ff:fecb:fe45
 fe80::14fe:6aee:3ef7:7d4d
 172.25.67.202
 204.111.113.29
-192.168.1.248","OS X",""
+192.168.1.248","OS X","","Mac16,13","","","","","","","","","","","","","K2XC6KGFGV","K2XC6KGFGV"
 "defender_atp_adapter
 defender_atp_adapter
 jamf_adapter
@@ -1040,7 +1042,7 @@ fe80:d::143c:ed9c:958c:58db
 fe80:11::6450:bcff:fef0:6060
 fe80::8d2:4ffc:1bce:8b06
 fe80::143c:ed9c:958c:58db
-199.111.240.4","OS X",""
+199.111.240.4","OS X","","MacBookPro18,2","","","","","","","","","","","","","XF6YWFQYRL","XF6YWFQYRL"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -1069,7 +1071,7 @@ fe80::99d5:ca50:2f54:7a55
 ::1
 172.28.9.140
 fe80::2bed:3764:20d9:fc64
-199.111.240.9","Windows",""
+199.111.240.9","Windows","","Latitude 5320","","","","","","","","","","","","","GRF64B3","GRF64B3"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -1090,7 +1092,7 @@ Admin","","2025-12-10 02:16:05","1C:C1:0C:CB:D1:F8
 fe80::778:30fa:7ab:742d
 127.0.0.1
 ::1
-199.111.224.6","Windows",""
+199.111.224.6","Windows","","20XXS99P00","","","","","","","","","","","","","PF3JVDLE","PF3JVDLE"
 "azure_ad_adapter
 azure_ad_adapter
 defender_atp_adapter
@@ -1108,7 +1110,7 @@ fe80::c5f3:be71:8766:6241
 fe80::8046:b134:18ed:751f
 127.0.0.1
 ::1
-64.203.155.63","Windows",""
+64.203.155.63","Windows","","Precision 3630 Tower","","","","","","","","","","","","","","875MF33"
 "azure_ad_adapter
 azure_ad_adapter
 defender_atp_adapter
@@ -1125,7 +1127,7 @@ fe80::525e:d4c4:7f46:a1fa
 fe80::d5ac:a7a8:143d:669b
 fe80::9cc8:c807:e9dd:163a
 127.0.0.1
-::1","Windows",""
+::1","Windows","","30FM0015US","","","","","","","","","","","","","","MJ0J64R6"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -1148,7 +1150,7 @@ Admin","Staff","2025-12-10 02:20:07","80:38:FB:84:EC:25","192.168.1.198
 fe80::d9fa:233f:87fb:325
 127.0.0.1
 ::1
-216.126.34.131","Windows",""
+216.126.34.131","Windows","","Latitude 7320","","","","","","","","","","","","","D45F0J3","D45F0J3"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -1179,7 +1181,7 @@ fe80:b::74a6:cdff:febc:c2b6
 fe80:d::ac80:f3ff:fea6:2cc0
 172.16.11.52
 fe80::10db:d4a5:9133:e83f
-98.124.199.23","OS X",""
+98.124.199.23","OS X","","Mac14,15","","","","","","","","","","","","","M3QDTHKFVV","M3QDTHKFVV"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -1203,7 +1205,7 @@ WDAGUtilityAccount","Undergraduate Student","2025-12-11 03:15:47","28:6B:35:34:8
 fe80::b23b:da09:942c:ce78
 127.0.0.1
 ::1
-216.126.34.5","Windows",""
+216.126.34.5","Windows","","21CB000CUS","","","","","","","","","","","","","PF49NA2S","PF49NA2S"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -1227,7 +1229,7 @@ fe80:e::209d:b9ff:fee7:f3d1
 fe80:a::b0be:83ff:fe72:60eb
 fe80:d::209d:b9ff:fee7:f3d1
 fe80::4ee:3cd7:2c1e:7cd4
-199.111.228.1","OS X",""
+199.111.228.1","OS X","","MacBookPro17,1","","","","","","","","","","","","","C02HD5UKQ05G","C02HD5UKQ05G"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -1251,7 +1253,7 @@ fe80:f::801c:98ff:fe0d:9d9f
 fe80:d::c5f:8c2d:7b0a:cbf6
 fe80:e::801c:98ff:fe0d:9d9f
 199.111.228.7
-fe80::c5f:8c2d:7b0a:cbf6","OS X",""
+fe80::c5f:8c2d:7b0a:cbf6","OS X","","Mac14,3","","","","","","","","","","","","","N09RL7RYFR","N09RL7RYFR"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -1281,7 +1283,7 @@ fe80:10::646e:36ff:fef9:e14
 2606:8e80:7009:c300:553c:236:72dd:237a
 fe80::4b9:3591:b3f5:60e7
 172.27.120.195
-199.111.224.38","OS X",""
+199.111.224.38","OS X","","MacBookPro18,2","","","","","","","","","","","","","QHGQDY45WV","QHGQDY45WV"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -1304,7 +1306,7 @@ fe80::2173:2fe3:8117:4e48
 ::1
 172.28.9.242
 199.111.228.6
-fe80::122e:e370:2375:cd43","Windows",""
+fe80::122e:e370:2375:cd43","Windows","","Latitude 5320","","","","","","","","","","","","","8QF64B3","8QF64B3"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -1333,7 +1335,7 @@ fe80:b::30b9:c4ff:fe75:2dec
 fe80:e::502e:c0ff:feb3:9d47
 199.111.228.4
 fe80::40:8be6:b923:d442
-172.28.9.187","OS X",""
+172.28.9.187","OS X","","iMac21,1","","","","","","","","","","","","","H4TLF08MQ6X8","H4TLF08MQ6X8"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -1359,7 +1361,7 @@ fe80:d::7cba:56ff:fe10:4f5c
 fe80:c::7cba:56ff:fe10:4f5c
 10.0.0.160
 fe80::4e3:5250:9ba2:f1ad
-71.62.235.66","OS X",""
+71.62.235.66","OS X","","Mac14,2","","","","","","","","","","","","","F66439T6WR","F66439T6WR"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -1388,7 +1390,7 @@ fe80:e::6cdb:87ff:fe99:fff3
 fe80:d::6cdb:87ff:fe99:fff3
 fe80::c99:5e38:9b2e:f851
 2601:5c2:201:fb30:2cfd:d92d:8789:aae9
-76.111.191.220","OS X",""
+76.111.191.220","OS X","","Mac14,15","","","","","","","","","","","","","MF4194222N","MF4194222N"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -1415,7 +1417,7 @@ fe80:d::4c2:c494:b7f1:a96f
 fe80:c::249d:5ff:fe57:7865
 fe80:e::f0a9:3dff:fed2:7611
 fe80::4c2:c494:b7f1:a96f
-199.111.224.18","OS X",""
+199.111.224.18","OS X","","Mac15,5","","","","","","","","","","","","","HFR7RR6JWL","HFR7RR6JWL"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -1440,7 +1442,7 @@ fe80:21::c062:7fff:fe37:28f8
 fe80:20::c062:7fff:fe37:28f8
 fe80:19::859:29e:b0eb:dded
 fe80::859:29e:b0eb:dded
-199.111.224.1","OS X",""
+199.111.224.1","OS X","","Mac14,14","","","","","","","","","","","","","PH2Y9F4WLT","PH2Y9F4WLT"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -1460,7 +1462,7 @@ Admin","","2025-12-10 02:17:40","C8:15:4E:25:D2:9E","192.168.0.134
 fe80::282d:a80d:d29e:6d34
 127.0.0.1
 ::1
-98.124.201.174","Windows",""
+98.124.201.174","Windows","","21HM002GUS","","","","","","","","","","","","","PF4RV9AB","PF4RV9AB"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -1484,7 +1486,7 @@ Staff","2025-12-10 18:42:10","90:09:DF:6D:C4:4B","192.168.1.153
 fe80::cfa8:7b45:c4ef:6fcf
 127.0.0.1
 ::1
-97.146.157.221","Windows",""
+97.146.157.221","Windows","","21HM000SUS","","","","","","","","","","","","","PF4PHYJ4","PF4PHYJ4"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -1515,7 +1517,7 @@ fe80:b::142f:3d2b:395b:cad4
 199.111.228.5
 fe80::142f:3d2b:395b:cad4
 172.28.9.80
-172.27.9.169","OS X",""
+172.27.9.169","OS X","","MacBookPro17,1","","","","","","","","","","","","","C02HD5Y8Q05G","C02HD5Y8Q05G"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -1535,7 +1537,7 @@ Admin","","2025-12-10 02:17:46","C8:8A:9A:73:8A:1B","192.168.0.53
 fe80::ba76:6a7f:36b8:7c2a
 127.0.0.1
 ::1
-73.148.13.250","Windows",""
+73.148.13.250","Windows","","21HM000SUS","","","","","","","","","","","","","PF4SZFTM","PF4SZFTM"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -1569,7 +1571,7 @@ fe80:d::f8f4:83ff:feea:dab5
 10.0.0.198
 76.120.199.52
 fe80::1484:13b7:5519:5cd5
-192.168.86.21","OS X",""
+192.168.86.21","OS X","","Mac15,13","","","","","","","","","","","","","D9YVPJ6MK7","D9YVPJ6MK7"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -1594,7 +1596,7 @@ fe80::b5b8:d5c1:f5ff:f129
 127.0.0.1
 ::1
 76.111.190.14
-172.28.9.80","Windows",""
+172.28.9.80","Windows","","21HM000SUS","","","","","","","","","","","","","PF4STCA9","PF4STCA9"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -1631,7 +1633,7 @@ fd80:2ae2:def:1:cee:5700:e80d:8ef8
 2606:8e80:7007:2700:b1e5:d843:1df8:d7a8
 fe80:d::603e:5fff:fe6d:51c2
 fe80:10::1071:46ff:fe7e:5ad8
-fe80::14b2:5b42:cb1b:694c","OS X",""
+fe80::14b2:5b42:cb1b:694c","OS X","","Mac15,8","","","","","","","","","","","","","KX94FQK629","KX94FQK629"
 "defender_atp_adapter
 mssql_adapter
 qualys_scans_adapter
@@ -1650,7 +1652,7 @@ Admin","","2025-12-11 04:12:24","D4:E9:8A:0C:53:C8","172.27.106.74
 fe80::2ec3:238a:7cf3:4f40
 127.0.0.1
 ::1
-199.111.228.1","Windows",""
+199.111.228.1","Windows","","Dell Inc. OptiPlex Micro 7010","","","","","","","","","","","","","GWDJPZ3","GWDJPZ3"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -1690,7 +1692,7 @@ fe80::1055:f800:57bf:bb
 2601:5cf:407e:3ab0::9345
 174.179.107.18
 192.168.1.215
-172.27.108.43","OS X",""
+172.27.108.43","OS X","","Mac15,13","","","","","","","","","","","","","DDJY0WNF61","DDJY0WNF61"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -1713,7 +1715,7 @@ fe80::559b:7272:34ee:7abb
 127.0.0.1
 ::1
 172.25.79.116
-199.111.224.49","Windows",""
+199.111.224.49","Windows","","21H3001DUS","","","","","","","","","","","","","PW0B3DR6","PW0B3DR6"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -1730,7 +1732,7 @@ gwf3n","Staff","2025-12-07 13:41:30","10:91:D1:9C:20:70
 fe80::b3c:a859:6915:28d5
 127.0.0.1
 ::1
-10.0.0.114","Windows",""
+10.0.0.114","Windows","","21HM000GUS","","","","","","","","","","","","","","PF4Z8MP6"
 "azure_ad_adapter
 defender_atp_adapter
 mssql_adapter
@@ -1751,7 +1753,7 @@ fe80::255a:7ebe:9138:e4c1
 ::1
 67.211.129.29
 fd8d:8349:4c77:3032:c340:cd14:a7e7:c219
-fd8d:8349:4c77:3032:7ccb:5ba5:fe77:4703","Windows",""
+fd8d:8349:4c77:3032:7ccb:5ba5:fe77:4703","Windows","","21HM000JUS","","","","","","","","","","","","","PF4R52K8","PF4R52K8"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -1787,7 +1789,7 @@ fe80:11::78d0:81ff:fe9c:ce5
 fe80:e::603e:5fff:fe8a:ab1b
 fe80:10::78d0:81ff:fe9c:ce5
 fe80::c67:559c:b942:d2e8
-173.62.14.202","OS X",""
+173.62.14.202","OS X","","Mac15,10","","","","","","","","","","","","","M63X0XY3RD","M63X0XY3RD"
 "azure_ad_adapter
 defender_atp_adapter
 opswat_adapter
@@ -1813,7 +1815,7 @@ fe80::8f8:fe4e:a08f:58f
 ::1
 10.164.21.179
 129.2.89.179
-172.16.2.145","Windows",""
+172.16.2.145","Windows","","21KC009XUS","","","","","","","","","","","","","PF56Q704","PF56Q704"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -1837,7 +1839,7 @@ D6:C5:70:CB:5E:2D","192.168.1.60
 fe80:b::1c27:3a83:a9f3:4a6
 fe80:e::d4f9:7bff:fe3c:83d
 fe80:d::d4f9:7bff:fe3c:83d
-64.96.71.70","OS X",""
+64.96.71.70","OS X","","Mac15,13","","","","","","","","","","","","","K6G4QJ7L1F","K6G4QJ7L1F"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -1878,7 +1880,7 @@ fe80:f::d8e3:93ff:fee6:eeae
 98.244.81.130
 fe80::3e:3fbb:a667:9b25
 fe80::86c:36f3:4a34:5a78
-192.168.0.185","OS X",""
+192.168.0.185","OS X","","Mac15,13","","","","","","","","","","","","","C6HL72J504","C6HL72J504"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -1920,7 +1922,7 @@ fe80:11::d44e:57ff:fe59:f7d7
 192.168.12.180
 172.25.122.194
 172.25.98.27
-172.25.68.54","OS X",""
+172.25.68.54","OS X","","Mac15,7","","","","","","","","","","","","","","M2YJYTJQJ2"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -1954,7 +1956,7 @@ fe80:b::1842:2f91:75c2:7698
 fe80:d::84b5:e4ff:fe35:3c2f
 2601:5c2:300:1dc0:4cb8:aa08:d60a:3c6d
 fe80::1842:2f91:75c2:7698
-73.40.0.198","OS X",""
+73.40.0.198","OS X","","Mac15,13","","","","","","","","","","","","","HT9617L6D4","HT9617L6D4"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -1977,7 +1979,7 @@ fe80::9ed1:c489:2c5a:3286
 fe80::c4eb:e045:fa98:86a4
 127.0.0.1
 ::1
-199.111.240.13","Windows",""
+199.111.240.13","Windows","","20UN005DUS","","","","","","","","","","","","","PW004MAQ","PW004MAQ"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -2002,7 +2004,7 @@ fe80::dd60:ba10:48aa:673a
 ::1
 64.96.67.254
 172.27.85.162
-172.27.82.48","Windows",""
+172.27.82.48","Windows","","21NS0014US","","","","","","","","","","","","","PF5B3A21","PF5B3A21"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -2031,7 +2033,7 @@ C4:35:D9:93:AE:55
 4E:98:C5:E0:FE:4C","192.168.50.66
 fe80:e::4cfb:9cff:fe55:4d04
 fe80:d::4cfb:9cff:fe55:4d04
-71.62.153.159","OS X",""
+71.62.153.159","OS X","","Mac14,2","","","","","","","","","","","","","WGH4T41YKY","WGH4T41YKY"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -2069,7 +2071,7 @@ fe80:e::a060:a4ff:fe51:2fc2
 fe80:d::a060:a4ff:fe51:2fc2
 fe80::2c:cbd0:2ed1:ca98
 68.100.183.33
-172.25.207.142","OS X",""
+172.25.207.142","OS X","","Mac15,13","","","","","","","","","","","","","GRTYGYL26N","GRTYGYL26N"
 "defender_atp_adapter
 jamf_adapter
 opswat_adapter
@@ -2096,7 +2098,7 @@ fe80:b::14a9:cfa0:2005:e5fd
 fd53:92fa:b84b:6b47:10d9:dd:ca6c:d885
 fe80:d::8007:88ff:fe46:6279
 71.2.162.96
-192.168.0.110","OS X",""
+192.168.0.110","OS X","","Mac16,13","","","","","","","","","","","","","GX6GNP3235","GX6GNP3235"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -2137,7 +2139,7 @@ fe80:10::4876:2eff:fe81:9267
 192.168.86.161
 98.124.198.73
 fe80::431:75a5:7ef5:d2c0
-107.194.68.12","OS X",""
+107.194.68.12","OS X","","Mac14,9","","","","","","","","","","","","","JV6M00R04J","JV6M00R04J"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -2172,7 +2174,7 @@ fe80:e::c47d:31ff:fe4e:4b28
 fe80:d::c47d:31ff:fe4e:4b28
 172.20.10.3
 98.244.84.103
-fe80::1c4e:f48c:4a1f:a336","OS X",""
+fe80::1c4e:f48c:4a1f:a336","OS X","","Mac15,13","","","","","","","","","","","","","HQFG9KTVQ5","HQFG9KTVQ5"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -2191,7 +2193,7 @@ tina..","","2025-12-10 20:36:16","84:94:37:C6:25:26
 96:A6:60:68:76:F2","172.27.106.161
 fe80:b::c42:e23e:ecff:bb4a
 fe80:e::700a:5aff:feb5:4ef8
-fe80:d::700a:5aff:feb5:4ef8","OS X",""
+fe80:d::700a:5aff:feb5:4ef8","OS X","","Mac15,13","","","","","","","","","","","","","","MY5VXK3PXL"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -2224,7 +2226,7 @@ fe80:d::8b4:22ff:fe2e:6e1f
 172.26.130.67
 199.111.212.33
 fe80::1484:f1e6:9ce8:f73a
-172.26.130.15","OS X",""
+172.26.130.15","OS X","","Mac15,12","","","","","","","","","","","","","JCD6NPWCL9","JCD6NPWCL9"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -2261,7 +2263,7 @@ fe80:10::28ca:f9ff:fe2e:e241
 172.27.95.243
 199.111.228.2
 fe80::1026:b590:d197:f76e
-172.27.99.235","OS X",""
+172.27.99.235","OS X","","MacBookPro18,3","","","","","","","","","","","","","LLJFR2F7K3","LLJFR2F7K3"
 "active_directory_adapter
 defender_atp_adapter
 mssql_adapter
@@ -2271,7 +2273,7 @@ d2d0lh63.eservices.virginia.edu","D2D0LH63","","","2025-12-10 02:19:35","A4:BB:6
 fe80::35b1:6165:e345:7f5
 127.0.0.1
 ::1
-199.111.240.11","Windows",""
+199.111.240.11","Windows","","OptiPlex 7080","","","","","","","","","","","","","2D0LH63","2D0LH63"
 "azure_ad_adapter
 azure_ad_adapter
 defender_atp_adapter
@@ -2297,7 +2299,7 @@ fe80::d33f:7aef:2d5a:59a6
 2601:5c2:100:1960:f9e:91e1:e6f0:bce8
 2601:5c2:100:1960:10bb:d985:750f:871b
 2601:5c2:100:1960::6956
-73.152.17.49","Windows",""
+73.152.17.49","Windows","","20UN005DUS","","","","","","","","","","","","","PW011GHH","PW011GHH"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -2316,7 +2318,7 @@ fe80::39f:aa59:2ef7:1a1d
 127.0.0.1
 ::1
 128.143.1.11
-172.18.72.14","Windows",""
+172.18.72.14","Windows","","20XY002VUS","","","","","","","","","","","","","PF3E26G3","PF3E26G3"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -2343,7 +2345,7 @@ fd19:daee:7c18:2dc0:56:9375:262f:595b
 fdad:adb1:2fbb:1:1cca:be0:264b:4436
 fe80:11::28c3:d4ff:fecb:6c38
 fe80:10::28c3:d4ff:fecb:6c38
-172.25.195.87","OS X",""
+172.25.195.87","OS X","","Mac14,10","","","","","","","","","","","","","","W3CVP4KX5Y"
 "azure_ad_adapter
 defender_atp_adapter
 mssql_adapter
@@ -2361,7 +2363,7 @@ Admin","","2025-12-10 02:16:56","A0:29:42:A9:73:8D
 fe80::85c8:72fd:116f:1e8a
 127.0.0.1
 ::1
-199.111.224.91","Windows",""
+199.111.224.91","Windows","","21CB009KUS","","","","","","","","","","","","","MJ0K0CV3","MJ0K0CV3"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -2389,7 +2391,7 @@ fe80:d::d4e8:74ff:fe08:d3de
 192.168.1.63
 172.25.193.70
 98.97.153.198
-fe80::1880:a0ec:7d05:824e","OS X",""
+fe80::1880:a0ec:7d05:824e","OS X","","MacBookAir10,1","","","","","","","","","","","","","FVFFC1WQQ6M1","FVFFC1WQQ6M1"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -2418,7 +2420,7 @@ fe80:d::f8e7:b6ff:fec2:81f1
 fe80::14cc:1192:7cf2:b3a2
 184.188.7.142
 192.168.12.103
-192.168.1.39","OS X",""
+192.168.1.39","OS X","","MacBookPro17,1","","","","","","","","","","","","","C02HD5WXQ05G","C02HD5WXQ05G"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -2447,7 +2449,7 @@ fe80:d::c42a:bfff:fe32:fd63
 74.79.49.66
 fe80::1431:4b39:bd78:ceeb
 192.168.68.52
-192.168.5.216","OS X",""
+192.168.5.216","OS X","","MacBookPro17,1","","","","","","","","","","","","","C02HD5XMQ05G","C02HD5XMQ05G"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -2471,7 +2473,7 @@ fe80:e::1c0c:bbff:fe80:3a2e
 fe80:d::1c0c:bbff:fe80:3a2e
 2601:5c2:103:7ea0:e9ab:c273:a283:e7da
 fe80::836:5e47:cee3:4f1d
-73.251.124.216","OS X",""
+73.251.124.216","OS X","","Mac14,15","","","","","","","","","","","","","DFH79H777L","DFH79H777L"
 "jamf_adapter
 mssql_adapter
 mssql_adapter
@@ -2484,7 +2486,7 @@ L020","FBS-L020-Zoom-RET
 fbs-ianzoom-ret.local","jww8je@virginia.edu
 sa7kj","None","2025-12-11 02:56:50","68:5B:35:B3:82:0C
 A8:86:DD:A7:77:59","172.27.117.199
-172.27.106.229","OS X",""
+172.27.106.229","OS X","","Macmini6,2","","","","","","","","","","","","","","C07M31BBDY3H"
 "defender_atp_adapter
 jamf_adapter
 opswat_adapter
@@ -2525,7 +2527,7 @@ fe80:11::f067:91ff:fec2:5d17
 fe80::1494:48f1:d8ef:add9
 fe80::1c6f:2316:4d2:76a4
 199.111.240.4
-10.0.0.88","OS X",""
+10.0.0.88","OS X","","MacBookPro18,3","","","","","","","","","","","","","VHHK4QH7VJ","VHHK4QH7VJ"
 "azure_ad_adapter
 azure_ad_adapter
 defender_atp_adapter
@@ -2540,7 +2542,7 @@ jlc2bd","Alumni","2025-12-04 18:05:44","A4:BB:6D:BF:9E:23","172.28.9.32
 fe80::f685:f19:80af:2a23
 127.0.0.1
 ::1
-172.28.9.182","Windows",""
+172.28.9.182","Windows","","OptiPlex 7080","","","","","","","","","","","","","","2H2CH63"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -2554,7 +2556,7 @@ jww8je","","2025-12-10 02:20:50","60:45:2E:47:B4:59","10.0.0.173
 2601:5cf:407e:6e20:e993:7cc0:583d:61b7
 fe80::6402:2729:805:d751
 127.0.0.1
-::1","Windows",""
+::1","Windows","","21HM000RUS","","","","","","","","","","","","","","PF4TCML4"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -2570,7 +2572,7 @@ fdc6:3242:6604:1:1229:1350:351b:e155
 2606:8e80:700b:3b00:ac9a:759d:f1d0:aca0
 fe80::8c65:d0a3:6b9b:90a5
 127.0.0.1
-::1","Windows",""
+::1","Windows","","21DJ","","","","","","","","","","","","","","MP2KLBL7"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -2593,7 +2595,7 @@ fe80:b::18b9:5369:e5be:2d12
 fe80:e::54a4:ebff:fe5d:54b
 fe80:d::54a4:ebff:fe5d:54b
 fe80::18b9:5369:e5be:2d12
-73.12.11.244","OS X",""
+73.12.11.244","OS X","","Mac14,7","","","","","","","","","","","","","NWY6YCV42V","NWY6YCV42V"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -2632,7 +2634,7 @@ fe80:15::1476:bdff:fe7e:40bc
 fe80:12::14b6:9d89:50a7:fbc1
 fe80:14::1476:bdff:fe7e:40bc
 fe80::14b6:9d89:50a7:fbc1
-199.111.224.31","OS X",""
+199.111.224.31","OS X","","Mac14,12","","","","","","","","","","","","","YJ1X6LXVQG","YJ1X6LXVQG"
 "azure_ad_adapter
 azure_ad_adapter
 defender_atp_adapter
@@ -2654,7 +2656,7 @@ fe80::86f4:8b80:700a:e156
 172.20.10.5
 75.75.38.17
 2600:1003:b87a:4f31:9016:5af0:e393:4e0
-2600:1003:b87a:4f31:65a9:f304:7c69:bf78","Windows",""
+2600:1003:b87a:4f31:65a9:f304:7c69:bf78","Windows","","21HM000JUS","","","","","","","","","","","","","PF4ZAGLD","PF4ZAGLD"
 "azure_ad_adapter
 azure_ad_adapter
 defender_atp_adapter
@@ -2677,7 +2679,7 @@ C8:1F:66:AD:12:51","172.27.113.0
 fe80::c20b:5274:97f9:798f
 127.0.0.1
 ::1
-199.111.228.6","Windows",""
+199.111.228.6","Windows","","OptiPlex 9020 AIO","","","","","","","","","","","","","715ZJ02","715ZJ02"
 "jamf_adapter
 mssql_adapter
 opswat_adapter
@@ -2703,7 +2705,7 @@ F6:81:6C:27:F5:23
 F6:81:6C:27:F5:42
 F6:81:6C:27:F5:43","172.27.117.222
 fe80::850:1e6b:4700:42e0
-199.111.228.3","OS X",""
+199.111.228.3","OS X","","Mac14,2","","","","","","","","","","","","","F7D7RQF936","F7D7RQF936"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -2735,7 +2737,7 @@ fe80:b::896:9aa9:d548:e1c
 fe80:e::b3:ecff:fe21:3a92
 fe80:d::b3:ecff:fe21:3a92
 fe80::896:9aa9:d548:e1c
-73.216.133.193","OS X",""
+73.216.133.193","OS X","","Mac15,12","","","","","","","","","","","","","G19F942P9H","G19F942P9H"
 "defender_atp_adapter
 jamf_adapter
 opswat_adapter
@@ -2769,7 +2771,7 @@ fdad:adb1:2fbb:1:e7:2828:1737:471d
 fe80:12::880:69ff:fe23:26c1
 fe80::49e:dce3:b1d7:961d
 143.105.3.194
-143.105.3.1","OS X",""
+143.105.3.1","OS X","","Mac16,8","","","","","","","","","","","","","L9D2C5Y27T","L9D2C5Y27T"
 "defender_atp_adapter
 jamf_adapter
 opswat_adapter
@@ -2802,7 +2804,7 @@ fe80:11::9490:34ff:fe88:1cf3
 fe80:10::9490:34ff:fe88:1cf3
 fe80::1c1c:832d:afe4:21dd
 199.111.228.3
-192.168.1.112","OS X",""
+192.168.1.112","OS X","","Mac16,7","","","","","","","","","","","","","C3V25NQY65","C3V25NQY65"
 "azure_ad_adapter
 azure_ad_adapter
 defender_atp_adapter
@@ -2823,7 +2825,7 @@ fd1e:7e95:36fd:162f:44a6:2304:258c:8b59
 fe80::bae0:ed5:16d:fe4c
 127.0.0.1
 ::1
-71.219.40.128","Windows",""
+71.219.40.128","Windows","","Latitude 5550","","","","","","","","","","","","","17GRW64","17GRW64"
 "defender_atp_adapter
 jamf_adapter
 qualys_scans_adapter
@@ -2843,7 +2845,7 @@ fe80:12::148d:33ff:fe36:f86e
 fe80:f::146c:a48e:2285:64bb
 fe80:11::148d:33ff:fe36:f86e
 fe80::146c:a48e:2285:64bb
-199.111.224.6","OS X",""
+199.111.224.6","OS X","","Mac16,10","","","","","","","","","","","","","MQY3YG2W4H","MQY3YG2W4H"
 "defender_atp_adapter
 jamf_adapter
 qualys_scans_adapter
@@ -2865,7 +2867,7 @@ fe80:13::3cc5:1cff:fe46:e53e
 fe80:10::c6b:dd00:4f19:126b
 fe80:12::3cc5:1cff:fe46:e53e
 fe80::c6b:dd00:4f19:126b
-199.111.228.4","OS X",""
+199.111.228.4","OS X","","Mac16,10","","","","","","","","","","","","","CKPW3C24D9","CKPW3C24D9"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -2885,7 +2887,7 @@ Admin","Staff","2025-12-10 02:21:31","7C:21:4A:AA:54:97
 ::1
 192.168.0.94
 fe80::394c:b19a:a87:7ce
-98.244.78.35","Windows",""
+98.244.78.35","Windows","","20XW004GUS","","","","","","","","","","","","","PF3YEZC0","PF3YEZC0"
 "jamf_adapter
 mssql_adapter
 opswat_adapter
@@ -2921,7 +2923,7 @@ DA:1B:7B:35:C9:E3","172.20.10.10
 fe80::10e0:12d:a7cd:ab8b
 2600:382:b416:3c60:1c43:e2fc:a372:fff5
 2600:382:b416:3c60:9d21:3630:3390:cc67
-128.143.20.253","OS X",""
+128.143.20.253","OS X","","Mac14,7","","","","","","","","","","","","","TD2R4KVPFP","TD2R4KVPFP"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -2943,7 +2945,7 @@ fe80:f::902f:84ff:febf:ee8e
 fe80:c::188d:dd97:b948:106
 fe80:e::902f:84ff:febf:ee8e
 199.111.224.18
-fe80::188d:dd97:b948:106","OS X",""
+fe80::188d:dd97:b948:106","OS X","","Mac15,13","","","","","","","","","","","","","FFP795NQD2","FFP795NQD2"
 "defender_atp_adapter
 jamf_adapter
 opswat_adapter
@@ -2972,7 +2974,7 @@ fe80:b::1485:214:5aa1:d21d
 192.168.50.112
 98.124.203.246
 172.25.207.142
-172.25.80.53","OS X",""
+172.25.80.53","OS X","","Mac16,13","","","","","","","","","","","","","LD60G03W7V","LD60G03W7V"
 "defender_atp_adapter
 jamf_adapter
 opswat_adapter
@@ -3003,7 +3005,7 @@ fe80:c::1005:cca0:8203:aa3c
 fe80:e::98a8:fcff:fe95:1f3c
 192.168.0.126
 71.63.127.140
-fe80::64:35a3:adc3:9750","OS X",""
+fe80::64:35a3:adc3:9750","OS X","","Mac16,13","","","","","","","","","","","","","FYV2TM9FRH","FYV2TM9FRH"
 "defender_atp_adapter
 jamf_adapter
 opswat_adapter
@@ -3041,7 +3043,7 @@ fe80::10a9:ef38:ced9:1973
 172.19.0.158
 75.104.111.170
 97.146.209.186
-172.25.124.164","OS X",""
+172.25.124.164","OS X","","Mac16,13","","","","","","","","","","","","","K4GC9T0F5V","K4GC9T0F5V"
 "defender_atp_adapter
 jamf_adapter
 qualys_scans_adapter
@@ -3063,7 +3065,7 @@ fe80:17::9477:6aff:fe4d:583d
 fe80:16::9477:6aff:fe4d:583d
 fe80:10::c15:f9a5:1d32:672d
 fe80::c15:f9a5:1d32:672d
-199.111.228.4","OS X",""
+199.111.228.4","OS X","","Mac16,10","","","","","","","","","","","","","C7QWLKFW6J","C7QWLKFW6J"
 "defender_atp_adapter
 jamf_adapter
 opswat_adapter
@@ -3098,7 +3100,7 @@ fe80:11::882b:13ff:fe69:ea60
 fe80:10::882b:13ff:fe69:ea60
 192.168.0.171
 169.254.44.236
-207.181.211.136","OS X",""
+207.181.211.136","OS X","","Mac16,6","","","","","","","","","","","","","CMWTLQYM4F","CMWTLQYM4F"
 "defender_atp_adapter
 jamf_adapter
 opswat_adapter
@@ -3133,7 +3135,7 @@ fe80:b::1040:9ce4:8d6f:6bdd
 fe80:d::b418:57ff:fe84:4723
 172.25.113.60
 71.207.150.173
-fe80::c09:958c:5fea:42d5","OS X",""
+fe80::c09:958c:5fea:42d5","OS X","","Mac16,13","","","","","","","","","","","","","GCQ32V9Y95","GCQ32V9Y95"
 "defender_atp_adapter
 jamf_adapter
 opswat_adapter
@@ -3162,7 +3164,7 @@ fe80:e::dcc5:f9ff:fe7f:2a56
 fe80:d::dcc5:f9ff:fe7f:2a56
 10.0.0.25
 76.111.190.213
-fe80::850:5186:d46d:b168","OS X",""
+fe80::850:5186:d46d:b168","OS X","","Mac16,13","","","","","","","","","","","","","G394KLGXN0","G394KLGXN0"
 "defender_atp_adapter
 jamf_adapter
 opswat_adapter
@@ -3200,7 +3202,7 @@ fe80:d::4041:b6ff:fe66:f343
 73.31.114.111
 fe80::148e:a01:c025:ddbf
 10.101.7.6
-139.28.84.96","OS X",""
+139.28.84.96","OS X","","Mac16,12","","","","","","","","","","","","","MHQYJCQWT0","MHQYJCQWT0"
 "defender_atp_adapter
 jamf_adapter
 opswat_adapter
@@ -3228,7 +3230,7 @@ fe80:b::181b:d485:a8c1:b5f8
 fe80:e::683f:5cff:fe26:11d
 fe80:d::683f:5cff:fe26:11d
 128.143.232.255
-fe80::181b:d485:a8c1:b5f8","OS X",""
+fe80::181b:d485:a8c1:b5f8","OS X","","Mac14,2","","","","","","","","","","","","","J772GHGJXW","J772GHGJXW"
 "defender_atp_adapter
 jamf_adapter
 qualys_scans_adapter
@@ -3254,7 +3256,7 @@ fe80:10::84a0:15ff:fe4e:282a
 10.0.0.132
 fe80::10c2:5bf8:d63b:1d0c
 172.25.90.183
-199.111.224.21","OS X",""
+199.111.224.21","OS X","","MacBookPro18,3","","","","","","","","","","","","","TFWVR7K7M6","TFWVR7K7M6"
 "defender_atp_adapter
 jamf_adapter
 opswat_adapter
@@ -3285,7 +3287,7 @@ fe80:b::c40:ea4:a967:ef72
 fe80:e::3034:6ff:feb0:7c3e
 fe80:d::3034:6ff:feb0:7c3e
 76.104.7.38
-fe80::c40:ea4:a967:ef72","OS X",""
+fe80::c40:ea4:a967:ef72","OS X","","Mac16,13","","","","","","","","","","","","","H26Y3VW1M2","H26Y3VW1M2"
 "defender_atp_adapter
 jamf_adapter
 opswat_adapter
@@ -3311,7 +3313,7 @@ fe80:e::5c64:c2ff:fefb:d2b3
 fe80:d::5c64:c2ff:fefb:d2b3
 fe80:c::1c5d:c153:57fd:1a31
 fe80::1c5d:c153:57fd:1a31
-199.111.228.4","OS X",""
+199.111.228.4","OS X","","Mac14,2","","","","","","","","","","","","","H37499H4GF","H37499H4GF"
 "defender_atp_adapter
 jamf_adapter
 opswat_adapter
@@ -3342,7 +3344,7 @@ fe80:b::104f:7e00:41ce:b784
 fe80:d::2444:5ff:fec1:5a6a
 100.64.106.37
 206.248.200.242
-fe80::104f:7e00:41ce:b784","OS X",""
+fe80::104f:7e00:41ce:b784","OS X","","Mac16,13","","","","","","","","","","","","","K6MFP07DPG","K6MFP07DPG"
 "defender_atp_adapter
 jamf_adapter
 opswat_adapter
@@ -3374,7 +3376,7 @@ fe80:e::185f:8a56:ef2d:4b01
 fe80:11::ec0e:c6ff:feaf:7f12
 fe80:10::ec0e:c6ff:feaf:7f12
 73.171.122.58
-fe80::185f:8a56:ef2d:4b01","OS X",""
+fe80::185f:8a56:ef2d:4b01","OS X","","Mac16,8","","","","","","","","","","","","","H66604KGKJ","H66604KGKJ"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -3403,7 +3405,7 @@ fe80:e::1c86:ba24:e2be:1200
 fe80:11::68a7:7cff:fee7:f878
 fe80:10::68a7:7cff:fee7:f878
 172.25.106.226
-10.144.44.109","OS X",""
+10.144.44.109","OS X","","Mac14,9","","","","","","","","","","","","","","H72WDD44VK"
 "defender_atp_adapter
 jamf_adapter
 opswat_adapter
@@ -3448,7 +3450,7 @@ fe80:11::b050:a4ff:feec:2899
 172.25.197.18
 216.126.34.112
 fe80::1048:3cad:a659:eca3
-199.111.224.24","OS X",""
+199.111.224.24","OS X","","Mac16,7","","","","","","","","","","","","","DYC7MTXVXK","DYC7MTXVXK"
 "defender_atp_adapter
 jamf_adapter
 opswat_adapter
@@ -3477,7 +3479,7 @@ fe80:b::347f:ceff:fe95:6a0c
 fe80:d::b0d2:24ff:feb5:75ce
 10.14.170.93
 fe80::1014:e65b:8ee9:4b59
-128.143.232.255","OS X",""
+128.143.232.255","OS X","","Mac14,2","","","","","","","","","","","","","DQGTX629PD","DQGTX629PD"
 "defender_atp_adapter
 jamf_adapter
 opswat_adapter
@@ -3507,7 +3509,7 @@ fe80:b::347f:ceff:fea2:2683
 fe80:d::fc62:f2ff:fe99:6ede
 10.14.166.129
 fe80::428:4d5e:eff6:3b7f
-128.143.232.255","OS X",""
+128.143.232.255","OS X","","Mac14,2","","","","","","","","","","","","","DKJXKV07WF","DKJXKV07WF"
 "defender_atp_adapter
 jamf_adapter
 opswat_adapter
@@ -3536,7 +3538,7 @@ fe80:e::5cf3:65ff:fe09:39da
 fe80:d::5cf3:65ff:fe09:39da
 10.14.169.67
 128.143.232.255
-fe80::b8:5e0b:7673:e146","OS X",""
+fe80::b8:5e0b:7673:e146","OS X","","Mac14,2","","","","","","","","","","","","","DXK0692YVL","DXK0692YVL"
 "defender_atp_adapter
 jamf_adapter
 opswat_adapter
@@ -3565,7 +3567,7 @@ fe80:e::c4aa:bff:fe16:4ada
 fe80:b::189e:8f37:5aa2:6d2
 fe80:d::c4aa:bff:fe16:4ada
 fe80::189e:8f37:5aa2:6d2
-199.111.0.87","OS X",""
+199.111.0.87","OS X","","Mac16,13","","","","","","","","","","","","","KWMFP723MK","KWMFP723MK"
 "defender_atp_adapter
 jamf_adapter
 opswat_adapter
@@ -3598,7 +3600,7 @@ fe80:e::20de:48ff:fe9c:2213
 fe80:d::20de:48ff:fe9c:2213
 172.16.3.53
 64.96.67.254
-fe80::49f:a85e:abd9:2cd1","OS X",""
+fe80::49f:a85e:abd9:2cd1","OS X","","Mac16,13","","","","","","","","","","","","","HXYWQGHG3Y","HXYWQGHG3Y"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -3632,7 +3634,7 @@ fe80:d::a448:8eff:fe3f:af96
 172.27.84.207
 172.20.3.175
 192.168.100.167
-172.25.123.230","OS X",""
+172.25.123.230","OS X","","Mac14,15","","","","","","","","","","","","","","MW39WM2M26"
 "mssql_adapter
 mssql_adapter
 qualys_scans_adapter
@@ -3650,7 +3652,7 @@ _mbsetupuser
 _uucp","","2025-12-11 04:03:43","AC:87:A3:04:67:83
 B8:09:8A:C8:4E:33","10.145.234.135
 199.111.0.87
-fe80::1059:62ee:f63d:a66c","OS X",""
+fe80::1059:62ee:f63d:a66c","OS X","","iMac15,1","","","","","","","","","","","","","C02P244RFY14","C02P244RFY14"
 "active_directory_adapter
 azure_ad_adapter
 mssql_adapter
@@ -3660,7 +3662,7 @@ sa7kj","Alumni
 Staff
 None","2025-12-10 02:22:39","A0:A8:CD:C8:7B:8E
 C8:1F:66:B1:01:FF
-00:E0:4C:68:01:C8","172.28.9.23","Windows",""
+00:E0:4C:68:01:C8","172.28.9.23","Windows","","OptiPlex 9020 AIO","","","","","","","","","","","","","","7H8YY12"
 "opswat_adapter
 qualys_scans_adapter
 qualys_scans_adapter
@@ -3686,7 +3688,7 @@ AC:DE:48:00:11:22","192.168.0.214
 67.174.64.4
 fe80::10d9:ca1a:5a4a:98c2
 fe80::aede:48ff:fe00:1122
-192.168.0.213","OS X",""
+192.168.0.213","OS X","","MacBookPro16,1","","","","","","","","","","","","","C02FD4J2MD6T","C02FD4J2MD6T"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -3702,7 +3704,7 @@ fe80:9::f0fc:e2ff:fed7:ba94
 fe80:7::1cd5:d313:d97a:84b9
 fe80:6::34ce:e3ff:feef:e63
 fe80:8::f0fc:e2ff:fed7:ba94
-192.168.1.46","OS X",""
+192.168.1.46","OS X","","iMacPro1,1","","","","","","","","","","","","","","C02VV0QWJLCN"
 "jamf_adapter
 qualys_scans_adapter
 qualys_scans_adapter
@@ -3722,7 +3724,7 @@ fe80::c0e:2d0b:4da2:45a
 104.151.91.181
 10.56.2.3
 193.175.6.4
-10.55.25.161","OS X",""
+10.55.25.161","OS X","","MacBookPro18,3","","","","","","","","","","","","","LYQ057LV7T","LYQ057LV7T"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -3742,7 +3744,7 @@ fd53:92fa:b84b:6b47:141d:24f0:decb:49d4
 fe80:11::9c0e:8eff:fe87:f0a
 192.168.0.106
 192.168.0.55
-10.0.0.238","OS X",""
+10.0.0.238","OS X","","MacBookPro18,1","","","","","","","","","","","","","","JH00DC90J2"
 "azure_ad_adapter
 defender_atp_adapter
 qualys_scans_adapter
@@ -3757,7 +3759,7 @@ Admin","Staff","2025-12-10 19:30:26","58:CE:2A:10:C1:1A","172.16.2.43
 fe80::537b:2822:1d74:a5c7
 127.0.0.1
 ::1
-64.96.67.254","Windows",""
+64.96.67.254","Windows","","Inspiron 16 5620","","","","","","","","","","","","","BNP3ND3","BNP3ND3"
 "defender_atp_adapter
 jamf_adapter
 qualys_scans_adapter
@@ -3789,7 +3791,7 @@ fe80:10::9037:c5ff:fef0:192
 fe80::458:64a:6a1f:591a
 71.185.206.221
 172.20.3.155
-192.168.1.223","OS X",""
+192.168.1.223","OS X","","MacBookPro18,3","","","","","","","","","","","","","X77G6XQVX9","X77G6XQVX9"
 "defender_atp_adapter
 jamf_adapter
 qualys_scans_adapter
@@ -3815,7 +3817,7 @@ fe80:e::82b:3140:a156:e63d
 2601:5cf:407e:6e20::b7d8
 fe80:10::e0aa:9eff:fefc:4633
 fe80::82b:3140:a156:e63d
-73.31.30.45","OS X",""
+73.31.30.45","OS X","","MacBookPro18,1","","","","","","","","","","","","","GGJFP24DWL","GGJFP24DWL"
 "defender_atp_adapter
 mssql_adapter
 qualys_scans_adapter
@@ -3843,7 +3845,7 @@ fe80:5::94e7:60ff:fe2e:f692
 fe80:b::74a6:cdff:fecb:8ed7
 fe80:4::94e7:60ff:fe2e:f691
 fe80::1c96:361d:da9d:d5f1
-143.105.151.68","OS X",""
+143.105.151.68","OS X","","Mac14,15","","","","","","","","","","","","","G9FJQ7KRH7","G9FJQ7KRH7"
 "defender_atp_adapter
 mssql_adapter
 opswat_adapter
@@ -3853,7 +3855,7 @@ FBS-AM3DE-2022","ba-pf3hn2dm
 fbs-am3de-2022.eservices.virginia.edu","bh4hb
 am3de","Alumni","2025-11-25 00:00:32","F4:26:79:20:FD:78
 F4:26:79:20:FD:7C","172.27.84.228
-172.25.104.210","Windows",""
+172.25.104.210","Windows","","20W600EKUS","","","","","","","","","","","","","","PF3HN2DM"
 "mssql_adapter
 opswat_adapter
 qualys_scans_adapter
@@ -3882,7 +3884,7 @@ EA:4C:BD:38:2C:59
 EA:4C:BD:38:2C:5A","192.168.7.105
 fe80::884:2806:e762:1827
 71.51.186.235
-192.168.7.85","OS X",""
+192.168.7.85","OS X","","Mac15,12","","","","","","","","","","","","","M96J17X4YG","M96J17X4YG"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -3895,7 +3897,7 @@ fe80:c::838:cb4a:f151:b461
 fe80:e::849b:90ff:fe49:952b
 fe80:b::74a6:cdff:fee1:e71b
 fe80:d::849b:90ff:fe49:952b
-172.25.84.243","OS X",""
+172.25.84.243","OS X","","Mac14,15","","","","","","","","","","","","","","C2RWMQGWW5"
 "active_directory_adapter
 azure_ad_adapter
 azure_ad_adapter
@@ -3904,11 +3906,11 @@ service_now_adapter","FBS-09776337255
 fbs-09776337255.eservices.virginia.edu","FBS-09776337255","ml4db@virginia.edu","Faculty","2025-12-10 02:23:23","A0:4A:5E:D4:D3:E5","192.168.0.230
 fe80::a10b:1ec9:71f9:3806
 127.0.0.1
-::1","Windows",""
+::1","Windows","","Surface Pro","","","","","","","","","","","","","","097763372553"
 "active_directory_adapter
 azure_ad_adapter
 mssql_adapter
-service_now_adapter","FBS-V0C3Q2O","FBS-V0C3Q2O","jww8je","","2025-12-10 02:23:44","A0:B3:39:79:A4:3C","172.25.93.237","Windows",""
+service_now_adapter","FBS-V0C3Q2O","FBS-V0C3Q2O","jww8je","","2025-12-10 02:23:44","A0:B3:39:79:A4:3C","172.25.93.237","Windows","","","","","","","","","","","","","","","",""
 "defender_atp_adapter
 jamf_adapter
 qualys_scans_adapter
@@ -3928,7 +3930,7 @@ fe80:e::c825:b1ff:feb4:b0bb
 fe80:d::c825:b1ff:feb4:b0bb
 10.0.0.240
 199.111.224.93
-fe80::10e4:7cd3:933a:4a0","OS X",""
+fe80::10e4:7cd3:933a:4a0","OS X","","Mac16,13","","","","","","","","","","","","","MN993YDW3M","MN993YDW3M"
 "defender_atp_adapter
 jamf_adapter
 qualys_scans_adapter
@@ -3961,7 +3963,7 @@ fe80:6::c441:a0ff:feef:402
 fe80:4::c441:a0ff:feef:405
 199.111.240.10
 fe80::c54:318a:562d:bfdc
-fe80::47b:3f17:52c9:7b05","OS X",""
+fe80::47b:3f17:52c9:7b05","OS X","","Mac14,12","","","","","","","","","","","","","PMQPR4G3XM","PMQPR4G3XM"
 "defender_atp_adapter
 jamf_adapter
 mssql_adapter
@@ -3973,7 +3975,7 @@ fe80:e::cb:958a:2fa:8f1f
 fe80:11::dcaa:bdff:fe7b:bfa
 fe80:10::dcaa:bdff:fe7b:bfa
 192.168.50.250
-172.27.108.62","OS X",""
+172.27.108.62","OS X","","MacBookPro18,2","","","","","","","","","","","","","","Q2D36X3TK2"
 "jamf_adapter
 qualys_scans_adapter
 qualys_scans_adapter
@@ -3995,7 +3997,7 @@ BattenIT_2025","Faculty","2025-12-11 03:39:47","F8:4D:89:6D:3A:71
 172.25.89.183
 199.111.240.2
 fe80::d6:e731:dcf0:d3c0
-fe80::bf:9530:3da7:9c2a","OS X",""
+fe80::bf:9530:3da7:9c2a","OS X","","MacBookPro18,4","","","","","","","","","","","","","VJVQD3WXX1","VJVQD3WXX1"
 "defender_atp_adapter
 jamf_adapter
 qualys_scans_adapter
@@ -4015,7 +4017,7 @@ fe80:e::8461:c1ff:fee0:cebe
 fe80:d::8461:c1ff:fee0:cebe
 10.14.156.236
 128.143.232.255
-fe80::9e:adfe:a7c6:c215","OS X",""
+fe80::9e:adfe:a7c6:c215","OS X","","Mac14,2","","","","","","","","","","","","","L226JH2VXT","L226JH2VXT"
 "mssql_adapter
 mssql_adapter
 service_now_adapter
@@ -4025,7 +4027,7 @@ splunk_adapter","FBS-IHS8M
 Sumners-iMac","fbs-ihs8m.local
 Sumners-iMac","xce9yc","","2025-12-09 23:45:48","38:F9:D3:D3:38:80
 38:F9:D3:11:D2:A5","10.142.42.197
-172.26.102.117","OS X",""
+172.26.102.117","OS X","","iMac19,1","","","","","","","","","","","","","","C02YR0S0JV40"
 "mssql_adapter
 qualys_scans_adapter
 qualys_scans_adapter
@@ -4043,7 +4045,7 @@ _uucp","","2025-11-18 23:37:30","A0:99:9B:11:75:75","100.64.40.107
 169.231.241.50
 fe80::18e3:3ce8:e78a:1724
 192.168.1.176
-172.27.194.40","OS X",""
+172.27.194.40","OS X","","","","","","","","","","","","","","","C02Q238KG8WM","C02Q238KG8WM"
 "jamf_adapter
 qualys_scans_adapter
 qualys_scans_adapter
@@ -4060,7 +4062,7 @@ _uucp","","2025-12-05 17:00:34","A6:E8:85:A9:6D:07
 CA:3D:8A:EB:34:DF","192.168.7.25
 76.111.191.78
 fe80::4c3:882c:9da6:6575
-117.193.81.80","OS X",""
+117.193.81.80","OS X","","MacBookAir10,1","","","","","","","","","","","","","FVFF91JTQ6LX","FVFF91JTQ6LX"
 "defender_atp_adapter
 qualys_scans_adapter
 qualys_scans_adapter
@@ -4089,10 +4091,10 @@ fe80:d::b8dd:83ff:fe8c:b6af
 199.111.224.19
 fe80::4f4:ef04:7c4e:84b7
 192.168.0.13
-192.168.0.52","OS X",""
+192.168.0.52","OS X","","MacBookPro17,1","","","","","","","","","","","","","FVFGJ04EQ05R","FVFGJ04EQ05R"
 "active_directory_adapter
 mssql_adapter
-service_now_adapter","FBS-CVF64B3","FBS-CVF64B3","bh4hb","","2025-12-10 02:24:58","DC:21:5C:3A:E7:BF","192.168.1.51","Windows",""
+service_now_adapter","FBS-CVF64B3","FBS-CVF64B3","bh4hb","","2025-12-10 02:24:58","DC:21:5C:3A:E7:BF","192.168.1.51","Windows","","Latitude 5320","","","","","","","","","","","","","",""
 "defender_atp_adapter
 mssql_adapter
 splunk_adapter
@@ -4103,23 +4105,23 @@ splunk_adapter","bright-mbp-t2","bright-mbp-t2","nm3yy","","2025-12-09 21:51:34"
 fe80:4::aede:48ff:fe00:1122
 fe80:5::1cb9:c2a2:4fc3:c367
 fe80:d::445d:85ff:fee3:8244
-fe80:c::445d:85ff:fee3:8244","OS X",""
+fe80:c::445d:85ff:fee3:8244","OS X","","","","","","","","","","","","","","","",""
 "jamf_adapter
 mssql_adapter
 service_now_adapter","BA-J7X3H6YQY3","BA-J7X3H6YQY3","jww8je@virginia.edu
 jww8je","","2025-11-21 06:17:29","84:94:37:D5:D8:EF","172.27.69.182
-172.27.85.81","OS X",""
+172.27.85.81","OS X","","Mac15,12","","","","","","","","","","","","","","J7X3H6YQY3"
 "defender_atp_adapter
 mssql_adapter
 splunk_adapter
-splunk_adapter","iPad","iPad","bh4hb","","2025-12-09 23:51:05","00:E0:4F:49:3F:5A","172.28.9.177","",""
+splunk_adapter","iPad","iPad","bh4hb","","2025-12-09 23:51:05","00:E0:4F:49:3F:5A","172.28.9.177","","","","","","","","","","","","","","","","",""
 "defender_atp_adapter
 mssql_adapter
-splunk_adapter","OIB-CP4N-eservices-virginia-edu","OIB-CP4N-eservices-virginia-edu","bh4hb","","2025-12-10 14:48:32","C4:42:68:41:8B:E1","172.29.54.152","Linux",""
+splunk_adapter","OIB-CP4N-eservices-virginia-edu","OIB-CP4N-eservices-virginia-edu","bh4hb","","2025-12-10 14:48:32","C4:42:68:41:8B:E1","172.29.54.152","Linux","","","","","","","","","","","","","","","",""
 "defender_atp_adapter
 mssql_adapter
 splunk_adapter
-splunk_adapter","DESKTOP-MC6CM46","DESKTOP-MC6CM46","bh4hb","","2025-12-10 16:25:19","88:AE:DD:70:1E:53","172.28.9.180","Windows",""
+splunk_adapter","DESKTOP-MC6CM46","DESKTOP-MC6CM46","bh4hb","","2025-12-10 16:25:19","88:AE:DD:70:1E:53","172.28.9.180","Windows","","","","","","","","","","","","","","","",""
 "jamf_adapter
 opswat_adapter
 service_now_adapter","BATTENIT’S MAC MINI","BattenITs-Mac-mini
@@ -4136,7 +4138,7 @@ F6:24:11:25:F2:1D
 F6:24:11:25:F2:1E
 F6:24:11:25:F2:20
 F6:24:11:25:F2:FD
-F6:24:11:25:F2:FE","10.145.234.237","OS X",""
+F6:24:11:25:F2:FE","10.145.234.237","OS X","","Mac16,10","","","","","","","","","","","","","","VVPKHX4HXV"
 "defender_atp_adapter
 qualys_scans_adapter
 qualys_scans_adapter
@@ -4152,10 +4154,10 @@ fe80:12::58e8:75ff:feb9:942f
 fe80:e::1c60:8370:ecbe:4b6a
 fe80:11::58e8:75ff:feb9:942f
 fe80::1c60:8370:ecbe:4b6a
-199.111.0.87","OS X",""
+199.111.0.87","OS X","","","","","","","","","","","","","","","VVPKHX4HXV","VVPKHX4HXV"
 "defender_atp_adapter
 mssql_adapter
-splunk_adapter","","","bh4hb","","2025-12-09 17:50:01","00:10:7F:EB:42:27","172.29.9.38","Linux",""
+splunk_adapter","","","bh4hb","","2025-12-09 17:50:01","00:10:7F:EB:42:27","172.29.9.38","Linux","","","","","","","","","","","","","","","",""
 "defender_atp_adapter
 qualys_scans_adapter
 qualys_scans_adapter
@@ -4175,7 +4177,7 @@ fd0b:6789:ac0c:8046:8e5:84d6:e4d4:7ed5
 fe80:11::9095:94ff:fe8e:3094
 fe80:10::9095:94ff:fe8e:3094
 fe80::14e3:cb49:485a:85ee
-64.96.65.191","OS X",""
+64.96.65.191","OS X","","MacBookPro18,2","","","","","","","","","","","","","V5P473DX6F","V5P473DX6F"
 "defender_atp_adapter
 jamf_adapter
 service_now_adapter","FBS-Loaner-31","FBS-Loaner-31","jww8je@virginia.edu","","2025-12-05 02:45:44","6A:39:87:5F:DC:B4
@@ -4183,7 +4185,7 @@ service_now_adapter","FBS-Loaner-31","FBS-Loaner-31","jww8je@virginia.edu","","2
 14:7F:CE:9F:4E:A4","10.14.162.215
 fe80:b::142c:f60:98c0:a973
 fe80:e::6cc4:c5ff:fe42:50a2
-fe80:d::6cc4:c5ff:fe42:50a2","OS X",""
+fe80:d::6cc4:c5ff:fe42:50a2","OS X","","Mac14,2","","","","","","","","","","","","","","MQVLQVLYCF"
 "defender_atp_adapter
 jamf_adapter
 service_now_adapter","FBS-WestCom-33","FBS-WestCom-33","jww8je@virginia.edu","","2025-12-05 02:45:51","14:7F:CE:95:55:18
@@ -4193,7 +4195,7 @@ fe80:c::4f9:2f02:9bb9:3043
 fe80:e::8cf7:eaff:fe96:5d2a
 fe80:b::347f:ceff:fe95:5518
 fe80:d::8cf7:eaff:fe96:5d2a
-10.14.150.80","OS X",""
+10.14.150.80","OS X","","Mac14,2","","","","","","","","","","","","","","JNWGYG4H9J"
 "jamf_adapter
 mssql_adapter
 opswat_adapter","FBS-JWW8JE-2022","FBS-jww8je-2022","jww8je@virginia.edu
@@ -4211,7 +4213,7 @@ ssm0use..","","2025-12-10 21:02:47","BC:D0:74:0D:AA:19
 76:F5:01:DF:E7:72
 92:95:94:8E:30:94
 F6:67:AA:51:C4:D3","192.168.4.181
-192.168.4.183","OS X",""
+192.168.4.183","OS X","","MacBookPro18,2","","","","","","","","","","","","","","V5P473DX6F"
 "defender_atp_adapter
 jamf_adapter
 service_now_adapter","FBS-WetCom-37","FBS-WetCom-37","jww8je@virginia.edu","","2025-12-05 02:45:27","14:7F:CE:A0:03:E7
@@ -4220,116 +4222,116 @@ service_now_adapter","FBS-WetCom-37","FBS-WetCom-37","jww8je@virginia.edu","","2
 fe80:c::18b6:a9b5:43d:e11a
 fe80:e::602b:95ff:fe12:9174
 fe80:b::347f:ceff:fea0:3e7
-fe80:d::602b:95ff:fe12:9174","OS X",""
+fe80:d::602b:95ff:fe12:9174","OS X","","Mac14,2","","","","","","","","","","","","","","K00GHFQXQN"
 "mssql_adapter
-service_now_adapter","FBS-IMM9V-X1","fbs-imm9v-x1.eservices.virginia.edu","","","2025-11-22 02:24:09","38:BA:F8:59:40:DE","192.168.1.7","Windows",""
+service_now_adapter","FBS-IMM9V-X1","fbs-imm9v-x1.eservices.virginia.edu","","","2025-11-22 02:24:09","38:BA:F8:59:40:DE","192.168.1.7","Windows","","20KH002FUS","","","","","","","","","","","","","","PF15JH9K"
 "mssql_adapter
 mssql_adapter
 service_now_adapter","FBS-ALB3V","fbs-alb3v.eservices.virginia.edu","","","2025-11-14 06:00:15","44:85:00:B1:1C:50
-54:EE:75:9D:17:77","192.168.50.169","Windows",""
+54:EE:75:9D:17:77","192.168.50.169","Windows","","20FB002LUS","","","","","","","","","","","","","","R90KLKJ9"
 "mssql_adapter
 mssql_adapter
 service_now_adapter","FBS-2Q3LCY1","fbs-2q3lcy1.eservices.virginia.edu","sa7kj","None","2025-12-10 02:24:45","5C:F9:DD:E7:26:D5
 B4:B6:76:E7:65:58
-00:E0:4C:68:01:C8","172.28.9.28","Windows",""
+00:E0:4C:68:01:C8","172.28.9.28","Windows","","OptiPlex 9020 AIO","","","","","","","","","","","","","","2Q3LCY1"
 "mssql_adapter
-service_now_adapter","FBS-LOAN-6","FBS-LOAN-6","","","2025-11-21 06:00:14","8C:85:90:BE:03:57","192.168.1.237","OS X",""
+service_now_adapter","FBS-LOAN-6","FBS-LOAN-6","","","2025-11-21 06:00:14","8C:85:90:BE:03:57","192.168.1.237","OS X","","MacBookPro14,3","","","","","","","","","","","","","","C02W700HHTDF"
 "mssql_adapter
-service_now_adapter","FBS-LOAN-1","fbs-loan-1.local","","","2025-11-14 06:00:11","8C:85:90:BE:04:84","192.168.2.12","OS X",""
+service_now_adapter","FBS-LOAN-1","fbs-loan-1.local","","","2025-11-14 06:00:11","8C:85:90:BE:04:84","192.168.2.12","OS X","","MacBookPro14,3","","","","","","","","","","","","","","C02W7008HTDF"
 "mssql_adapter
-service_now_adapter","FBS-LOAN-13","FBS-LOAN-13","","","2025-11-20 06:00:14","8C:85:90:BE:04:37","192.168.1.207","OS X",""
+service_now_adapter","FBS-LOAN-13","FBS-LOAN-13","","","2025-11-20 06:00:14","8C:85:90:BE:04:37","192.168.1.207","OS X","","MacBookPro14,3","","","","","","","","","","","","","","C02W700QHTDF"
 "mssql_adapter
-service_now_adapter","FBS-7QF64B3","fbs-7qf64b3.eservices.virginia.edu","bh4hb","","2025-11-14 06:00:21","DC:21:5C:36:82:97","192.168.4.47","Windows",""
+service_now_adapter","FBS-7QF64B3","fbs-7qf64b3.eservices.virginia.edu","bh4hb","","2025-11-14 06:00:21","DC:21:5C:36:82:97","192.168.4.47","Windows","","Latitude 5320","","","","","","","","","","","","","","7QF64B3"
 "mssql_adapter
-service_now_adapter","FBS-LOANER-6-2017","fbs-loaner-6-2017.local","","","2025-11-17 06:00:09","8C:85:90:BE:03:7A","172.27.37.197","OS X",""
+service_now_adapter","FBS-LOANER-6-2017","fbs-loaner-6-2017.local","","","2025-11-17 06:00:09","8C:85:90:BE:03:7A","172.27.37.197","OS X","","MacBookPro14,3","","","","","","","","","","","","","","C02W700LHTDF"
 "mssql_adapter
-service_now_adapter","FBS-LOANER-12-2023","fbs-loaner-12-2023.local","","","2025-11-14 06:00:17","8C:85:90:BE:04:27","172.27.17.7","OS X",""
+service_now_adapter","FBS-LOANER-12-2023","fbs-loaner-12-2023.local","","","2025-11-14 06:00:17","8C:85:90:BE:04:27","172.27.17.7","OS X","","MacBookPro14,3","","","","","","","","","","","","","","C02W700AHTDF"
 "mssql_adapter
 mssql_adapter
 service_now_adapter","FBS-CONF-A","fbs-conf-a.local","sa7kj","","2025-11-14 06:00:13","A8:86:DD:A7:77:3D
-68:5B:35:B3:7F:DD","172.28.9.90","OS X",""
+68:5B:35:B3:7F:DD","172.28.9.90","OS X","","Macmini6,2","","","","","","","","","","","","","","C07M31BADY3H"
 "mssql_adapter
 service_now_adapter","FBS-AM3DE-RET","FBS-AM3DE-RET","","","2025-11-14 06:00:09","1C:36:BB:F1:56:E2
-78:7B:8A:D1:B9:C8","172.28.9.215","OS X",""
+78:7B:8A:D1:B9:C8","172.28.9.215","OS X","","Macmini7,1","","","","","","","","","","","","","","C07WJ099G1J2"
 "mssql_adapter
 splunk_adapter
-splunk_adapter","greathall-front","greathall-front","bh4hb","","2025-12-09 23:46:10","38:4B:76:0A:7C:BF","172.27.90.62","",""
+splunk_adapter","greathall-front","greathall-front","bh4hb","","2025-12-09 23:46:10","38:4B:76:0A:7C:BF","172.27.90.62","","","","","","","","","","","","","","","","",""
 "mssql_adapter
 splunk_adapter
-splunk_adapter","seminarroom-westwall","seminarroom-westwall","bh4hb","","2025-12-09 23:49:26","38:4B:76:0A:A7:70","172.27.101.235","",""
+splunk_adapter","seminarroom-westwall","seminarroom-westwall","bh4hb","","2025-12-09 23:49:26","38:4B:76:0A:A7:70","172.27.101.235","","","","","","","","","","","","","","","","",""
 "mssql_adapter
 splunk_adapter
-splunk_adapter","seminarroom-northwall","seminarroom-northwall","bh4hb","","2025-12-09 23:59:22","38:4B:76:0A:A8:C2","172.27.124.101","",""
+splunk_adapter","seminarroom-northwall","seminarroom-northwall","bh4hb","","2025-12-09 23:59:22","38:4B:76:0A:A8:C2","172.27.124.101","","","","","","","","","","","","","","","","",""
 "mssql_adapter
 splunk_adapter
 splunk_adapter
 splunk_adapter","iPad","iPad","bh4hb
-jww8je","","2025-12-09 23:47:53","50:1F:C6:44:CD:5D","172.25.113.164","",""
+jww8je","","2025-12-09 23:47:53","50:1F:C6:44:CD:5D","172.25.113.164","","","","","","","","","","","","","","","","",""
 "mssql_adapter
 splunk_adapter
-splunk_adapter","garretthall-basementstairs","garretthall-basementstairs","bh4hb","","2025-12-09 23:55:15","38:4B:76:0A:A7:9A","172.27.107.125","",""
+splunk_adapter","garretthall-basementstairs","garretthall-basementstairs","bh4hb","","2025-12-09 23:55:15","38:4B:76:0A:A7:9A","172.27.107.125","","","","","","","","","","","","","","","","",""
 "mssql_adapter
 splunk_adapter
-splunk_adapter","tello-trillooffice","tello-trillooffice","bh4hb","","2025-12-09 23:56:40","38:4B:76:0A:CB:BC","172.27.115.119","",""
+splunk_adapter","tello-trillooffice","tello-trillooffice","bh4hb","","2025-12-09 23:56:40","38:4B:76:0A:CB:BC","172.27.115.119","","","","","","","","","","","","","","","","",""
 "mssql_adapter
 splunk_adapter
-splunk_adapter","garrettlobby","garrettlobby","bh4hb","","2025-12-09 23:57:25","38:4B:76:0A:A7:9F","172.27.104.36","",""
+splunk_adapter","garrettlobby","garrettlobby","bh4hb","","2025-12-09 23:57:25","38:4B:76:0A:A7:9F","172.27.104.36","","","","","","","","","","","","","","","","",""
 "mssql_adapter
 splunk_adapter
-splunk_adapter","seminar-room-north2","seminar-room-north2","bh4hb","","2025-12-09 23:47:11","38:4B:76:0B:1A:36","172.27.111.123","",""
+splunk_adapter","seminar-room-north2","seminar-room-north2","bh4hb","","2025-12-09 23:47:11","38:4B:76:0B:1A:36","172.27.111.123","","","","","","","","","","","","","","","","",""
 "mssql_adapter
 splunk_adapter
-splunk_adapter","conferencerooma","conferencerooma","bh4hb","","2025-12-09 23:57:02","38:4B:76:0A:A3:29","172.27.76.157","",""
+splunk_adapter","conferencerooma","conferencerooma","bh4hb","","2025-12-09 23:57:02","38:4B:76:0A:A3:29","172.27.76.157","","","","","","","","","","","","","","","","",""
 "mssql_adapter
 splunk_adapter
-splunk_adapter","crombieoffice","crombieoffice","bh4hb","","2025-12-09 23:50:37","38:4B:76:0A:A7:A3","172.27.70.143","",""
+splunk_adapter","crombieoffice","crombieoffice","bh4hb","","2025-12-09 23:50:37","38:4B:76:0A:A7:A3","172.27.70.143","","","","","","","","","","","","","","","","",""
 "mssql_adapter
 splunk_adapter
-splunk_adapter","seminarroom-southwall","seminarroom-southwall","bh4hb","","2025-12-09 23:56:01","38:4B:76:0A:A8:B7","172.27.106.36","",""
+splunk_adapter","seminarroom-southwall","seminarroom-southwall","bh4hb","","2025-12-09 23:56:01","38:4B:76:0A:A8:B7","172.27.106.36","","","","","","","","","","","","","","","","",""
 "mssql_adapter
 splunk_adapter
-splunk_adapter","admissions-203","admissions-203","bh4hb","","2025-12-09 23:45:19","38:4B:76:0A:A7:6A","172.27.127.68","",""
+splunk_adapter","admissions-203","admissions-203","bh4hb","","2025-12-09 23:45:19","38:4B:76:0A:A7:6A","172.27.127.68","","","","","","","","","","","","","","","","",""
 "defender_atp_adapter
 esx_adapter","FBS-ExtronPanel
 FBS-EXTRONPANEL.ESERVICES.VIRGINIA.EDU","FBS-ExtronPanel","","","2025-12-10 21:03:22","00:50:56:8D:8B:16","10.250.128.175
-fe80::40ec:eca4:4846:6c02","Windows",""
+fe80::40ec:eca4:4846:6c02","Windows","","","","","","","","","","","","","","","",""
 "mssql_adapter
-service_now_adapter","FBS-LOANER-MBA","fbs-loaner-mba.local","jww8je","","2025-12-01 06:00:10","50:A6:D8:BE:B9:F6","192.168.1.209","OS X",""
-"mssql_adapter
-splunk_adapter
-splunk_adapter","downsoffice","downsoffice","bh4hb","","2025-12-09 23:54:58","38:4B:76:0A:A7:57","172.27.103.204","",""
+service_now_adapter","FBS-LOANER-MBA","fbs-loaner-mba.local","jww8je","","2025-12-01 06:00:10","50:A6:D8:BE:B9:F6","192.168.1.209","OS X","","Mac15,13","","","","","","","","","","","","","","D7XXV24W0Y"
 "mssql_adapter
 splunk_adapter
-splunk_adapter","shawnandersonoffice","shawnandersonoffice","bh4hb","","2025-12-09 23:55:16","38:4B:76:0B:63:BD","172.27.103.27","",""
+splunk_adapter","downsoffice","downsoffice","bh4hb","","2025-12-09 23:54:58","38:4B:76:0A:A7:57","172.27.103.204","","","","","","","","","","","","","","","","",""
 "mssql_adapter
 splunk_adapter
-splunk_adapter","RallyBar-10EEQ2","RallyBar-10EEQ2","bh4hb","","2025-12-09 18:48:24","44:73:D6:F1:5D:17","172.28.54.161","",""
+splunk_adapter","shawnandersonoffice","shawnandersonoffice","bh4hb","","2025-12-09 23:55:16","38:4B:76:0B:63:BD","172.27.103.27","","","","","","","","","","","","","","","","",""
 "mssql_adapter
 splunk_adapter
-splunk_adapter","RallyBar-T107S2","RallyBar-T107S2","bh4hb","","2025-12-09 18:28:59","44:73:D6:F1:5D:20","172.28.54.90","",""
+splunk_adapter","RallyBar-10EEQ2","RallyBar-10EEQ2","bh4hb","","2025-12-09 18:48:24","44:73:D6:F1:5D:17","172.28.54.161","","","","","","","","","","","","","","","","",""
 "mssql_adapter
 splunk_adapter
-splunk_adapter","westcomplexconference","westcomplexconference","bh4hb","","2025-12-09 23:53:51","38:4B:76:0A:D3:CE","172.27.62.190","",""
+splunk_adapter","RallyBar-T107S2","RallyBar-T107S2","bh4hb","","2025-12-09 18:28:59","44:73:D6:F1:5D:20","172.28.54.90","","","","","","","","","","","","","","","","",""
+"mssql_adapter
+splunk_adapter
+splunk_adapter","westcomplexconference","westcomplexconference","bh4hb","","2025-12-09 23:53:51","38:4B:76:0A:D3:CE","172.27.62.190","","","","","","","","","","","","","","","","",""
 "defender_atp_adapter
-mssql_adapter","","","","","2025-12-10 14:06:40","00:10:7F:DE:93:BE","172.29.9.35","Windows",""
+mssql_adapter","","","","","2025-12-10 14:06:40","00:10:7F:DE:93:BE","172.29.9.35","Windows","","","","","","","","","","","","","","","",""
 "mssql_adapter
 splunk_adapter
-splunk_adapter","RallyBar-516GS2","RallyBar-516GS2","bh4hb","","2025-12-09 23:59:10","94:02:30:09:93:44","172.27.79.231","",""
+splunk_adapter","RallyBar-516GS2","RallyBar-516GS2","bh4hb","","2025-12-09 23:59:10","94:02:30:09:93:44","172.27.79.231","","","","","","","","","","","","","","","","",""
 "mssql_adapter
 splunk_adapter
 splunk_adapter
-splunk_adapter","Bens-iPad","Bens-iPad","bh4hb","","2025-12-09 23:53:04","54:29:06:1F:B2:38","172.25.69.129","",""
+splunk_adapter","Bens-iPad","Bens-iPad","bh4hb","","2025-12-09 23:53:04","54:29:06:1F:B2:38","172.25.69.129","","","","","","","","","","","","","","","","",""
 "mssql_adapter
 splunk_adapter
-splunk_adapter","kristineoffice","kristineoffice","bh4hb","","2025-12-09 23:51:38","38:4B:76:0A:C9:9F","172.27.64.89","",""
+splunk_adapter","kristineoffice","kristineoffice","bh4hb","","2025-12-09 23:51:38","38:4B:76:0A:C9:9F","172.27.64.89","","","","","","","","","","","","","","","","",""
 "mssql_adapter
 splunk_adapter
 splunk_adapter
 splunk_adapter","Ian-Solomon-2","Ian-Solomon-2","ihs8m","","2025-12-09 22:11:35","9C:E6:5E:E4:15:A4","172.25.33.40
-172.25.122.25","",""
+172.25.122.25","","","","","","","","","","","","","","","","",""
 "mssql_adapter
 splunk_adapter
-splunk_adapter","FBS-Student","FBS-Student","jww8je","","2025-12-09 22:38:55","EC:26:51:B5:64:24","172.25.103.85","",""
+splunk_adapter","FBS-Student","FBS-Student","jww8je","","2025-12-09 22:38:55","EC:26:51:B5:64:24","172.25.103.85","","","","","","","","","","","","","","","","",""
 "qualys_scans_adapter
 qualys_scans_adapter
 service_now_adapter
@@ -4347,61 +4349,61 @@ AC:DE:48:00:11:22","192.168.1.34
 64.96.71.185
 fe80::1cd5:d313:d97a:84b9
 fe80::aede:48ff:fe00:1122
-192.168.1.33","OS X",""
+192.168.1.33","OS X","","","","","","","","","","","","","","","C02VV0QWJLCN","C02VV0QWJLCN"
 "mssql_adapter
 splunk_adapter
-splunk_adapter","Samsung","Samsung","bh4hb","","2025-12-09 23:49:56","70:09:71:81:82:D4","10.144.1.226","",""
+splunk_adapter","Samsung","Samsung","bh4hb","","2025-12-09 23:49:56","70:09:71:81:82:D4","10.144.1.226","","","","","","","","","","","","","","","","",""
 "mssql_adapter
-splunk_adapter","","","","","2025-12-09 18:35:01","F8:04:2E:0F:24:C6","172.27.103.161","",""
+splunk_adapter","","","","","2025-12-09 18:35:01","F8:04:2E:0F:24:C6","172.27.103.161","","","","","","","","","","","","","","","","",""
 "mssql_adapter
-splunk_adapter","","","bh4hb","","2025-12-09 18:35:01","00:8A:76:E5:F7:9E","172.27.35.2","",""
+splunk_adapter","","","bh4hb","","2025-12-09 18:35:01","00:8A:76:E5:F7:9E","172.27.35.2","","","","","","","","","","","","","","","","",""
 "mssql_adapter
-splunk_adapter","","","bh4hb","","2025-12-09 18:35:01","BC:BB:58:01:D2:C7","172.27.103.189","",""
+splunk_adapter","","","bh4hb","","2025-12-09 18:35:01","BC:BB:58:01:D2:C7","172.27.103.189","","","","","","","","","","","","","","","","",""
 "mssql_adapter
-splunk_adapter","","","","","2025-12-09 18:35:01","F8:04:2E:2D:FD:12","172.27.88.212","",""
+splunk_adapter","","","","","2025-12-09 18:35:01","F8:04:2E:2D:FD:12","172.27.88.212","","","","","","","","","","","","","","","","",""
 "mssql_adapter
-splunk_adapter","","","","","2025-12-06 03:05:01","F8:04:2E:12:03:FE","172.27.68.230","",""
+splunk_adapter","","","","","2025-12-06 03:05:01","F8:04:2E:12:03:FE","172.27.68.230","","","","","","","","","","","","","","","","",""
 "mssql_adapter
-splunk_adapter","","","","","2025-12-09 18:35:01","F8:04:2E:1D:D1:42","172.27.102.238","",""
-"mssql_adapter
-splunk_adapter
-splunk_adapter","LGwebOSTV","LGwebOSTV","bh4hb","","2025-12-09 23:52:15","40:2F:86:8D:8B:46","10.145.234.48","",""
+splunk_adapter","","","","","2025-12-09 18:35:01","F8:04:2E:1D:D1:42","172.27.102.238","","","","","","","","","","","","","","","","",""
 "mssql_adapter
 splunk_adapter
-splunk_adapter","greathall-sideentrance","greathall-sideentrance","bh4hb","","2025-12-09 23:53:09","38:4B:76:0A:A7:9E","172.27.65.80","",""
+splunk_adapter","LGwebOSTV","LGwebOSTV","bh4hb","","2025-12-09 23:52:15","40:2F:86:8D:8B:46","10.145.234.48","","","","","","","","","","","","","","","","",""
 "mssql_adapter
 splunk_adapter
-splunk_adapter","FBS-SRZoom","FBS-SRZoom","","","2025-12-09 23:52:51","60:70:C0:0C:8A:DF","172.25.100.13","",""
+splunk_adapter","greathall-sideentrance","greathall-sideentrance","bh4hb","","2025-12-09 23:53:09","38:4B:76:0A:A7:9E","172.27.65.80","","","","","","","","","","","","","","","","",""
 "mssql_adapter
 splunk_adapter
-splunk_adapter","greathall-mobiletv","greathall-mobiletv","bh4hb","","2025-12-09 23:55:31","38:4B:76:0A:7C:C7","172.27.121.231","",""
+splunk_adapter","FBS-SRZoom","FBS-SRZoom","","","2025-12-09 23:52:51","60:70:C0:0C:8A:DF","172.25.100.13","","","","","","","","","","","","","","","","",""
 "mssql_adapter
 splunk_adapter
-splunk_adapter","NPI78FC4C","NPI78FC4C","bh4hb","","2025-12-09 23:56:15","C0:B5:D7:7F:62:0D","10.145.234.125","",""
+splunk_adapter","greathall-mobiletv","greathall-mobiletv","bh4hb","","2025-12-09 23:55:31","38:4B:76:0A:7C:C7","172.27.121.231","","","","","","","","","","","","","","","","",""
 "mssql_adapter
-splunk_adapter","","","","","2025-12-09 17:50:01","F8:04:2E:12:15:8E","172.27.68.253","",""
+splunk_adapter
+splunk_adapter","NPI78FC4C","NPI78FC4C","bh4hb","","2025-12-09 23:56:15","C0:B5:D7:7F:62:0D","10.145.234.125","","","","","","","","","","","","","","","","",""
+"mssql_adapter
+splunk_adapter","","","","","2025-12-09 17:50:01","F8:04:2E:12:15:8E","172.27.68.253","","","","","","","","","","","","","","","","",""
 "mssql_adapter
 splunk_adapter
 splunk_adapter
 splunk_adapter","Craigs-iPhone","Craigs-iPhone","bh4hb
-csl3g","Alumni","2025-12-09 21:55:51","DC:10:57:C2:E2:6E","172.25.202.156","",""
+csl3g","Alumni","2025-12-09 21:55:51","DC:10:57:C2:E2:6E","172.25.202.156","","","","","","","","","","","","","","","","",""
 "azure_ad_adapter
 qualys_scans_adapter","FBS-MJ0K0DEK
 FBS-MJ0K0DEK.ESERVICES.VIRGINIA.EDU","FBS-MJ0K0DEK","","","2025-12-08 16:39:06","","10.0.0.44
-73.12.11.130","Windows",""
+73.12.11.130","Windows","","","","","","","","","","","","","","","MJ0K0DEK","MJ0K0DEK"
 "mssql_adapter
 splunk_adapter
-splunk_adapter","RallyBar-T107S2","RallyBar-T107S2","bh4hb","","2025-12-06 06:29:07","44:73:D6:F1:5D:1F","172.27.87.30","",""
+splunk_adapter","RallyBar-T107S2","RallyBar-T107S2","bh4hb","","2025-12-06 06:29:07","44:73:D6:F1:5D:1F","172.27.87.30","","","","","","","","","","","","","","","","",""
 "active_directory_adapter
-azure_ad_adapter","FBS-SOBAD-4","FBS-SOBAD-4","","","2025-12-09 15:48:37","","","Windows",""
-"service_now_adapter","FBS-DW8DH-2022","fbs-dw8dh-2022.local","","","2025-11-14 06:00:20","3C:A6:F6:B5:D6:29","172.28.9.195","OS X",""
-"service_now_adapter","FBS-L030","fbs-l030.local","","","2025-11-20 06:00:11","3C:06:30:56:BD:DF","192.168.1.114","OS X",""
-"service_now_adapter","FBS-DLW5QD-2022","fbs-dlw5qd-2022.eservices.virginia.edu","","","2025-11-26 02:26:37","D0:3C:1F:42:D3:62","10.144.47.215","Windows",""
-"service_now_adapter","FBS-GWARBURG-AIO","FBS-GWARBURG-AIO","","","2025-11-14 06:00:12","FC:F8:AE:BB:79:75","172.28.9.206","Windows",""
-"service_now_adapter","FBS-PF4R4ZVE","fbs-pf4r4zve.eservices.virginia.edu","","","2025-12-01 02:28:33","A0:B3:39:43:77:36","192.168.1.119","Windows",""
+azure_ad_adapter","FBS-SOBAD-4","FBS-SOBAD-4","","","2025-12-09 15:48:37","","","Windows","","","","","","","","","","","","","","","",""
+"service_now_adapter","FBS-DW8DH-2022","fbs-dw8dh-2022.local","","","2025-11-14 06:00:20","3C:A6:F6:B5:D6:29","172.28.9.195","OS X","","iMac21,1","","","","","","","","","","","","","","H4TJ41QJQ6X3"
+"service_now_adapter","FBS-L030","fbs-l030.local","","","2025-11-20 06:00:11","3C:06:30:56:BD:DF","192.168.1.114","OS X","","MacBookPro17,1","","","","","","","","","","","","","","C02GL07VQ05R"
+"service_now_adapter","FBS-DLW5QD-2022","fbs-dlw5qd-2022.eservices.virginia.edu","","","2025-11-26 02:26:37","D0:3C:1F:42:D3:62","10.144.47.215","Windows","","Latitude 7320","","","","","","","","","","","","","","CBZR8C3"
+"service_now_adapter","FBS-GWARBURG-AIO","FBS-GWARBURG-AIO","","","2025-11-14 06:00:12","FC:F8:AE:BB:79:75","172.28.9.206","Windows","","OptiPlex 9020 AIO","","","","","","","","","","","","","","7161K02"
+"service_now_adapter","FBS-PF4R4ZVE","fbs-pf4r4zve.eservices.virginia.edu","","","2025-12-01 02:28:33","A0:B3:39:43:77:36","192.168.1.119","Windows","","21HM000SUS","","","","","","","","","","","","","","PF4R4ZVE"
 "zoom_adapter","FBS-GWDJPZ3","FBS-GWDJPZ3","FBS-StudentCommons-206","","2025-12-10 13:33:39","20:88:10:E1:61:D0","199.111.228.1
-172.27.106.74","",""
-"service_now_adapter","FBS-BM8AH-MBA-2024","fbs-bm8ah-mba-2024.local","","","2025-11-13 06:00:12","62:BB:6F:9A:45:81","172.25.195.185","OS X",""
+172.27.106.74","","","","","","","","","","","","","","","","",""
+"service_now_adapter","FBS-BM8AH-MBA-2024","fbs-bm8ah-mba-2024.local","","","2025-11-13 06:00:12","62:BB:6F:9A:45:81","172.25.195.185","OS X","","Mac14,15","","","","","","","","","","","","","","DFD2Q7LG44"
 "qualys_scans_adapter","MAC","Mac","jason
 BattenIT_2025
 _mbsetupuser
@@ -4409,8 +4411,8 @@ battenit
 root
 _uucp","","2025-11-16 00:17:46","DA:A4:15:8D:15:DB","192.168.50.112
 fe80::8b6:dff6:bba9:5c7b
-98.124.203.246","OS X",""
-"service_now_adapter","FBS-WESTCOM-34","FBS-WESTCOM-34","","","2025-11-14 06:00:11","14:7F:CE:A2:78:F2","172.27.10.180","OS X",""
+98.124.203.246","OS X","","","","","","","","","","","","","","","",""
+"service_now_adapter","FBS-WESTCOM-34","FBS-WESTCOM-34","","","2025-11-14 06:00:11","14:7F:CE:A2:78:F2","172.27.10.180","OS X","","Mac14,2","","","","","","","","","","","","","","FKFJWHFPKQ"
 "qualys_scans_adapter","MAC.LOCAL","Mac.local","asp2d
 _uucp
 BattenIT
@@ -4419,7 +4421,7 @@ itsjamfmanage
 _mbsetupuser
 BattenIT_2025","","2025-12-11 03:13:35","D2:C1:E6:A3:48:6C","192.168.1.46
 fe80::95:3270:1191:f1b
-64.96.71.185","OS X",""
+64.96.71.185","OS X","","","","","","","","","","","","","","","",""
 "qualys_scans_adapter","MAC.LOCAL","Mac.local","molly
 BattenIT_2025
 battenit
@@ -4427,10 +4429,10 @@ root
 _mbsetupuser
 _uucp","","2025-11-27 02:15:34","4E:84:94:E7:67:5B","fe80::1c27:3a83:a9f3:4a6
 192.168.1.60
-64.96.71.70","OS X",""
-"secure_w2_adapter","fbs-ma2bg-2025.local","fbs-ma2bg-2025.local","ma2bg@virginia.edu","","2025-11-13 21:02:24","F8:73:DF:1D:84:A1","","OS X",""
+64.96.71.70","OS X","","","","","","","","","","","","","","","",""
+"secure_w2_adapter","fbs-ma2bg-2025.local","fbs-ma2bg-2025.local","ma2bg@virginia.edu","","2025-11-13 21:02:24","F8:73:DF:1D:84:A1","","OS X","","","","","","","","","","","","","","","",""
 "splunk_adapter
-splunk_adapter","FBs-Mac-mini","FBs-Mac-mini","","","2025-12-09 23:50:10","6C:40:08:99:02:4C","172.25.105.169","",""
+splunk_adapter","FBs-Mac-mini","FBs-Mac-mini","","","2025-12-09 23:50:10","6C:40:08:99:02:4C","172.25.105.169","","","","","","","","","","","","","","","","",""
 "qualys_scans_adapter","MAC","Mac","tyl7hm
 _uucp
 BattenIT_2025
@@ -4439,8 +4441,8 @@ root
 _mbsetupuser","","2025-12-11 04:31:50","52:0B:0C:81:D3:70","fe80::14a9:cfa0:2005:e5fd
 fd53:92fa:b84b:6b47:10d9:dd:ca6c:d885
 192.168.0.111
-71.2.162.96","OS X",""
-"secure_w2_adapter","fbs-c3v25nqy65.local","fbs-c3v25nqy65.local","","","2025-12-10 18:00:30","84:2F:57:81:83:95","","OS X",""
+71.2.162.96","OS X","","","","","","","","","","","","","","","",""
+"secure_w2_adapter","fbs-c3v25nqy65.local","fbs-c3v25nqy65.local","","","2025-12-10 18:00:30","84:2F:57:81:83:95","","OS X","","","","","","","","","","","","","","","",""
 "qualys_scans_adapter","MAC.LOCAL","Mac.local","gtr4v
 BattenIT_2025
 _uucp
@@ -4449,11 +4451,11 @@ root
 itsjamfmanage
 _mbsetupuser","","2025-12-10 00:56:45","DA:1B:7B:35:C9:E3","192.168.1.43
 fe80::1cfd:425b:ce45:59f6
-64.99.238.177","OS X",""
-"splunk_adapter","FBS-ihs8m-PavX","FBS-ihs8m-PavX","","","2025-12-07 21:15:35","D0:11:E5:BA:5D:5D","10.145.234.17","",""
-"splunk_adapter","FBS-M2YJYTJQJ2","FBS-M2YJYTJQJ2","hld8m@virginia.edu","Staff","2025-12-08 16:03:28","46:D9:B9:3D:C1:52","172.59.113.244","",""
+64.99.238.177","OS X","","","","","","","","","","","","","","","",""
+"splunk_adapter","FBS-ihs8m-PavX","FBS-ihs8m-PavX","","","2025-12-07 21:15:35","D0:11:E5:BA:5D:5D","10.145.234.17","","","","","","","","","","","","","","","","",""
+"splunk_adapter","FBS-M2YJYTJQJ2","FBS-M2YJYTJQJ2","hld8m@virginia.edu","Staff","2025-12-08 16:03:28","46:D9:B9:3D:C1:52","172.59.113.244","","","","","","","","","","","","","","","","",""
 "defender_atp_adapter","fbs-mj0k0dek.eservices.virginia.edu","fbs-mj0k0dek.eservices.virginia.edu","","","2025-12-08 15:58:31","","127.0.0.1
-::1","Windows",""
+::1","Windows","","","","","","","","","","","","","","","",""
 "qualys_scans_adapter","MAC.HOME.LOCAL","Mac.home.local","bh4hb
 BattenIT_2025
 panopto_upload
@@ -4463,9 +4465,9 @@ itsjamfmanage
 _mbsetupuser
 _uucp","","2025-12-10 23:25:56","E6:A6:41:19:DB:E3","192.168.100.203
 fe80::b4:45e0:9bce:4d3f
-64.203.155.63","OS X",""
+64.203.155.63","OS X","","","","","","","","","","","","","","","",""
 "qualys_scans_adapter","MAC.HOME.LOCAL","Mac.home.local","bh4hb","","2025-12-10 23:25:56","E6:A6:41:19:DB:E3","192.168.100.203
-64.203.155.63","OS X",""
+64.203.155.63","OS X","","","","","","","","","","","","","","","MW39WM2M26","MW39WM2M26"
 "qualys_scans_adapter","MAC.HT.HOME","Mac.ht.home","goehring
 _uucp
 battenit
@@ -4478,4 +4480,4 @@ BattenIT_2025","","2025-12-10 01:45:03","C2:3D:7E:21:53:99
 fe80::3874:25ff:fec4:5b9c
 fe80::14fa:5289:1960:b20a
 fe80::1cbb:4ad9:b61:b9a7
-207.181.211.136","OS X",""
+207.181.211.136","OS X","","","","","","","","","","","","","","","",""
